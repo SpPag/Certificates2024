@@ -12,8 +12,10 @@ namespace Certificates2024.Models
         public string? PhotoIdNumber { get; set; }
         public string? Email { get; set; }
         //Relationship with CandidateCertificates
-        public List<CandidateCertificate> CandidateCertificates { get; set; } 
-    
+
+        public List<CandidateCertificate> CandidateCertificates { get; set; }
+        public string Test { get; set; }
+
     }
 
 }
