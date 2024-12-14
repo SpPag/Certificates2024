@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Certificates2024")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bb639c32ad7813810b8bf3127762c9e1f3b11575")]
 [assembly: System.Reflection.AssemblyProductAttribute("Certificates2024")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Certificates2024")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
