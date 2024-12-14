@@ -145,4 +145,3 @@ C:\Certificates2024\obj\Debug\net8.0\refint\Certificates2024.dll
 C:\Certificates2024\obj\Debug\net8.0\Certificates2024.pdb
 C:\Certificates2024\obj\Debug\net8.0\Certificates2024.genruntimeconfig.cache
 C:\Certificates2024\obj\Debug\net8.0\ref\Certificates2024.dll
-C:\Certificates2024\obj\Debug\net8.0\Certificates2024.sourcelink.json
