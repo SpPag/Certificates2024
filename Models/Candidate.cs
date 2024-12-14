@@ -14,8 +14,6 @@ namespace Certificates2024.Models
         //Relationship with CandidateCertificates
 
         public List<CandidateCertificate> CandidateCertificates { get; set; }
-        public string Test { get; set; }
-
     }
 
 }
