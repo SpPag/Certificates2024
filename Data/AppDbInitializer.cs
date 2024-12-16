@@ -68,6 +68,10 @@ namespace Certificates2024.Data
                             {
                                 TopicName = TopicName.JavaScriptAdvanced
                             },
+                            new CertificateTopic()
+                            {
+                                TopicName = TopicName.JavaScriptExpert
+                            },
                         });
                         context.SaveChanges();
                     }
@@ -80,17 +84,27 @@ namespace Certificates2024.Data
                             new CandidateCertificate()
                             {
                                 CandidateId = 1,
-                                CertificateTopicId = 1
+                                CertificateTopicId = 1,
+                                ExaminationDate = new DateTime(2024,12,12),
+                                CandidateScore = 1,
+                                MaximumScore = 4,
+                                ResultLabel = false
+
                             },
                             new CandidateCertificate()
                             {
                                 CandidateId = 1,
-                                CertificateTopicId = 2
+                                CertificateTopicId = 2,
+                                ExaminationDate = new DateTime(2024,10,12),
+                                CandidateScore = 3,
+                                MaximumScore = 4,
+                                ResultLabel = true
                             },
                             new CandidateCertificate()
                             {
                                 CandidateId = 2,
-                                CertificateTopicId = 3
+                                CertificateTopicId = 3,
+                                ExaminationDate = new DateTime(2025,01,12),
                             },
                         });
                         context.SaveChanges();

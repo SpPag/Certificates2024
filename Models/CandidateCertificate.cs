@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Certificates2024.Data.Base;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Certificates2024.Models
 {
-    public class CandidateCertificate
+    public class CandidateCertificate: IEntityBase
     {
         [Key]
         public int CandidateCertificateId { get; set; }
@@ -23,8 +24,13 @@ namespace Certificates2024.Models
         public int MaximumScore { get; set; }
         [Display(Name = "Test Result")]
         public bool ResultLabel { get; set; }
-    
 
+        // Explicit implementation of IEntityBase.Id
+        int IEntityBase.Id
+        {
+            get => CandidateCertificateId;
+            set => CandidateCertificateId = value;
+        }
 
     }
 }

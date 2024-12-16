@@ -48,7 +48,7 @@ namespace Certificates2024.Controllers
         // GET: Questions/Create
         public IActionResult Create()
         {
-            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "CertificateTopicID", "CertificateTopicID");
+            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "CertificateTopicId", "CertificateTopicId");
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace Certificates2024.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "CertificateTopicID", "CertificateTopicID", question.CertificateTopicId);
+            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "CertificateTopicId", "CertificateTopicId", question.CertificateTopicId);
             return View(question);
         }
 
@@ -82,7 +82,7 @@ namespace Certificates2024.Controllers
             {
                 return NotFound();
             }
-            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "CertificateTopicID", "CertificateTopicID", question.CertificateTopicId);
+            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "CertificateTopicId", "CertificateTopicId", question.CertificateTopicId);
             return View(question);
         }
 
@@ -118,7 +118,7 @@ namespace Certificates2024.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "CertificateTopicID", "CertificateTopicID", question.CertificateTopicId);
+            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "CertificateTopicId", "CertificateTopicId", question.CertificateTopicId);
             return View(question);
         }
 

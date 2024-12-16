@@ -50,7 +50,7 @@ namespace Certificates2024.Controllers
         public IActionResult Create()
         {
             ViewData["CandidateId"] = new SelectList(_context.Candidates, "CandidateId", "CandidateId");
-            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "CertificateTopicID", "CertificateTopicID");
+            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "CertificateTopicId", "CertificateTopicId");
             return View();
         }
 
@@ -68,7 +68,7 @@ namespace Certificates2024.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CandidateId"] = new SelectList(_context.Candidates, "CandidateId", "CandidateId", candidateCertificate.CandidateId);
-            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "CertificateTopicID", "CertificateTopicID", candidateCertificate.CertificateTopicId);
+            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "CertificateTopicId", "CertificateTopicId", candidateCertificate.CertificateTopicId);
             return View(candidateCertificate);
         }
 
@@ -86,7 +86,7 @@ namespace Certificates2024.Controllers
                 return NotFound();
             }
             ViewData["CandidateId"] = new SelectList(_context.Candidates, "CandidateId", "CandidateId", candidateCertificate.CandidateId);
-            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "CertificateTopicID", "CertificateTopicID", candidateCertificate.CertificateTopicId);
+            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "CertificateTopicId", "CertificateTopicId", candidateCertificate.CertificateTopicId);
             return View(candidateCertificate);
         }
 
@@ -123,7 +123,7 @@ namespace Certificates2024.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CandidateId"] = new SelectList(_context.Candidates, "CandidateId", "CandidateId", candidateCertificate.CandidateId);
-            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "CertificateTopicID", "CertificateTopicID", candidateCertificate.CertificateTopicId);
+            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "CertificateTopicId", "CertificateTopicId", candidateCertificate.CertificateTopicId);
             return View(candidateCertificate);
         }
 

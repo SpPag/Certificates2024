@@ -3,9 +3,9 @@ using Certificates2024.Models;
 
 namespace Certificates2024.Data.Services
 {
-    public class CandidatesService:EntityBaseRepository<Candidate>, ICandidatesService
+    public class QuestionsService:EntityBaseRepository<Question>, IQuestionsService
     {
         private readonly AppDbContext _context;
-        public CandidatesService(AppDbContext context) : base(context) { }
+        public QuestionsService(AppDbContext context) : base(context) { }
     }
 }

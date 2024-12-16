@@ -1,4 +1,5 @@
 using Certificates2024.Data;
+using Certificates2024.Data.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +7,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+//Service Configuration
+builder.Services.AddScoped<IQuestionsService, QuestionsService>();
+builder.Services.AddScoped<ICertificateTopicsService, CertificateTopicsService>();
+builder.Services.AddScoped<ICandidateCertificatesService, CandidateCertificatesService>();
+builder.Services.AddScoped<ICandidatesService, CandidatesService>();
+
+
 
 var app = builder.Build();
 

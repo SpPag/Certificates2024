@@ -7,35 +7,35 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Certificates2024.Data;
 using Certificates2024.Models;
+using Certificates2024.Data.Services;
 
 namespace Certificates2024.Controllers
 {
     public class CandidatesController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly ICandidatesService _service;
 
-        public CandidatesController(AppDbContext context)
+        public CandidatesController(ICandidatesService service)
         {
-            _context = context;
+            _service = service;
         }
 
         // GET: Candidates
         public async Task<IActionResult> Index()
         {
-            var candidates = await _context.Candidates.ToListAsync();
+            var candidates = await _service.GetAllAsync();
             return View(candidates);
         }
 
         // GET: Candidates/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var candidate = await _context.Candidates
-                .FirstOrDefaultAsync(m => m.CandidateId == id);
+            var candidate = await _service.GetByIdAsync(id);
             if (candidate == null)
             {
                 return NotFound();
@@ -58,23 +58,22 @@ namespace Certificates2024.Controllers
         public async Task<IActionResult> Create([Bind("CandidateId,FirstName,LastName,BirthDate,PhotoIdNumber,Email")] Candidate candidate)
         {
             if (ModelState.IsValid)
-            {
-                _context.Add(candidate);
-                await _context.SaveChangesAsync();
+            {                
+                await _service.AddAsync(candidate);
                 return RedirectToAction(nameof(Index));
             }
             return View(candidate);
         }
 
         // GET: Candidates/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var candidate = await _context.Candidates.FindAsync(id);
+            var candidate = await _service.GetByIdAsync(id);
             if (candidate == null)
             {
                 return NotFound();
@@ -96,37 +95,36 @@ namespace Certificates2024.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(candidate);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CandidateExists(candidate.CandidateId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                //try
+                //{
+                    await _service.UpdateAsync(id, candidate);
+                    return RedirectToAction(nameof(Index));
+                //}
+                //catch (DbUpdateConcurrencyException)
+                //{
+                //    if (!CandidateExists(candidate.CandidateId))
+                //    {
+                //        return NotFound();
+                //    }
+                //    else
+                //    {
+                //        throw;
+                //    }
+                //}
+                //return RedirectToAction(nameof(Index));
             }
             return View(candidate);
         }
 
         // GET: Candidates/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var candidate = await _context.Candidates
-                .FirstOrDefaultAsync(m => m.CandidateId == id);
+            var candidate = await _service.GetByIdAsync(id);
             if (candidate == null)
             {
                 return NotFound();
@@ -140,19 +138,14 @@ namespace Certificates2024.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var candidate = await _context.Candidates.FindAsync(id);
+            var candidate = await _service.GetByIdAsync(id);
             if (candidate != null)
             {
-                _context.Candidates.Remove(candidate);
+                await _service.DeleteAsync(id);
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CandidateExists(int id)
-        {
-            return _context.Candidates.Any(e => e.CandidateId == id);
-        }
     }
 }

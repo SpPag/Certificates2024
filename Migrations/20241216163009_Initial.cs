@@ -32,13 +32,13 @@ namespace Certificates2024.Migrations
                 name: "CertificateTopics",
                 columns: table => new
                 {
-                    CertificateTopicID = table.Column<int>(type: "int", nullable: false)
+                    CertificateTopicId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TopicName = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CertificateTopics", x => x.CertificateTopicID);
+                    table.PrimaryKey("PK_CertificateTopics", x => x.CertificateTopicId);
                 });
 
             migrationBuilder.CreateTable(
@@ -67,7 +67,7 @@ namespace Certificates2024.Migrations
                         name: "FK_CandidateCertificates_CertificateTopics_CertificateTopicId",
                         column: x => x.CertificateTopicId,
                         principalTable: "CertificateTopics",
-                        principalColumn: "CertificateTopicID",
+                        principalColumn: "CertificateTopicId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -96,7 +96,7 @@ namespace Certificates2024.Migrations
                         name: "FK_Questions_CertificateTopics_CertificateTopicId",
                         column: x => x.CertificateTopicId,
                         principalTable: "CertificateTopics",
-                        principalColumn: "CertificateTopicID",
+                        principalColumn: "CertificateTopicId",
                         onDelete: ReferentialAction.Cascade);
                 });
 

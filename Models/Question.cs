@@ -1,10 +1,11 @@
-﻿using Microsoft.Identity.Client;
+﻿using Certificates2024.Data.Base;
+using Microsoft.Identity.Client;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Certificates2024.Models
 {
-    public class Question
+    public class Question :IEntityBase
     {
         [Key]
         public int QuestionId { get; set; }
@@ -33,5 +34,10 @@ namespace Certificates2024.Models
         [Display(Name = "Option D")]
         public string? AnswerD { get; set; }
 
+        int IEntityBase.Id
+        {
+            get => QuestionId;
+            set => QuestionId = value;
+        }
     }
 }

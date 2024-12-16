@@ -87,16 +87,16 @@ namespace Certificates2024.Migrations
 
             modelBuilder.Entity("Certificates2024.Models.CertificateTopic", b =>
                 {
-                    b.Property<int>("CertificateTopicID")
+                    b.Property<int>("CertificateTopicId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CertificateTopicID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CertificateTopicId"));
 
                     b.Property<int>("TopicName")
                         .HasColumnType("int");
 
-                    b.HasKey("CertificateTopicID");
+                    b.HasKey("CertificateTopicId");
 
                     b.ToTable("CertificateTopics");
                 });
