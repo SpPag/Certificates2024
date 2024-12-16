@@ -1,0 +1,67 @@
+﻿@model Certificates2024.Models.CandidateCertificate
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+
+    <div>
+        <h4>CandidateCertificate</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Candidate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Candidate.CandidateId)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Candidate.FirstName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Candidate.FirstName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CertificateTopic)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CertificateTopic.CertificateTopicID)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ExaminationDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ExaminationDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CandidateScore)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CandidateScore)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MaximumScore)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MaximumScore)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ResultLabel)
+            </dt>
+            <dd class="col-sm-10">
+                @(Model.ResultLabel ? "Exam Passed" : "Exam Failed")
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.CandidateCertificateId">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+</body>
+</html>

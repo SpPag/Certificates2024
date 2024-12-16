@@ -7,6 +7,7 @@ namespace Certificates2024.Models
     {
         [Key]
         public int CertificateTopicID { get; set; }
+        [Display(Name = "Certificate Topic")]
         public TopicName TopicName { get; set; }
         //Relationship with CandidateCertificate
         public List<CandidateCertificate> CandidateCertificates { get; set; }

@@ -5,7 +5,8 @@
         CSharpBasics = 1,
         CSharpAdvanced,
         JavaScriptBasics,
-        JavaScriptAdvanced
-
+        JavaScriptAdvanced,
+        CSharpExpert,
+        JavaScriptExpert
     }
 }

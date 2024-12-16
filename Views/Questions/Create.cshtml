@@ -1,0 +1,83 @@
+﻿@model Certificates2024.Models.Question
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Question</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="QuestionText" class="control-label"></label>
+                <input asp-for="QuestionText" class="form-control" />
+                <span asp-validation-for="QuestionText" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CertificateTopicId" class="control-label"></label>
+                <select asp-for="CertificateTopicId" class ="form-control" asp-items="ViewBag.CertificateTopicId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageSource" class="control-label"></label>
+                <input asp-for="ImageSource" class="form-control" />
+                <span asp-validation-for="ImageSource" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="BooleanA" /> @Html.DisplayNameFor(model => model.BooleanA)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="AnswerA" class="control-label"></label>
+                <input asp-for="AnswerA" class="form-control" />
+                <span asp-validation-for="AnswerA" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="BooleanB" /> @Html.DisplayNameFor(model => model.BooleanB)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="AnswerB" class="control-label"></label>
+                <input asp-for="AnswerB" class="form-control" />
+                <span asp-validation-for="AnswerB" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="BooleanC" /> @Html.DisplayNameFor(model => model.BooleanC)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="AnswerC" class="control-label"></label>
+                <input asp-for="AnswerC" class="form-control" />
+                <span asp-validation-for="AnswerC" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="BooleanD" /> @Html.DisplayNameFor(model => model.BooleanD)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="AnswerD" class="control-label"></label>
+                <input asp-for="AnswerD" class="form-control" />
+                <span asp-validation-for="AnswerD" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

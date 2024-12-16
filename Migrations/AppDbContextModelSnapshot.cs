@@ -170,11 +170,13 @@ namespace Certificates2024.Migrations
 
             modelBuilder.Entity("Certificates2024.Models.Question", b =>
                 {
-                    b.HasOne("Certificates2024.Models.CertificateTopic", null)
+                    b.HasOne("Certificates2024.Models.CertificateTopic", "CertificateTopic")
                         .WithMany("Questions")
                         .HasForeignKey("CertificateTopicId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("CertificateTopic");
                 });
 
             modelBuilder.Entity("Certificates2024.Models.Candidate", b =>

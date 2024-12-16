@@ -1,0 +1,85 @@
+﻿@model Certificates2024.Models.Question
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Question</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.QuestionText)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.QuestionText)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CertificateTopic)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CertificateTopic.CertificateTopicID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageSource)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ImageSource)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BooleanA)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BooleanA)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AnswerA)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AnswerA)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BooleanB)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BooleanB)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AnswerB)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AnswerB)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BooleanC)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BooleanC)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AnswerC)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AnswerC)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BooleanD)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BooleanD)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AnswerD)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AnswerD)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.QuestionId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
