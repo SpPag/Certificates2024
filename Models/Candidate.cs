@@ -11,9 +11,9 @@ namespace Certificates2024.Models
         public DateTime BirthDate { get; set; }
         public string? PhotoIdNumber { get; set; }
         public string? Email { get; set; }
-        //Relationship with CandidateCertificates
-        public List<CandidateCertificate> CandidateCertificates { get; set; } 
-    
+        //Relationship with CandidateCertificates    
+        public List<CandidateCertificate> CandidateCertificates { get; set; }
+
     }
 
 }

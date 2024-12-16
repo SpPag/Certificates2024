@@ -2,5 +2,16 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
+*.vsidx
+/.vs/Certificates2024/v17/.suo
 /obj/Debug/net8.0/Certificates2024.AssemblyInfoInputs.cache
 /obj/Debug/net8.0/Certificates2024.AssemblyInfo.cs
+/.vs/Certificates2024/v17/DocumentLayout.json
+/.vs/Certificates2024/v17/DocumentLayout.backup.json
+/.vs/Certificates2024/DesignTimeBuild/.dtbcache.v2
+/.vs/Certificates2024/FileContentIndex/27e0b7a8-a555-47eb-8d8c-0ad88fd3aadc.vsidx
+/.vs/Certificates2024/FileContentIndex/2b7a714d-a97e-40bb-8dd4-69b8475ac39c.vsidx
+/.vs/Certificates2024/FileContentIndex/78ac0940-6da6-478a-8abd-716115315c19.vsidx
+/.vs/Certificates2024/FileContentIndex/78ac0940-6da6-478a-8abd-716115315c19.vsidx
+/.vs/Certificates2024/FileContentIndex/2b7a714d-a97e-40bb-8dd4-69b8475ac39c.vsidx
+/.vs/Certificates2024/FileContentIndex/27e0b7a8-a555-47eb-8d8c-0ad88fd3aadc.vsidx
