@@ -56,7 +56,7 @@
                 @Html.DisplayFor(modelItem => item.QuestionText)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CertificateTopic.CertificateTopicId)
+                @Html.DisplayFor(modelItem => item.CertificateTopic.Id)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ImageSource)
@@ -86,9 +86,9 @@
                 @Html.DisplayFor(modelItem => item.AnswerD)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.QuestionId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.QuestionId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.QuestionId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

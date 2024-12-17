@@ -5,10 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Certificates2024.Models
 {
-    public class Question :IEntityBase
+    public class Question : IEntityBase
     {
         [Key]
-        public int QuestionId { get; set; }
+        public int Id { get; set; }
         [Display(Name = "Question")]
         public string? QuestionText { get; set; }
         [Display(Name = "Certificate Topic ID")]
@@ -33,11 +33,5 @@ namespace Certificates2024.Models
         public bool BooleanD { get; set; }
         [Display(Name = "Option D")]
         public string? AnswerD { get; set; }
-
-        int IEntityBase.Id
-        {
-            get => QuestionId;
-            set => QuestionId = value;
-        }
     }
 }

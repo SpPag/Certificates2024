@@ -4,10 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Certificates2024.Models
 {
-    public class CandidateCertificate: IEntityBase
+    public class CandidateCertificate : IEntityBase
     {
         [Key]
-        public int CandidateCertificateId { get; set; }
+        public int Id { get; set; }
         [Display(Name = "Candidate ID")]
         public int CandidateId { get; set; }
         [ForeignKey("CandidateId")]
@@ -24,13 +24,5 @@ namespace Certificates2024.Models
         public int MaximumScore { get; set; }
         [Display(Name = "Test Result")]
         public bool ResultLabel { get; set; }
-
-        // Explicit implementation of IEntityBase.Id
-        int IEntityBase.Id
-        {
-            get => CandidateCertificateId;
-            set => CandidateCertificateId = value;
-        }
-
     }
 }

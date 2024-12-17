@@ -35,7 +35,7 @@ namespace Certificates2024.Controllers
             }
 
             var certificateTopic = await _context.CertificateTopics
-                .FirstOrDefaultAsync(m => m.CertificateTopicId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (certificateTopic == null)
             {
                 return NotFound();
@@ -55,7 +55,7 @@ namespace Certificates2024.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CertificateTopicId,TopicName")] CertificateTopic certificateTopic)
+        public async Task<IActionResult> Create([Bind("Id,TopicName")] CertificateTopic certificateTopic)
         {
             if (ModelState.IsValid)
             {
@@ -87,9 +87,9 @@ namespace Certificates2024.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CertificateTopicId,TopicName")] CertificateTopic certificateTopic)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,TopicName")] CertificateTopic certificateTopic)
         {
-            if (id != certificateTopic.CertificateTopicId)
+            if (id != certificateTopic.Id)
             {
                 return NotFound();
             }
@@ -103,7 +103,7 @@ namespace Certificates2024.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CertificateTopicExists(certificateTopic.CertificateTopicId))
+                    if (!CertificateTopicExists(certificateTopic.Id))
                     {
                         return NotFound();
                     }
@@ -126,7 +126,7 @@ namespace Certificates2024.Controllers
             }
 
             var certificateTopic = await _context.CertificateTopics
-                .FirstOrDefaultAsync(m => m.CertificateTopicId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (certificateTopic == null)
             {
                 return NotFound();
@@ -152,7 +152,7 @@ namespace Certificates2024.Controllers
 
         private bool CertificateTopicExists(int id)
         {
-            return _context.CertificateTopics.Any(e => e.CertificateTopicId == id);
+            return _context.CertificateTopics.Any(e => e.Id == id);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Certificates2024.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CandidateCertificate>().HasKey(cc => cc.CandidateCertificateId);
+            modelBuilder.Entity<CandidateCertificate>().HasKey(cc => cc.Id);
 
             modelBuilder.Entity<CandidateCertificate>().HasOne(c => c.Candidate).WithMany(cc => cc.CandidateCertificates).HasForeignKey(c => c.CandidateId);
 

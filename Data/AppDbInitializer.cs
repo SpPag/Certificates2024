@@ -113,7 +113,7 @@ namespace Certificates2024.Data
                     //Questions
                     if (!context.Questions.Any())
                     {
-                        context.Questions.AddRange(new List<Question>()
+                         context.Questions.AddRange(new List<Question>()
                         {
                             new Question()
                             {

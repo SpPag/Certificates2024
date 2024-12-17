@@ -24,11 +24,11 @@ namespace Certificates2024.Migrations
 
             modelBuilder.Entity("Certificates2024.Models.Candidate", b =>
                 {
-                    b.Property<int>("CandidateId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CandidateId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
@@ -45,18 +45,18 @@ namespace Certificates2024.Migrations
                     b.Property<string>("PhotoIdNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CandidateId");
+                    b.HasKey("Id");
 
                     b.ToTable("Candidates");
                 });
 
             modelBuilder.Entity("Certificates2024.Models.CandidateCertificate", b =>
                 {
-                    b.Property<int>("CandidateCertificateId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CandidateCertificateId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CandidateId")
                         .HasColumnType("int");
@@ -76,7 +76,7 @@ namespace Certificates2024.Migrations
                     b.Property<bool>("ResultLabel")
                         .HasColumnType("bit");
 
-                    b.HasKey("CandidateCertificateId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CandidateId");
 
@@ -87,27 +87,27 @@ namespace Certificates2024.Migrations
 
             modelBuilder.Entity("Certificates2024.Models.CertificateTopic", b =>
                 {
-                    b.Property<int>("CertificateTopicId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CertificateTopicId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("TopicName")
                         .HasColumnType("int");
 
-                    b.HasKey("CertificateTopicId");
+                    b.HasKey("Id");
 
                     b.ToTable("CertificateTopics");
                 });
 
             modelBuilder.Entity("Certificates2024.Models.Question", b =>
                 {
-                    b.Property<int>("QuestionId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("QuestionId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AnswerA")
                         .HasColumnType("nvarchar(max)");
@@ -142,7 +142,7 @@ namespace Certificates2024.Migrations
                     b.Property<string>("QuestionText")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("QuestionId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CertificateTopicId");
 

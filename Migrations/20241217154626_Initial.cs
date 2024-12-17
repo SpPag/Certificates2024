@@ -15,7 +15,7 @@ namespace Certificates2024.Migrations
                 name: "Candidates",
                 columns: table => new
                 {
-                    CandidateId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -25,27 +25,27 @@ namespace Certificates2024.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Candidates", x => x.CandidateId);
+                    table.PrimaryKey("PK_Candidates", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "CertificateTopics",
                 columns: table => new
                 {
-                    CertificateTopicId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TopicName = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CertificateTopics", x => x.CertificateTopicId);
+                    table.PrimaryKey("PK_CertificateTopics", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "CandidateCertificates",
                 columns: table => new
                 {
-                    CandidateCertificateId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CandidateId = table.Column<int>(type: "int", nullable: false),
                     CertificateTopicId = table.Column<int>(type: "int", nullable: false),
@@ -56,18 +56,18 @@ namespace Certificates2024.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CandidateCertificates", x => x.CandidateCertificateId);
+                    table.PrimaryKey("PK_CandidateCertificates", x => x.Id);
                     table.ForeignKey(
                         name: "FK_CandidateCertificates_Candidates_CandidateId",
                         column: x => x.CandidateId,
                         principalTable: "Candidates",
-                        principalColumn: "CandidateId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CandidateCertificates_CertificateTopics_CertificateTopicId",
                         column: x => x.CertificateTopicId,
                         principalTable: "CertificateTopics",
-                        principalColumn: "CertificateTopicId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -75,7 +75,7 @@ namespace Certificates2024.Migrations
                 name: "Questions",
                 columns: table => new
                 {
-                    QuestionId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     QuestionText = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CertificateTopicId = table.Column<int>(type: "int", nullable: false),
@@ -91,12 +91,12 @@ namespace Certificates2024.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Questions", x => x.QuestionId);
+                    table.PrimaryKey("PK_Questions", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Questions_CertificateTopics_CertificateTopicId",
                         column: x => x.CertificateTopicId,
                         principalTable: "CertificateTopics",
-                        principalColumn: "CertificateTopicId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 

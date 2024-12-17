@@ -50,7 +50,7 @@
                         @Html.DisplayFor(modelItem => item.Candidate.LastName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CertificateTopic.CertificateTopicId)
+                        @Html.DisplayFor(modelItem => item.CertificateTopic.Id)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.ExaminationDate)
@@ -79,9 +79,9 @@
                         }
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.CandidateCertificateId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.CandidateCertificateId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.CandidateCertificateId">Delete</a>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     </td>
                 </tr>
             }

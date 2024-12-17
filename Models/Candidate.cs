@@ -6,8 +6,8 @@ namespace Certificates2024.Models
     public class Candidate : IEntityBase
     {
         [Key]
-        public int CandidateId { get; set; }
-        [Display(Name ="First Name")]
+        public int Id { get; set; }
+        [Display(Name = "First Name")]
         public string? FirstName { get; set; }
         [Display(Name = "Last Name")]
         public string? LastName { get; set; }
@@ -19,12 +19,5 @@ namespace Certificates2024.Models
         public string? Email { get; set; }
         //Relationship with CandidateCertificates    
         public List<CandidateCertificate> CandidateCertificates { get; set; }
-
-        int IEntityBase.Id
-        {
-            get => CandidateId;
-            set => CandidateId = value;
-        }
     }
-
 }

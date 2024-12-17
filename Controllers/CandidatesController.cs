@@ -55,7 +55,7 @@ namespace Certificates2024.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CandidateId,FirstName,LastName,BirthDate,PhotoIdNumber,Email")] Candidate candidate)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,BirthDate,PhotoIdNumber,Email")] Candidate candidate)
         {
             if (ModelState.IsValid)
             {                
@@ -86,9 +86,9 @@ namespace Certificates2024.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CandidateId,FirstName,LastName,BirthDate,PhotoIdNumber,Email")] Candidate candidate)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,BirthDate,PhotoIdNumber,Email")] Candidate candidate)
         {
-            if (id != candidate.CandidateId)
+            if (id != candidate.Id)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace Certificates2024.Controllers
                 //}
                 //catch (DbUpdateConcurrencyException)
                 //{
-                //    if (!CandidateExists(candidate.CandidateId))
+                //    if (!CandidateExists(candidate.Id))
                 //    {
                 //        return NotFound();
                 //    }

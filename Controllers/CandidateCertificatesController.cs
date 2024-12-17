@@ -37,7 +37,7 @@ namespace Certificates2024.Controllers
             var candidateCertificate = await _context.CandidateCertificates
                 .Include(c => c.Candidate)
                 .Include(c => c.CertificateTopic)
-                .FirstOrDefaultAsync(m => m.CandidateCertificateId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (candidateCertificate == null)
             {
                 return NotFound();
@@ -49,8 +49,8 @@ namespace Certificates2024.Controllers
         // GET: CandidateCertificates/Create
         public IActionResult Create()
         {
-            ViewData["CandidateId"] = new SelectList(_context.Candidates, "CandidateId", "CandidateId");
-            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "CertificateTopicId", "CertificateTopicId");
+            ViewData["CandidateId"] = new SelectList(_context.Candidates, "Id", "Id");
+            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "Id", "Id");
             return View();
         }
 
@@ -59,7 +59,7 @@ namespace Certificates2024.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CandidateCertificateId,CandidateId,CertificateTopicId,ExaminationDate,CandidateScore,MaximumScore,ResultLabel")] CandidateCertificate candidateCertificate)
+        public async Task<IActionResult> Create([Bind("Id,CandidateId,CertificateTopicId,ExaminationDate,CandidateScore,MaximumScore,ResultLabel")] CandidateCertificate candidateCertificate)
         {
             if (ModelState.IsValid)
             {
@@ -67,8 +67,8 @@ namespace Certificates2024.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CandidateId"] = new SelectList(_context.Candidates, "CandidateId", "CandidateId", candidateCertificate.CandidateId);
-            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "CertificateTopicId", "CertificateTopicId", candidateCertificate.CertificateTopicId);
+            ViewData["CandidateId"] = new SelectList(_context.Candidates, "Id", "Id", candidateCertificate.CandidateId);
+            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "Id", "Id", candidateCertificate.CertificateTopicId);
             return View(candidateCertificate);
         }
 
@@ -85,8 +85,8 @@ namespace Certificates2024.Controllers
             {
                 return NotFound();
             }
-            ViewData["CandidateId"] = new SelectList(_context.Candidates, "CandidateId", "CandidateId", candidateCertificate.CandidateId);
-            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "CertificateTopicId", "CertificateTopicId", candidateCertificate.CertificateTopicId);
+            ViewData["CandidateId"] = new SelectList(_context.Candidates, "Id", "Id", candidateCertificate.CandidateId);
+            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "Id", "Id", candidateCertificate.CertificateTopicId);
             return View(candidateCertificate);
         }
 
@@ -95,9 +95,9 @@ namespace Certificates2024.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CandidateCertificateId,CandidateId,CertificateTopicId,ExaminationDate,CandidateScore,MaximumScore,ResultLabel")] CandidateCertificate candidateCertificate)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CandidateId,CertificateTopicId,ExaminationDate,CandidateScore,MaximumScore,ResultLabel")] CandidateCertificate candidateCertificate)
         {
-            if (id != candidateCertificate.CandidateCertificateId)
+            if (id != candidateCertificate.Id)
             {
                 return NotFound();
             }
@@ -111,7 +111,7 @@ namespace Certificates2024.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CandidateCertificateExists(candidateCertificate.CandidateCertificateId))
+                    if (!CandidateCertificateExists(candidateCertificate.Id))
                     {
                         return NotFound();
                     }
@@ -122,8 +122,8 @@ namespace Certificates2024.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CandidateId"] = new SelectList(_context.Candidates, "CandidateId", "CandidateId", candidateCertificate.CandidateId);
-            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "CertificateTopicId", "CertificateTopicId", candidateCertificate.CertificateTopicId);
+            ViewData["CandidateId"] = new SelectList(_context.Candidates, "Id", "Id", candidateCertificate.CandidateId);
+            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "Id", "Id", candidateCertificate.CertificateTopicId);
             return View(candidateCertificate);
         }
 
@@ -138,7 +138,7 @@ namespace Certificates2024.Controllers
             var candidateCertificate = await _context.CandidateCertificates
                 .Include(c => c.Candidate)
                 .Include(c => c.CertificateTopic)
-                .FirstOrDefaultAsync(m => m.CandidateCertificateId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (candidateCertificate == null)
             {
                 return NotFound();
@@ -164,7 +164,7 @@ namespace Certificates2024.Controllers
 
         private bool CandidateCertificateExists(int id)
         {
-            return _context.CandidateCertificates.Any(e => e.CandidateCertificateId == id);
+            return _context.CandidateCertificates.Any(e => e.Id == id);
         }
     }
 }
