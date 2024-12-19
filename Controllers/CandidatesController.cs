@@ -54,15 +54,30 @@ namespace Certificates2024.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,BirthDate,PhotoIdNumber,Email")] Candidate candidate)
+        //[ValidateAntiForgeryToken] I don't know if this messes anything up so I'm commenting it. Also it was auto-generated so we may not want it at all
+        public async Task<IActionResult> Create([Bind("FirstName,LastName,BirthDate,PhotoIdNumber,Email")] Candidate candidate)
         {
-            if (ModelState.IsValid)
-            {                
-                await _service.AddAsync(candidate);
-                return RedirectToAction(nameof(Index));
+            //if (ModelState.IsValid)
+            //{                
+            //    await _service.AddAsync(candidate);
+            //    return RedirectToAction(nameof(Index));
+            //}
+            //return View(candidate);
+            Console.WriteLine("Calling AddAsync...");
+            if (!ModelState.IsValid)
+            {
+                Console.WriteLine("Invalid model");
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                foreach (var error in errors)
+                {
+                    Console.WriteLine(error.ErrorMessage);
+                }
+                return View(candidate);
             }
-            return View(candidate);
+            Console.WriteLine("Model is valid");
+            await _service.AddAsync(candidate);
+            return RedirectToAction(nameof(Index));
+
         }
 
         // GET: Candidates/Edit/5
@@ -85,7 +100,7 @@ namespace Certificates2024.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken] I don't know if this messes anything up so I'm commenting it.Also it was auto-generated so we may not want it at all
         public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,BirthDate,PhotoIdNumber,Email")] Candidate candidate)
         {
             if (id != candidate.Id)
@@ -97,8 +112,8 @@ namespace Certificates2024.Controllers
             {
                 //try
                 //{
-                    await _service.UpdateAsync(id, candidate);
-                    return RedirectToAction(nameof(Index));
+                await _service.UpdateAsync(id, candidate);
+                return RedirectToAction(nameof(Index));
                 //}
                 //catch (DbUpdateConcurrencyException)
                 //{
@@ -135,7 +150,7 @@ namespace Certificates2024.Controllers
 
         // POST: Candidates/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken] I don't know if this messes anything up so I'm commenting it.Also it was auto-generated so we may not want it at all
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var candidate = await _service.GetByIdAsync(id);

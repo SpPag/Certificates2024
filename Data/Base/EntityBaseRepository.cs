@@ -6,7 +6,9 @@ namespace Certificates2024.Data.Base
 {
     public class EntityBaseRepository<T> : IEntityBaseRepository<T> where T : class, IEntityBase, new()
     {
+
         private readonly AppDbContext _context;
+
         public EntityBaseRepository(AppDbContext context)
         {
             _context = context;

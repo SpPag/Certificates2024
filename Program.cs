@@ -1,6 +1,7 @@
 using Certificates2024.Data;
 using Certificates2024.Data.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +15,12 @@ builder.Services.AddScoped<ICertificateTopicsService, CertificateTopicsService>(
 builder.Services.AddScoped<ICandidateCertificatesService, CandidateCertificatesService>();
 builder.Services.AddScoped<ICandidatesService, CandidatesService>();
 
-
+//Added this for testing purposes (recommended by our lord and savior ChatGPT). Leaving it as a comment for future reference
+//builder.Services.AddDbContext<AppDbContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+//           .EnableSensitiveDataLogging()
+//           .LogTo(Console.WriteLine));
+//builder.WebHost.UseEnvironment(Microsoft.Extensions.Hosting.Environments.Development);
 
 var app = builder.Build();
 
