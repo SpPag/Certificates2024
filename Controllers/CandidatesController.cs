@@ -63,10 +63,8 @@ namespace Certificates2024.Controllers
             //    return RedirectToAction(nameof(Index));
             //}
             //return View(candidate);
-            Console.WriteLine("Calling AddAsync...");
             if (!ModelState.IsValid)
             {
-                Console.WriteLine("Invalid model");
                 var errors = ModelState.Values.SelectMany(v => v.Errors);
                 foreach (var error in errors)
                 {
@@ -74,7 +72,6 @@ namespace Certificates2024.Controllers
                 }
                 return View(candidate);
             }
-            Console.WriteLine("Model is valid");
             await _service.AddAsync(candidate);
             return RedirectToAction(nameof(Index));
 
