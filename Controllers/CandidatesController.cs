@@ -54,7 +54,7 @@ namespace Certificates2024.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        //[ValidateAntiForgeryToken] I don't know if this messes anything up so I'm commenting it. Also it was auto-generated so we may not want it at all
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FirstName,LastName,BirthDate,PhotoIdNumber,Email")] Candidate candidate)
         {
             //if (ModelState.IsValid)
@@ -147,7 +147,7 @@ namespace Certificates2024.Controllers
 
         // POST: Candidates/Delete/5
         [HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken] I don't know if this messes anything up so I'm commenting it.Also it was auto-generated so we may not want it at all
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var candidate = await _service.GetByIdAsync(id);
@@ -155,9 +155,7 @@ namespace Certificates2024.Controllers
             {
                 await _service.DeleteAsync(id);
             }
-
             return RedirectToAction(nameof(Index));
         }
-
     }
 }

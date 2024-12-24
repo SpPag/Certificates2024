@@ -38,10 +38,14 @@ namespace Certificates2024.Data.Base
             // Check if T is CandidateCertificate type and apply includes
             if (typeof(T) == typeof(CandidateCertificate))
             {
-                query = query.Include(c => (c as CandidateCertificate).Candidate)         // Include Candidate
-                             .Include(c => (c as CandidateCertificate).CertificateTopic);  // Include CertificateTopic
+                query = query.Include("Candidate")
+                             .Include("CertificateTopic");
             }
 
+            if (typeof(T) == typeof(Question))
+            {
+                query = query.Include("CertificateTopic");
+            }
             return await query.ToListAsync();
             //return await _context.Set<T>().ToListAsync();
         }
@@ -64,7 +68,10 @@ namespace Certificates2024.Data.Base
                 query = query.Include(c => (c as CandidateCertificate).Candidate)         // Include Candidate
                              .Include(c => (c as CandidateCertificate).CertificateTopic);  // Include CertificateTopic
             }
-
+            if (typeof(T) == typeof(Question))
+            {
+                query = query.Include(q => (q as Question).CertificateTopic);
+            }
             return await query.FirstOrDefaultAsync(n => EF.Property<int>(n, "Id") == id);
         }
         public async Task UpdateAsync(int id, T entity)

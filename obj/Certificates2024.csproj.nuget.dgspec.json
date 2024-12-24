@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Certificates2024\\Certificates2024.csproj": {}
+    "C:\\Certificates2024\\Certificates2024.csproj": {}
   },
   "projects": {
-    "D:\\Certificates2024\\Certificates2024.csproj": {
+    "C:\\Certificates2024\\Certificates2024.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Certificates2024\\Certificates2024.csproj",
+        "projectUniqueName": "C:\\Certificates2024\\Certificates2024.csproj",
         "projectName": "Certificates2024",
-        "projectPath": "D:\\Certificates2024\\Certificates2024.csproj",
-        "packagesPath": "C:\\Users\\Αντώνης\\.nuget\\packages\\",
-        "outputPath": "D:\\Certificates2024\\obj\\",
+        "projectPath": "C:\\Certificates2024\\Certificates2024.csproj",
+        "packagesPath": "C:\\Users\\spyro\\.nuget\\packages\\",
+        "outputPath": "C:\\Certificates2024\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Αντώνης\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\spyro\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

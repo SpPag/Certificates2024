@@ -7,23 +7,24 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Certificates2024.Data;
 using Certificates2024.Models;
+using Certificates2024.Data.Services;
 
 namespace Certificates2024.Controllers
 {
     public class QuestionsController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly IQuestionsService _service;
 
-        public QuestionsController(AppDbContext context)
+        public QuestionsController(IQuestionsService service)
         {
-            _context = context;
+            _service= service;
         }
 
         // GET: Questions
         public async Task<IActionResult> Index()
         {
-            var questions = _context.Questions.Include(q => q.CertificateTopic);
-            return View(await questions.ToListAsync());
+            var questions = await _service.GetAllAsync();
+            return View(questions);
         }
 
         // GET: Questions/Details/5
@@ -34,9 +35,7 @@ namespace Certificates2024.Controllers
                 return NotFound();
             }
 
-            var question = await _context.Questions
-                .Include(q => q.CertificateTopic)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var question = await _service.GetByIdAsync(Convert.ToInt32(id));
             if (question == null)
             {
                 return NotFound();

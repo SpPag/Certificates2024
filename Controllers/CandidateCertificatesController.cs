@@ -65,8 +65,8 @@ namespace Certificates2024.Controllers
                 // Handle the case where certificate topics list is empty or null
                 ModelState.AddModelError("", "No certificate topics found.");
             }
-            ViewBag.CandidateId = new SelectList(candidates, "Id", "Name");
-            ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "Name");
+            ViewBag.CandidateId = new SelectList(candidates.Select(c => new { c.Id, FullName = $"{c.FirstName} {c.LastName}" }), "Id", "FullName");
+            ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "TopicName");
             return View();
         }
 
@@ -85,8 +85,8 @@ namespace Certificates2024.Controllers
 
             var candidates = await _service.GetAllCandidatesAsync();
             var certificateTopics = await _service.GetAllCertificateTopicsAsync();
-            ViewBag.CandidateId = new SelectList(candidates, "Id", "Name", candidateCertificate.CandidateId);
-            ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "Name", candidateCertificate.CertificateTopicId);
+            ViewBag.CandidateId = new SelectList(candidates, "Id", "FirstName", candidateCertificate.CandidateId);
+            ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "TopicName", candidateCertificate.CertificateTopicId);
             return View(candidateCertificate);
         }
 
@@ -106,8 +106,8 @@ namespace Certificates2024.Controllers
 
             var candidates = await _service.GetAllCandidatesAsync();
             var certificateTopics = await _service.GetAllCertificateTopicsAsync();
-            ViewBag.CandidateId = new SelectList(candidates, "Id", "Name", candidateCertificate.CandidateId);
-            ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "Name", candidateCertificate.CertificateTopicId);
+            ViewBag.CandidateId = new SelectList(candidates, "Id", "FirstName", candidateCertificate.CandidateId);
+            ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "TopicName", candidateCertificate.CertificateTopicId);
             return View(candidateCertificate);
 
         }
@@ -146,8 +146,8 @@ namespace Certificates2024.Controllers
             }
             var candidates = await _service.GetAllCandidatesAsync();
             var certificateTopics = await _service.GetAllCertificateTopicsAsync();
-            ViewBag.CandidateId = new SelectList(candidates, "Id", "Name", candidateCertificate.CandidateId);
-            ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "Name", candidateCertificate.CertificateTopicId);
+            ViewBag.CandidateId = new SelectList(candidates, "Id", "FirstName", candidateCertificate.CandidateId);
+            ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "TopicName", candidateCertificate.CertificateTopicId);
             return View(candidateCertificate);
         }
 

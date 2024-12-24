@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Certificates2024.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241224101224_init")]
-    partial class init
+    [Migration("20241224155017_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

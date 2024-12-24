@@ -8,22 +8,23 @@ using Microsoft.EntityFrameworkCore;
 using Certificates2024.Data;
 using Certificates2024.Models;
 using Certificates2024.Data.Enums;
+using Certificates2024.Data.Services;
 
 namespace Certificates2024.Controllers
 {
     public class CertificateTopicsController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly ICertificateTopicsService _service;
 
-        public CertificateTopicsController(AppDbContext context)
+        public CertificateTopicsController(ICertificateTopicsService service)
         {
-            _context = context;
+            _service = service;
         }
 
         // GET: CertificateTopics
         public async Task<IActionResult> Index()
         {
-            var allTopics = await _context.CertificateTopics.ToListAsync();
+            var allTopics = await _service.GetAllAsync();
             return View(allTopics);
         }
 
@@ -35,8 +36,7 @@ namespace Certificates2024.Controllers
                 return NotFound();
             }
 
-            var certificateTopic = await _context.CertificateTopics
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var certificateTopic = await _service.GetByIdAsync(Convert.ToInt32(id));
             if (certificateTopic == null)
             {
                 return NotFound();
@@ -69,8 +69,7 @@ namespace Certificates2024.Controllers
             Console.WriteLine("Create has been called");
             if (ModelState.IsValid)
             {
-                _context.Add(certificateTopic);
-                await _context.SaveChangesAsync();
+                await _service.AddAsync(certificateTopic);
                 Console.WriteLine("ModelState is valid");
                 ViewData["TopicName"] = Enum.GetValues(typeof(TopicName))
                      .Cast<TopicName>()
@@ -82,7 +81,7 @@ namespace Certificates2024.Controllers
                      .ToList();
                 return RedirectToAction(nameof(Index));
             }
-            Console.WriteLine("ModelState");
+            Console.WriteLine("ModelState is invalid");
 
             return View(certificateTopic);
         }
@@ -95,7 +94,7 @@ namespace Certificates2024.Controllers
                 return NotFound();
             }
 
-            var certificateTopic = await _context.CertificateTopics.FindAsync(id);
+            var certificateTopic = await _service.GetByIdAsync(Convert.ToInt32(id));
             if (certificateTopic == null)
             {
                 return NotFound();
@@ -117,23 +116,23 @@ namespace Certificates2024.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(certificateTopic);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CertificateTopicExists(certificateTopic.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                //try
+                //{
+                await _service.UpdateAsync(id, certificateTopic);
                 return RedirectToAction(nameof(Index));
+                //}
+                //catch (DbUpdateConcurrencyException)
+                //{
+                //    if (!CertificateTopicExists(certificateTopic.Id))
+                //    {
+                //        return NotFound();
+                //    }
+                //    else
+                //    {
+                //        throw;
+                //    }
+                //}
+                //return RedirectToAction(nameof(Index));
             }
             return View(certificateTopic);
         }
@@ -146,8 +145,7 @@ namespace Certificates2024.Controllers
                 return NotFound();
             }
 
-            var certificateTopic = await _context.CertificateTopics
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var certificateTopic = await _service.GetByIdAsync(Convert.ToInt32(id));
             if (certificateTopic == null)
             {
                 return NotFound();
@@ -161,19 +159,16 @@ namespace Certificates2024.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var certificateTopic = await _context.CertificateTopics.FindAsync(id);
+            var certificateTopic = await _service.GetByIdAsync(id);
             if (certificateTopic != null)
             {
-                _context.CertificateTopics.Remove(certificateTopic);
+                await _service.DeleteAsync(id);
             }
-
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
-        private bool CertificateTopicExists(int id)
-        {
-            return _context.CertificateTopics.Any(e => e.Id == id);
-        }
+        //    private bool CertificateTopicExists(int id)
+        //    {
+        //        return _context.CertificateTopics.Any(e => e.Id == id);
+        //    }
     }
 }
