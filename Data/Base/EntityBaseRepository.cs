@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Certificates2024.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
 
@@ -11,7 +12,7 @@ namespace Certificates2024.Data.Base
 
         public EntityBaseRepository(AppDbContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context)); ;
         }
         public async Task AddAsync(T entity)
         {
@@ -30,8 +31,20 @@ namespace Certificates2024.Data.Base
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync() => await _context.Set<T>().ToListAsync();
+        public async Task<IEnumerable<T>> GetAllAsync()
+        {
+            var query = _context.Set<T>().AsQueryable();
 
+            // Check if T is CandidateCertificate type and apply includes
+            if (typeof(T) == typeof(CandidateCertificate))
+            {
+                query = query.Include(c => (c as CandidateCertificate).Candidate)         // Include Candidate
+                             .Include(c => (c as CandidateCertificate).CertificateTopic);  // Include CertificateTopic
+            }
+
+            return await query.ToListAsync();
+            //return await _context.Set<T>().ToListAsync();
+        }
         public async Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includeProperties)
         {
             IQueryable<T> query = _context.Set<T>();
@@ -39,8 +52,21 @@ namespace Certificates2024.Data.Base
             return await query.ToListAsync();
         }
 
-        public async Task<T> GetByIdAsync(int id) => await _context.Set<T>().FirstOrDefaultAsync(n => n.Id == id);
+        //public virtual async Task<T> GetByIdAsync(int id) => await _context.Set<T>().FirstOrDefaultAsync(n => n.Id == id);
+        public virtual async Task<T> GetByIdAsync(int id)
+        {
 
+            var query = _context.Set<T>().AsQueryable();
+
+            // Check if T is CandidateCertificate type and apply includes
+            if (typeof(T) == typeof(CandidateCertificate))
+            {
+                query = query.Include(c => (c as CandidateCertificate).Candidate)         // Include Candidate
+                             .Include(c => (c as CandidateCertificate).CertificateTopic);  // Include CertificateTopic
+            }
+
+            return await query.FirstOrDefaultAsync(n => EF.Property<int>(n, "Id") == id);
+        }
         public async Task UpdateAsync(int id, T entity)
         {
             EntityEntry entityEntry = _context.Entry<T>(entity);

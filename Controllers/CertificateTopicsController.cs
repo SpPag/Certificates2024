@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Certificates2024.Data;
 using Certificates2024.Models;
+using Certificates2024.Data.Enums;
 
 namespace Certificates2024.Controllers
 {
@@ -47,6 +48,14 @@ namespace Certificates2024.Controllers
         // GET: CertificateTopics/Create
         public IActionResult Create()
         {
+            ViewData["TopicName"] = Enum.GetValues(typeof(TopicName))
+                         .Cast<TopicName>()
+                         .Select(t => new SelectListItem
+                         {
+                             Value = ((int)t).ToString(), // Use integer value for database storage
+                             Text = t.ToString()         // Display enum name in dropdown
+                         })
+                         .ToList();
             return View();
         }
 
@@ -55,14 +64,26 @@ namespace Certificates2024.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,TopicName")] CertificateTopic certificateTopic)
+        public async Task<IActionResult> Create([Bind("TopicName")] CertificateTopic certificateTopic)
         {
+            Console.WriteLine("Create has been called");
             if (ModelState.IsValid)
             {
                 _context.Add(certificateTopic);
                 await _context.SaveChangesAsync();
+                Console.WriteLine("ModelState is valid");
+                ViewData["TopicName"] = Enum.GetValues(typeof(TopicName))
+                     .Cast<TopicName>()
+                     .Select(t => new SelectListItem
+                     {
+                         Value = t.ToString(),
+                         Text = t.ToString()
+                     })
+                     .ToList();
                 return RedirectToAction(nameof(Index));
             }
+            Console.WriteLine("ModelState");
+
             return View(certificateTopic);
         }
 

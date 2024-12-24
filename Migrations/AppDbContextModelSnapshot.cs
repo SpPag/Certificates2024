@@ -34,15 +34,19 @@ namespace Certificates2024.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhotoIdNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -61,7 +65,7 @@ namespace Certificates2024.Migrations
                     b.Property<int>("CandidateId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CandidateScore")
+                    b.Property<int?>("CandidateScore")
                         .HasColumnType("int");
 
                     b.Property<int>("CertificateTopicId")
@@ -70,7 +74,7 @@ namespace Certificates2024.Migrations
                     b.Property<DateTime>("ExaminationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("MaximumScore")
+                    b.Property<int?>("MaximumScore")
                         .HasColumnType("int");
 
                     b.Property<bool>("ResultLabel")
@@ -93,8 +97,9 @@ namespace Certificates2024.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("TopicName")
-                        .HasColumnType("int");
+                    b.Property<string>("TopicName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

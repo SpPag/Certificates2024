@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Certificates2024.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,11 +17,11 @@ namespace Certificates2024.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PhotoIdNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    PhotoIdNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -34,7 +34,7 @@ namespace Certificates2024.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TopicName = table.Column<int>(type: "int", nullable: false)
+                    TopicName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -50,8 +50,8 @@ namespace Certificates2024.Migrations
                     CandidateId = table.Column<int>(type: "int", nullable: false),
                     CertificateTopicId = table.Column<int>(type: "int", nullable: false),
                     ExaminationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CandidateScore = table.Column<int>(type: "int", nullable: false),
-                    MaximumScore = table.Column<int>(type: "int", nullable: false),
+                    CandidateScore = table.Column<int>(type: "int", nullable: true),
+                    MaximumScore = table.Column<int>(type: "int", nullable: true),
                     ResultLabel = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>

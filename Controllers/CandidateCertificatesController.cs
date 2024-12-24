@@ -7,37 +7,40 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Certificates2024.Data;
 using Certificates2024.Models;
+using Certificates2024.Data.Services;
 
 namespace Certificates2024.Controllers
 {
     public class CandidateCertificatesController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly ICandidateCertificatesService _service;
 
-        public CandidateCertificatesController(AppDbContext context)
+
+        public CandidateCertificatesController(ICandidateCertificatesService service)
         {
-            _context = context;
+            _service = service;
         }
 
         // GET: CandidateCertificates
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.CandidateCertificates.Include(c => c.Candidate).Include(c => c.CertificateTopic);
-            return View(await appDbContext.ToListAsync());
+            var appDbContext = await _service.GetAllAsync();
+
+            return View(appDbContext);
         }
 
         // GET: CandidateCertificates/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var candidateCertificate = await _context.CandidateCertificates
-                .Include(c => c.Candidate)
-                .Include(c => c.CertificateTopic)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var candidateCertificate = await _service.GetByIdAsync(id);
+                //.Include(c => c.Candidate)
+                //.Include(c => c.CertificateTopic)
+                //.FirstOrDefaultAsync(m => m.Id == id);
             if (candidateCertificate == null)
             {
                 return NotFound();
@@ -47,10 +50,23 @@ namespace Certificates2024.Controllers
         }
 
         // GET: CandidateCertificates/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["CandidateId"] = new SelectList(_context.Candidates, "Id", "Id");
-            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "Id", "Id");
+            var candidates = await _service.GetAllCandidatesAsync();
+            var certificateTopics = await _service.GetAllCertificateTopicsAsync();
+            if (candidates == null || !candidates.Any())
+            {
+                // Handle the case where candidates list is empty or null
+                ModelState.AddModelError("", "No candidates found.");
+            }
+
+            if (certificateTopics == null || !certificateTopics.Any())
+            {
+                // Handle the case where certificate topics list is empty or null
+                ModelState.AddModelError("", "No certificate topics found.");
+            }
+            ViewBag.CandidateId = new SelectList(candidates, "Id", "Name");
+            ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "Name");
             return View();
         }
 
@@ -59,16 +75,18 @@ namespace Certificates2024.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CandidateId,CertificateTopicId,ExaminationDate,CandidateScore,MaximumScore,ResultLabel")] CandidateCertificate candidateCertificate)
+        public async Task<IActionResult> Create([Bind("CandidateId,CertificateTopicId,ExaminationDate,CandidateScore,MaximumScore,ResultLabel")] CandidateCertificate candidateCertificate)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(candidateCertificate);
-                await _context.SaveChangesAsync();
+                await _service.AddAsync(candidateCertificate);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CandidateId"] = new SelectList(_context.Candidates, "Id", "Id", candidateCertificate.CandidateId);
-            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "Id", "Id", candidateCertificate.CertificateTopicId);
+
+            var candidates = await _service.GetAllCandidatesAsync();
+            var certificateTopics = await _service.GetAllCertificateTopicsAsync();
+            ViewBag.CandidateId = new SelectList(candidates, "Id", "Name", candidateCertificate.CandidateId);
+            ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "Name", candidateCertificate.CertificateTopicId);
             return View(candidateCertificate);
         }
 
@@ -80,14 +98,18 @@ namespace Certificates2024.Controllers
                 return NotFound();
             }
 
-            var candidateCertificate = await _context.CandidateCertificates.FindAsync(id);
+            var candidateCertificate = await _service.GetByIdAsync(Convert.ToInt32(id));
             if (candidateCertificate == null)
             {
                 return NotFound();
             }
-            ViewData["CandidateId"] = new SelectList(_context.Candidates, "Id", "Id", candidateCertificate.CandidateId);
-            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "Id", "Id", candidateCertificate.CertificateTopicId);
+
+            var candidates = await _service.GetAllCandidatesAsync();
+            var certificateTopics = await _service.GetAllCertificateTopicsAsync();
+            ViewBag.CandidateId = new SelectList(candidates, "Id", "Name", candidateCertificate.CandidateId);
+            ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "Name", candidateCertificate.CertificateTopicId);
             return View(candidateCertificate);
+
         }
 
         // POST: CandidateCertificates/Edit/5
@@ -104,26 +126,28 @@ namespace Certificates2024.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(candidateCertificate);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CandidateCertificateExists(candidateCertificate.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                //try
+                //{
+                    await _service.UpdateAsync(id, candidateCertificate);
+                    return RedirectToAction(nameof(Index));
+                //}
+                //catch (DbUpdateConcurrencyException)
+                //{
+                //    if (!CandidateCertificateExists(candidateCertificate.Id))
+                //    {
+                //        return NotFound();
+                //    }
+                //    else
+                //    {
+                //        throw;
+                //    }
+                //}
+                //return RedirectToAction(nameof(Index));
             }
-            ViewData["CandidateId"] = new SelectList(_context.Candidates, "Id", "Id", candidateCertificate.CandidateId);
-            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "Id", "Id", candidateCertificate.CertificateTopicId);
+            var candidates = await _service.GetAllCandidatesAsync();
+            var certificateTopics = await _service.GetAllCertificateTopicsAsync();
+            ViewBag.CandidateId = new SelectList(candidates, "Id", "Name", candidateCertificate.CandidateId);
+            ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "Name", candidateCertificate.CertificateTopicId);
             return View(candidateCertificate);
         }
 
@@ -135,10 +159,8 @@ namespace Certificates2024.Controllers
                 return NotFound();
             }
 
-            var candidateCertificate = await _context.CandidateCertificates
-                .Include(c => c.Candidate)
-                .Include(c => c.CertificateTopic)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var candidateCertificate = await _service.GetByIdAsync(Convert.ToInt32(id));
+
             if (candidateCertificate == null)
             {
                 return NotFound();
@@ -152,19 +174,18 @@ namespace Certificates2024.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var candidateCertificate = await _context.CandidateCertificates.FindAsync(id);
+            var candidateCertificate = await _service.GetByIdAsync(id);
             if (candidateCertificate != null)
             {
-                _context.CandidateCertificates.Remove(candidateCertificate);
+                await _service.DeleteAsync(id);
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CandidateCertificateExists(int id)
-        {
-            return _context.CandidateCertificates.Any(e => e.Id == id);
-        }
+        //private bool CandidateCertificateExists(int id)
+        //{
+        //    return _service.CandidateCertificates.Any(e => e.Id == id);
+        //}
     }
 }

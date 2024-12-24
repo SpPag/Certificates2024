@@ -11,8 +11,8 @@ namespace Certificates2024.Models
         [Display(Name = "Certificate Topic")]
         public TopicName TopicName { get; set; }
         //Relationship with CandidateCertificate
-        public List<CandidateCertificate> CandidateCertificates { get; set; }
+        public List<CandidateCertificate>? CandidateCertificates { get; set; }
         //Relationship with Question
-        public List<Question> Questions { get; set; }
+        public List<Question>? Questions { get; set; }
     }
 }
