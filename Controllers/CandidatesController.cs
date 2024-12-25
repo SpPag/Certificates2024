@@ -57,12 +57,6 @@ namespace Certificates2024.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FirstName,LastName,BirthDate,PhotoIdNumber,Email")] Candidate candidate)
         {
-            //if (ModelState.IsValid)
-            //{                
-            //    await _service.AddAsync(candidate);
-            //    return RedirectToAction(nameof(Index));
-            //}
-            //return View(candidate);
             if (!ModelState.IsValid)
             {
                 var errors = ModelState.Values.SelectMany(v => v.Errors);
@@ -107,23 +101,9 @@ namespace Certificates2024.Controllers
 
             if (ModelState.IsValid)
             {
-                //try
-                //{
+
                 await _service.UpdateAsync(id, candidate);
                 return RedirectToAction(nameof(Index));
-                //}
-                //catch (DbUpdateConcurrencyException)
-                //{
-                //    if (!CandidateExists(candidate.Id))
-                //    {
-                //        return NotFound();
-                //    }
-                //    else
-                //    {
-                //        throw;
-                //    }
-                //}
-                //return RedirectToAction(nameof(Index));
             }
             return View(candidate);
         }

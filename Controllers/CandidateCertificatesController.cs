@@ -38,9 +38,6 @@ namespace Certificates2024.Controllers
             }
 
             var candidateCertificate = await _service.GetByIdAsync(id);
-                //.Include(c => c.Candidate)
-                //.Include(c => c.CertificateTopic)
-                //.FirstOrDefaultAsync(m => m.Id == id);
             if (candidateCertificate == null)
             {
                 return NotFound();
@@ -54,17 +51,7 @@ namespace Certificates2024.Controllers
         {
             var candidates = await _service.GetAllCandidatesAsync();
             var certificateTopics = await _service.GetAllCertificateTopicsAsync();
-            if (candidates == null || !candidates.Any())
-            {
-                // Handle the case where candidates list is empty or null
-                ModelState.AddModelError("", "No candidates found.");
-            }
 
-            if (certificateTopics == null || !certificateTopics.Any())
-            {
-                // Handle the case where certificate topics list is empty or null
-                ModelState.AddModelError("", "No certificate topics found.");
-            }
             ViewBag.CandidateId = new SelectList(candidates.Select(c => new { c.Id, FullName = $"{c.FirstName} {c.LastName}" }), "Id", "FullName");
             ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "TopicName");
             return View();
@@ -126,23 +113,8 @@ namespace Certificates2024.Controllers
 
             if (ModelState.IsValid)
             {
-                //try
-                //{
-                    await _service.UpdateAsync(id, candidateCertificate);
-                    return RedirectToAction(nameof(Index));
-                //}
-                //catch (DbUpdateConcurrencyException)
-                //{
-                //    if (!CandidateCertificateExists(candidateCertificate.Id))
-                //    {
-                //        return NotFound();
-                //    }
-                //    else
-                //    {
-                //        throw;
-                //    }
-                //}
-                //return RedirectToAction(nameof(Index));
+                await _service.UpdateAsync(id, candidateCertificate);
+                return RedirectToAction(nameof(Index));
             }
             var candidates = await _service.GetAllCandidatesAsync();
             var certificateTopics = await _service.GetAllCertificateTopicsAsync();
@@ -179,13 +151,7 @@ namespace Certificates2024.Controllers
             {
                 await _service.DeleteAsync(id);
             }
-
             return RedirectToAction(nameof(Index));
         }
-
-        //private bool CandidateCertificateExists(int id)
-        //{
-        //    return _service.CandidateCertificates.Any(e => e.Id == id);
-        //}
     }
 }

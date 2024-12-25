@@ -17,7 +17,7 @@ namespace Certificates2024.Controllers
 
         public QuestionsController(IQuestionsService service)
         {
-            _service= service;
+            _service = service;
         }
 
         // GET: Questions
@@ -45,9 +45,12 @@ namespace Certificates2024.Controllers
         }
 
         // GET: Questions/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "Id", "Id");
+            Console.WriteLine("Create has been called");
+            var topics = await _service.GetAllTopicsAsync();
+            ViewBag.CertificateTopicId = new SelectList(topics, "Id", "TopicName");
+            Console.WriteLine("ViewBag has been created");
             return View();
         }
 
@@ -56,15 +59,18 @@ namespace Certificates2024.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,QuestionText,CertificateTopicId,ImageSource,BooleanA,AnswerA,BooleanB,AnswerB,BooleanC,AnswerC,BooleanD,AnswerD")] Question question)
+        public async Task<IActionResult> Create([Bind("QuestionText,CertificateTopicId,ImageSource,BooleanA,AnswerA,BooleanB,AnswerB,BooleanC,AnswerC,BooleanD,AnswerD")] Question question)
         {
+            Console.WriteLine("Post create has been called");
             if (ModelState.IsValid)
             {
-                _context.Add(question);
-                await _context.SaveChangesAsync();
+                Console.WriteLine("ModelState is valid");
+                await _service.AddAsync(question);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "Id", "Id", question.CertificateTopicId);
+            Console.WriteLine("ModelState is not valid");
+            var topics = await _service.GetAllTopicsAsync();
+            ViewBag.CertificateTopicId = new SelectList(topics, "Id", "TopicName");
             return View(question);
         }
 
@@ -76,12 +82,13 @@ namespace Certificates2024.Controllers
                 return NotFound();
             }
 
-            var question = await _context.Questions.FindAsync(id);
+            var question = await _service.GetByIdAsync(Convert.ToInt32(id));
             if (question == null)
             {
                 return NotFound();
             }
-            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "Id", "Id", question.CertificateTopicId);
+            var topics = await _service.GetAllTopicsAsync();
+            ViewBag.CertificateTopicId = new SelectList(topics, "Id", "TopicName");
             return View(question);
         }
 
@@ -99,25 +106,11 @@ namespace Certificates2024.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(question);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!QuestionExists(question.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                await _service.UpdateAsync(id, question);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CertificateTopicId"] = new SelectList(_context.CertificateTopics, "Id", "Id", question.CertificateTopicId);
+            var topics = await _service.GetAllTopicsAsync();
+            ViewBag.CertificateTopicId = new SelectList(topics, "Id", "TopicName");
             return View(question);
         }
 
@@ -129,9 +122,7 @@ namespace Certificates2024.Controllers
                 return NotFound();
             }
 
-            var question = await _context.Questions
-                .Include(q => q.CertificateTopic)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var question = await _service.GetByIdAsync(Convert.ToInt32(id));
             if (question == null)
             {
                 return NotFound();
@@ -145,19 +136,12 @@ namespace Certificates2024.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var question = await _context.Questions.FindAsync(id);
+            var question = await _service.GetByIdAsync(id);
             if (question != null)
             {
-                _context.Questions.Remove(question);
+                await _service.DeleteAsync(id);
             }
-
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool QuestionExists(int id)
-        {
-            return _context.Questions.Any(e => e.Id == id);
         }
     }
 }

@@ -116,23 +116,8 @@ namespace Certificates2024.Controllers
 
             if (ModelState.IsValid)
             {
-                //try
-                //{
                 await _service.UpdateAsync(id, certificateTopic);
                 return RedirectToAction(nameof(Index));
-                //}
-                //catch (DbUpdateConcurrencyException)
-                //{
-                //    if (!CertificateTopicExists(certificateTopic.Id))
-                //    {
-                //        return NotFound();
-                //    }
-                //    else
-                //    {
-                //        throw;
-                //    }
-                //}
-                //return RedirectToAction(nameof(Index));
             }
             return View(certificateTopic);
         }
@@ -166,9 +151,5 @@ namespace Certificates2024.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
-        //    private bool CertificateTopicExists(int id)
-        //    {
-        //        return _context.CertificateTopics.Any(e => e.Id == id);
-        //    }
     }
 }

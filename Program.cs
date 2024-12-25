@@ -1,5 +1,8 @@
 using Certificates2024.Data;
 using Certificates2024.Data.Services;
+using Certificates2024.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 
@@ -22,6 +25,15 @@ builder.Services.AddScoped<ICandidatesService, CandidatesService>();
 //           .LogTo(Console.WriteLine));
 //builder.WebHost.UseEnvironment(Microsoft.Extensions.Hosting.Environments.Development);
 
+//Authentication and authorization
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+builder.Services.AddMemoryCache();
+builder.Services.AddSession();
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -36,12 +48,15 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+//Authentication & Authorization
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+//Seed database
 AppDbInitializer.Seed(app);
+AppDbInitializer.SeedUsersAndRolesAsync(app).Wait();
 app.Run();
