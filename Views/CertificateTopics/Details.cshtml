@@ -25,13 +25,13 @@
     <div>
         @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
         {
-            <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
+            <a asp-action="Edit" class="link-body-emphasis" asp-route-id="@Model?.Id">Edit</a>
 
         }
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Index" class="link-body-emphasis">Back to List</a>
     </div>
 
-<div>
+@* <div>
     <h4>CertificateTopic</h4>
     <hr />
     <dl class="row">
@@ -46,7 +46,7 @@
 <div>
     <a asp-action="Edit" class="link-body-emphasis" asp-route-id="@Model?.Id">Edit</a> |
         <a asp-action="Index" class="link-body-emphasis">Back to List</a>
-</div>
+</div> *@
 
 </body>
 </html>
