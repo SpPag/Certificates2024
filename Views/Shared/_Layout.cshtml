@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Certificates2024</title>
+    <title>@ViewBag.Title - Certificates2024</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Certificates2024.styles.css" asp-append-version="true" />
@@ -24,33 +24,35 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Candidates" asp-action="Index">Candidates</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="CandidateCertificates" asp-action="Index">Certificates</a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Candidates" asp-action="Index">Candidates</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="CandidateCertificates" asp-action="Index">Certificates</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Questions" asp-action="Index">Questions</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="CertificateTopics" asp-action="Index">Topics</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Questions" asp-action="Index">Questions</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
-                    </div>
                 </div>
-            <a class="btn btn-outline-success my-2 my-sm-0" asp-controller="Account" asp-action="Login">
-                <i class="bi bi-box-arrow-in-right"></i> Log in
-            </a>
+            </div>
+
+            <partial name="_Identity.cshtml" />
             </div>
         </nav>
     </header>
-                </div>
-            </div>
-        </nav>
+    </div>
+    </div>
+    </nav>
     </header>
 
     <div class="container">
