@@ -10,12 +10,12 @@ namespace Certificates2024.Models
 
         [Display(Name = "First Name")]
         [Required(ErrorMessage = "First Name is required")]
-        [RegularExpression(@"^[a-zA-Z\s]*$", ErrorMessage = "First name can only contain letters and spaces.")]
+        [RegularExpression(@"^[a-zA-Z]*$", ErrorMessage = "First name can only contain letters and spaces.")]
         public string? FirstName { get; set; }
 
         [Display(Name = "Last Name")]
         [Required(ErrorMessage = "Last Name is required")]
-        [RegularExpression(@"^[a-zA-Z\s]*$", ErrorMessage = "First name can only contain letters and spaces.")]
+        [RegularExpression(@"^[a-zA-Z]*$", ErrorMessage = "First name can only contain letters and spaces.")]
         public string? LastName { get; set; }
 
         [Display(Name = "Date of Birth")]
