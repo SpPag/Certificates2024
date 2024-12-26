@@ -10,6 +10,7 @@
 </head>
 <body>
 
+<<<<<<< Updated upstream
     <div>
         <h4>CertificateTopic</h4>
         <hr />
@@ -30,5 +31,23 @@
         }
         <a asp-action="Index">Back to List</a>
     </div>
+=======
+<div>
+    <h4>CertificateTopic</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TopicName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TopicName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" class="link-body-emphasis" asp-route-id="@Model?.Id">Edit</a> |
+        <a asp-action="Index" class="link-body-emphasis">Back to List</a>
+</div>
+>>>>>>> Stashed changes
 </body>
 </html>
