@@ -73,7 +73,16 @@ namespace Certificates2024.Controllers
                 Email = registerVM.EmailAddress,
                 UserName = registerVM.EmailAddress
             };
-
+            // Save the ApplicationUser to the database
+            var newUserResponse = await _userManager.CreateAsync(newUser, registerVM.Password);
+            if (!newUserResponse.Succeeded)
+            {
+                foreach (var error in newUserResponse.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return View(registerVM);
+            }
             var newCandidate = new Candidate()
             {
                 FirstName = registerVM.FirstName,
@@ -84,14 +93,12 @@ namespace Certificates2024.Controllers
                 ApplicationUserId = newUser.Id
             };
             await _service.AddAsync(newCandidate);
-            var newUserResponse = await _userManager.CreateAsync(newUser, registerVM.Password);
 
             if (newUserResponse.Succeeded)
                 await _userManager.AddToRoleAsync(newUser, UserRoles.User);
 
             return View("RegisterCompleted");
         }
-
         [HttpPost]
         public async Task<IActionResult> Logout()
         {

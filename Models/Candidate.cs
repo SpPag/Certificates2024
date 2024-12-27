@@ -34,7 +34,7 @@ namespace Certificates2024.Models
         public string? Email { get; set; }
         //Relationship with AspNetUsers
         [Required]
-        public string ApplicationUserId { get; set; }
+        public string? ApplicationUserId { get; set; }
         [ForeignKey("ApplicationUserId")]
         public ApplicationUser? ApplicationUser { get; set; }
         //Relationship with CandidateCertificates    

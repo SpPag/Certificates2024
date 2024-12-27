@@ -56,23 +56,33 @@ namespace Certificates2024.Data
                         {
                             new CertificateTopic()
                             {
-                                TopicName = TopicName.CSharpBasics
+                                TopicName = TopicName.CSharpBasics,
+                                Description = "C# Basics loremNo, Lorem Ipsum text is meant for placeholder purposes only. It should be replaced with actual content before the production release of your application or document.",
+                                Price = 99.99
                             },
                             new CertificateTopic()
                             {
-                                TopicName = TopicName.CSharpAdvanced
+                                TopicName = TopicName.CSharpAdvanced,
+                                Description = "C# Advanced loremNo, Lorem Ipsum text is meant for placeholder purposes only. It should be replaced with actual content before the production release of your application or document.",
+                                Price = 89.99
                             },
                             new CertificateTopic()
                             {
-                                TopicName = TopicName.JavaScriptBasics
+                                TopicName = TopicName.JavaScriptBasics,
+                                Description = "JavaScript Basics loremNo, Lorem Ipsum text is meant for placeholder purposes only. It should be replaced with actual content before the production release of your application or document.",
+                                Price = 79.99
                             },
                             new CertificateTopic()
                             {
-                                TopicName = TopicName.JavaScriptAdvanced
+                                TopicName = TopicName.JavaScriptAdvanced,
+                                Description = "JavaScript Advanced loremNo, Lorem Ipsum text is meant for placeholder purposes only. It should be replaced with actual content before the production release of your application or document.",
+                                Price = 79.99
                             },
                             new CertificateTopic()
                             {
-                                TopicName = TopicName.JavaScriptExpert
+                                TopicName = TopicName.JavaScriptExpert,
+                                Description = "JavaScript Expert loremNo, Lorem Ipsum text is meant for placeholder purposes only. It should be replaced with actual content before the production release of your application or document.",
+                                Price = 79.99
                             },
                         });
                         context.SaveChanges();

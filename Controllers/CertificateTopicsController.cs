@@ -64,13 +64,11 @@ namespace Certificates2024.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TopicName")] CertificateTopic certificateTopic)
+        public async Task<IActionResult> Create([Bind("TopicName, Description, Price")] CertificateTopic certificateTopic)
         {
-            Console.WriteLine("Create has been called");
             if (ModelState.IsValid)
             {
                 await _service.AddAsync(certificateTopic);
-                Console.WriteLine("ModelState is valid");
                 ViewData["TopicName"] = Enum.GetValues(typeof(TopicName))
                      .Cast<TopicName>()
                      .Select(t => new SelectListItem
@@ -81,8 +79,6 @@ namespace Certificates2024.Controllers
                      .ToList();
                 return RedirectToAction(nameof(Index));
             }
-            Console.WriteLine("ModelState is invalid");
-
             return View(certificateTopic);
         }
 
@@ -107,7 +103,7 @@ namespace Certificates2024.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,TopicName")] CertificateTopic certificateTopic)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,TopicName, Description, Price")] CertificateTopic certificateTopic)
         {
             if (id != certificateTopic.Id)
             {

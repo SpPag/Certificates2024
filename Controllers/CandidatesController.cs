@@ -45,31 +45,31 @@ namespace Certificates2024.Controllers
         }
 
         // GET: Candidates/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
+        //public IActionResult Create()
+        //{
+        //    return View();
+        //}
 
-        // POST: Candidates/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FirstName,LastName,BirthDate,PhotoIdNumber,Email")] Candidate candidate)
-        {
-            if (!ModelState.IsValid)
-            {
-                var errors = ModelState.Values.SelectMany(v => v.Errors);
-                foreach (var error in errors)
-                {
-                    Console.WriteLine(error.ErrorMessage);
-                }
-                return View(candidate);
-            }
-            await _service.AddAsync(candidate);
-            return RedirectToAction(nameof(Index));
+        //// POST: Candidates/Create
+        //// To protect from overposting attacks, enable the specific properties you want to bind to.
+        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("FirstName,LastName,BirthDate,PhotoIdNumber,Email")] Candidate candidate)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        var errors = ModelState.Values.SelectMany(v => v.Errors);
+        //        foreach (var error in errors)
+        //        {
+        //            Console.WriteLine(error.ErrorMessage);
+        //        }
+        //        return View(candidate);
+        //    }
+        //    await _service.AddAsync(candidate);
+        //    return RedirectToAction(nameof(Index));
 
-        }
+        //}
 
         // GET: Candidates/Edit/5
         public async Task<IActionResult> Edit(int id)
