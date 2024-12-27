@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Certificates2024.Data;
 using Certificates2024.Models;
 using Certificates2024.Data.Services;
+using System.Security.Claims;
 
 namespace Certificates2024.Controllers
 {
@@ -22,13 +23,20 @@ namespace Certificates2024.Controllers
         }
 
         // GET: CandidateCertificates
+        //public async Task<IActionResult> Index()
+        //{
+        //    var appDbContext = await _service.GetAllAsync();
+
+        //    return View(appDbContext);
+        //}
         public async Task<IActionResult> Index()
         {
-            var appDbContext = await _service.GetAllAsync();
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userRole = User.FindFirstValue(ClaimTypes.Role);
 
-            return View(appDbContext);
+            var orders = await _service.GetCertificatesByUserIdAndRoleAsync(userId, userRole);
+            return View(orders);
         }
-
         // GET: CandidateCertificates/Details/5
         public async Task<IActionResult> Details(int id)
         {
@@ -45,37 +53,83 @@ namespace Certificates2024.Controllers
 
             return View(candidateCertificate);
         }
-
         // GET: CandidateCertificates/Create
         public async Task<IActionResult> Create()
         {
-            var candidates = await _service.GetAllCandidatesAsync();
+            // Get current user
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var currentCandidate = await _service.GetCandidateByUserIdAsync(userId);
+
+            if (currentCandidate == null)
+            {
+                return BadRequest("Candidate not found for the current user.");
+            }
+
             var certificateTopics = await _service.GetAllCertificateTopicsAsync();
 
-            ViewBag.CandidateId = new SelectList(candidates.Select(c => new { c.Id, FullName = $"{c.FirstName} {c.LastName}" }), "Id", "FullName");
+            ViewBag.CandidateId = new SelectList(new List<object> { new { Id = currentCandidate.Id, FullName = $"{currentCandidate.FirstName} {currentCandidate.LastName}" } }, "Id", "FullName");
             ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "TopicName");
+
             return View();
         }
 
         // POST: CandidateCertificates/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CandidateId,CertificateTopicId,ExaminationDate")] CandidateCertificate candidateCertificate)
+        public async Task<IActionResult> Create([Bind("CertificateTopicId,ExaminationDate")] CandidateCertificate candidateCertificate)
         {
-            if (ModelState.IsValid)
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var currentCandidate = await _service.GetCandidateByUserIdAsync(userId);
+
+            if (currentCandidate == null)
+            {
+                return BadRequest("Candidate not found for the current user.");
+            }
+
+            candidateCertificate.CandidateId = currentCandidate.Id;
+
+            if (ModelState.IsValid && candidateCertificate.ExaminationDate >= DateTime.Now.AddHours(24))
             {
                 await _service.AddAsync(candidateCertificate);
                 return RedirectToAction(nameof(Index));
             }
 
-            var candidates = await _service.GetAllCandidatesAsync();
             var certificateTopics = await _service.GetAllCertificateTopicsAsync();
-            ViewBag.CandidateId = new SelectList(candidates, "Id", "FirstName", candidateCertificate.CandidateId);
+            ViewBag.CandidateId = new SelectList(new List<object> { new { Id = currentCandidate.Id, FullName = $"{currentCandidate.FirstName} {currentCandidate.LastName}" } }, "Id", "FullName");
             ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "TopicName", candidateCertificate.CertificateTopicId);
+
             return View(candidateCertificate);
         }
+        //// GET: CandidateCertificates/Create
+        //public async Task<IActionResult> Create()
+        //{
+        //    var candidates = await _service.GetAllCandidatesAsync();
+        //    var certificateTopics = await _service.GetAllCertificateTopicsAsync();
+
+        //    ViewBag.CandidateId = new SelectList(candidates.Select(c => new { c.Id, FullName = $"{c.FirstName} {c.LastName}" }), "Id", "FullName");
+        //    ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "TopicName");
+        //    return View();
+        //}
+
+        //// POST: CandidateCertificates/Create
+        //// To protect from overposting attacks, enable the specific properties you want to bind to.
+        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("CandidateId,CertificateTopicId,ExaminationDate")] CandidateCertificate candidateCertificate)
+        //{
+        //    if (ModelState.IsValid && candidateCertificate.ExaminationDate>=DateTime.Now.AddHours(24))
+        //    {
+        //        await _service.AddAsync(candidateCertificate);
+        //        return RedirectToAction(nameof(Index));
+        //    }
+
+        //    var candidates = await _service.GetAllCandidatesAsync();
+        //    var certificateTopics = await _service.GetAllCertificateTopicsAsync();
+        //    ViewBag.CandidateId = new SelectList(candidates, "Id", "FirstName", candidateCertificate.CandidateId);
+        //    ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "TopicName", candidateCertificate.CertificateTopicId);
+        //    return View(candidateCertificate);
+        //}
 
         // GET: CandidateCertificates/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -111,7 +165,7 @@ namespace Certificates2024.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && candidateCertificate.ExaminationDate >= DateTime.Now.AddHours(24))
             {
                 await _service.UpdateAsync(id, candidateCertificate);
                 return RedirectToAction(nameof(Index));

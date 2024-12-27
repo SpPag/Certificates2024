@@ -23,6 +23,21 @@ namespace Certificates2024.Data.Services
         {
             return await _context.CertificateTopics.ToListAsync();
         }
+        public async Task<List<CandidateCertificate>> GetCertificatesByUserIdAndRoleAsync(string userId, string userRole)
+        {
+            var certificates = await _context.CandidateCertificates.Include(n => n.CertificateTopic).Include(n => n.Candidate).ToListAsync();
+
+            if (userRole != "Admin")
+            {
+                certificates = certificates.Where(n => n.Candidate.ApplicationUserId == userId).ToList();
+            }
+
+            return certificates;
+        }
+        public async Task<Candidate> GetCandidateByUserIdAsync(string userId)
+        {
+            return await _context.Candidates.FirstOrDefaultAsync(c => c.ApplicationUserId == userId);
+        }
 
     }
 }

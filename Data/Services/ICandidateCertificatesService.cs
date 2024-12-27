@@ -7,5 +7,7 @@ namespace Certificates2024.Data.Services
     {
         Task<IEnumerable<Candidate>> GetAllCandidatesAsync(); // Method to get all candidates
         Task<IEnumerable<CertificateTopic>> GetAllCertificateTopicsAsync(); // Method to get all certificate topics
+        Task<List<CandidateCertificate>> GetCertificatesByUserIdAndRoleAsync(string userId, string userRole);
+        Task<Candidate> GetCandidateByUserIdAsync(string userId);
     }
 }
