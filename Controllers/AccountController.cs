@@ -1,4 +1,5 @@
 ﻿using Certificates2024.Data;
+using Certificates2024.Data.Services;
 using Certificates2024.Data.Static;
 using Certificates2024.Data.ViewModels;
 using Certificates2024.Models;
@@ -12,12 +13,14 @@ namespace Certificates2024.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly AppDbContext _context;
+        private readonly ICandidatesService _service;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, AppDbContext context)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, AppDbContext context, ICandidatesService service)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
+            _service = service;
         }
 
         public IActionResult Login()
@@ -66,10 +69,21 @@ namespace Certificates2024.Controllers
 
             var newUser = new ApplicationUser()
             {
-                FullName = registerVM.FullName,
+                FullName = $"{registerVM.FirstName} {registerVM.LastName}",
                 Email = registerVM.EmailAddress,
                 UserName = registerVM.EmailAddress
             };
+
+            var newCandidate = new Candidate()
+            {
+                FirstName = registerVM.FirstName,
+                LastName = registerVM.LastName,
+                BirthDate = registerVM.BirthDate,
+                PhotoIdNumber = registerVM.PhotoIdNumber,
+                Email = registerVM.EmailAddress,
+                ApplicationUserId = newUser.Id
+            };
+            await _service.AddAsync(newCandidate);
             var newUserResponse = await _userManager.CreateAsync(newUser, registerVM.Password);
 
             if (newUserResponse.Succeeded)

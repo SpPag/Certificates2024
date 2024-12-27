@@ -16,38 +16,38 @@ namespace Certificates2024.Data
                     context.Database.EnsureCreated();
 
                     //Candidates
-                    if (!context.Candidates.Any())
-                    {
-                        context.Candidates.AddRange(new List<Candidate>()
-                        {
-                            new Candidate()
-                            {
-                                FirstName = "John",
-                                LastName = "Michael",
-                                BirthDate = new DateTime(1990, 01, 01),
-                                Email = "JohnMichael@me.com",
-                                PhotoIdNumber = "123456789"
-                            },
-                            new Candidate()
-                            {
-                                FirstName = "Jane",
-                                LastName = "Doe",
-                                BirthDate = new DateTime(1989, 02, 02),
-                                Email = "JaneDoe@me.com",
-                                PhotoIdNumber = "993456789"
-                            },
+                    //if (!context.Candidates.Any())
+                    //{
+                    //    context.Candidates.AddRange(new List<Candidate>()
+                    //    {
+                    //        new Candidate()
+                    //        {
+                    //            FirstName = "John",
+                    //            LastName = "Michael",
+                    //            BirthDate = new DateTime(1990, 01, 01),
+                    //            Email = "JohnMichael@me.com",
+                    //            PhotoIdNumber = "123456789"
+                    //        },
+                    //        new Candidate()
+                    //        {
+                    //            FirstName = "Jane",
+                    //            LastName = "Doe",
+                    //            BirthDate = new DateTime(1989, 02, 02),
+                    //            Email = "JaneDoe@me.com",
+                    //            PhotoIdNumber = "993456789"
+                    //        },
 
-                            new Candidate()
-                            {
-                                FirstName = "John",
-                                LastName = "Smith",
-                                BirthDate = new DateTime(1987, 03, 04),
-                                Email = "JohnSmith@me.com",
-                                PhotoIdNumber = "883456789"
-                            },
-                        });
-                        context.SaveChanges();
-                    }
+                    //        new Candidate()
+                    //        {
+                    //            FirstName = "John",
+                    //            LastName = "Smith",
+                    //            BirthDate = new DateTime(1987, 03, 04),
+                    //            Email = "JohnSmith@me.com",
+                    //            PhotoIdNumber = "883456789"
+                    //        },
+                    //    });
+                    //    context.SaveChanges();
+                    //}
 
                     //Certificates
                     if (!context.CertificateTopics.Any())
@@ -79,43 +79,43 @@ namespace Certificates2024.Data
                     }
 
                     //CandidateCertificates
-                    if (!context.CandidateCertificates.Any())
-                    {
-                        context.CandidateCertificates.AddRange(new List<CandidateCertificate>()
-                        {
-                            new CandidateCertificate()
-                            {
-                                CandidateId = 1,
-                                CertificateTopicId = 1,
-                                ExaminationDate = new DateTime(2024,12,12),
-                                CandidateScore = 1,
-                                MaximumScore = 4,
-                                ResultLabel = false
+                    //if (!context.CandidateCertificates.Any())
+                    //{
+                    //    context.CandidateCertificates.AddRange(new List<CandidateCertificate>()
+                    //    {
+                    //        new CandidateCertificate()
+                    //        {
+                    //            CandidateId = 1,
+                    //            CertificateTopicId = 1,
+                    //            ExaminationDate = new DateTime(2024,12,12),
+                    //            CandidateScore = 1,
+                    //            MaximumScore = 4,
+                    //            ResultLabel = false
 
-                            },
-                            new CandidateCertificate()
-                            {
-                                CandidateId = 1,
-                                CertificateTopicId = 2,
-                                ExaminationDate = new DateTime(2024,10,12),
-                                CandidateScore = 3,
-                                MaximumScore = 4,
-                                ResultLabel = true
-                            },
-                            new CandidateCertificate()
-                            {
-                                CandidateId = 2,
-                                CertificateTopicId = 3,
-                                ExaminationDate = new DateTime(2025,01,12),
-                            },
-                        });
-                        context.SaveChanges();
-                    }
+                    //        },
+                    //        new CandidateCertificate()
+                    //        {
+                    //            CandidateId = 1,
+                    //            CertificateTopicId = 2,
+                    //            ExaminationDate = new DateTime(2024,10,12),
+                    //            CandidateScore = 3,
+                    //            MaximumScore = 4,
+                    //            ResultLabel = true
+                    //        },
+                    //        new CandidateCertificate()
+                    //        {
+                    //            CandidateId = 2,
+                    //            CertificateTopicId = 3,
+                    //            ExaminationDate = new DateTime(2025,01,12),
+                    //        },
+                    //    });
+                    //    context.SaveChanges();
+                    //}
 
                     //Questions
                     if (!context.Questions.Any())
                     {
-                         context.Questions.AddRange(new List<Question>()
+                        context.Questions.AddRange(new List<Question>()
                         {
                             new Question()
                             {
