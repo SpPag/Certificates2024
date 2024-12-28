@@ -9,9 +9,11 @@ using Certificates2024.Data;
 using Certificates2024.Models;
 using Certificates2024.Data.Services;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Certificates2024.Controllers
 {
+    [Authorize]
     public class CandidateCertificatesController : Controller
     {
         private readonly ICandidateCertificatesService _service;

@@ -10,6 +10,11 @@
             <a asp-action="Create" class="btn btn-outline-dark">Create New</a>
         </p>
 }
+<form class="form-inline my-2 my-lg-0 d-flex justify-content-start" asp-controller="CertificateTopics" asp-action="Filter" style="padding-right: 25px;">
+    <input name="searchString" type="text" class="form-control me-2" placeholder="Filter Topics.." aria-describedby="button-addon2" style="width: 250px;">
+    <button class="btn btn-secondary btn-sm" type="submit"><i class="bi bi-search"></i> Search</button>
+</form>
+<br/>
 <div class="row">
     @foreach (var item in Model)
     {
@@ -36,8 +41,3 @@
             </div>
     }
 </div>
-
-               
-        
-    </tbody>
-</table>

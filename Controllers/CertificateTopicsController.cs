@@ -9,9 +9,12 @@ using Certificates2024.Data;
 using Certificates2024.Models;
 using Certificates2024.Data.Enums;
 using Certificates2024.Data.Services;
+using Certificates2024.Data.Static;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Certificates2024.Controllers
 {
+    [Authorize(Roles = UserRoles.Admin)]
     public class CertificateTopicsController : Controller
     {
         private readonly ICertificateTopicsService _service;
@@ -22,6 +25,7 @@ namespace Certificates2024.Controllers
         }
 
         // GET: CertificateTopics
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var allTopics = await _service.GetAllAsync();
@@ -29,6 +33,7 @@ namespace Certificates2024.Controllers
         }
 
         // GET: CertificateTopics/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -146,6 +151,26 @@ namespace Certificates2024.Controllers
                 await _service.DeleteAsync(id);
             }
             return RedirectToAction(nameof(Index));
+        }
+        [AllowAnonymous]
+        public async Task<IActionResult> Filter(string searchString)
+        {
+            // Retrieve all topics
+            var allTopics = await _service.GetAllAsync();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                // Filter by partial match in TopicName or Description
+                var filteredResult = allTopics
+                    .Where(n =>
+                        n.TopicName.ToString().Contains(searchString, StringComparison.CurrentCultureIgnoreCase) || // Partial match for TopicName
+                        (!string.IsNullOrEmpty(n.Description) && n.Description.Contains(searchString, StringComparison.CurrentCultureIgnoreCase))) // Partial match for Description
+                    .ToList();
+
+                return View("Index", filteredResult);
+            }
+
+            return View("Index", allTopics);
         }
     }
 }

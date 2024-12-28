@@ -1,0 +1,39 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using Certificates2024.Data.ViewModels
+@model IEnumerable<UserWithRoleViewModel>
+
+@{
+    ViewData["Title"] = "List of all users with roles";
+}
+
+<div class="row">
+    <div class="col-md-6 offset-3">
+        <h4>List of all users</h4>
+
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th>@Html.DisplayNameFor(model => model.User.FullName)</th>
+                    <th>@Html.DisplayNameFor(model => model.User.Email)</th>
+                    <th>Role</th> <!-- Column for the role -->
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="align-middle">@Html.DisplayFor(modelItem => item.User.FullName)</td>
+                        <td class="align-middle">@Html.DisplayFor(modelItem => item.User.Email)</td>
+                        <td class="align-middle">
+                            @item.Role  <!-- Display the role -->
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

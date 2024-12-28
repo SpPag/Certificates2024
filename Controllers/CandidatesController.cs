@@ -8,9 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using Certificates2024.Data;
 using Certificates2024.Models;
 using Certificates2024.Data.Services;
+using Microsoft.AspNetCore.Authorization;
+using Certificates2024.Data.Static;
 
 namespace Certificates2024.Controllers
 {
+    [Authorize(Roles = UserRoles.Admin)]
     public class CandidatesController : Controller
     {
         private readonly ICandidatesService _service;
