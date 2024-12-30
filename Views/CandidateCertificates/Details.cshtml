@@ -60,7 +60,17 @@
         </dl>
     </div>
     <div>
-        <a asp-action="Edit" class="link-body-emphasis" asp-route-id="@Model?.Id">Edit</a> |
+        @if (User.Identity.IsAuthenticated && User.IsInRole("User"))
+        {
+            <a asp-controller="Tests" asp-action="Start" asp-route-topicId="@Model.CertificateTopic.Id" class="btn btn-secondary btn-sm">Start Test</a>
+        }
+    </div>
+    <br />
+    <div>
+        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+        {
+            <a asp-action="Edit" class="link-body-emphasis" asp-route-id="@Model?.Id">Edit</a>
+        }
         <a asp-action="Index" class="link-body-emphasis">Back to List</a>
     </div>
 </body>

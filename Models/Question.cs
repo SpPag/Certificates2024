@@ -33,5 +33,6 @@ namespace Certificates2024.Models
         public bool BooleanD { get; set; }
         [Display(Name = "Option D")]
         public string? AnswerD { get; set; }
+        public List<CandidateResponse>? Responses { get; set; }
     }
 }

@@ -5,6 +5,6 @@ namespace Certificates2024.Data.Services
 {
     public interface ICandidatesService : IEntityBaseRepository<Candidate>
     {
-
+        Task<Candidate> GetCandidateByApplicationUserIdAsync(string applicationUserId);
     }
 }

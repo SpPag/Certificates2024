@@ -17,6 +17,7 @@ builder.Services.AddScoped<IQuestionsService, QuestionsService>();
 builder.Services.AddScoped<ICertificateTopicsService, CertificateTopicsService>();
 builder.Services.AddScoped<ICandidateCertificatesService, CandidateCertificatesService>();
 builder.Services.AddScoped<ICandidatesService, CandidatesService>();
+builder.Services.AddScoped<ITestsService, TestsService>();
 
 //Added this for testing purposes (recommended by our lord and savior ChatGPT). Leaving it as a comment for future reference
 //builder.Services.AddDbContext<AppDbContext>(options =>

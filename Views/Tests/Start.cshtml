@@ -1,0 +1,22 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<Certificates2024.Models.Question>
+
+<form asp-action="Submit" method="post">
+    <input type="hidden" name="topicId" value="@ViewBag.CertificateTopicId" />
+    @foreach (var question in Model)
+    {
+        <div>
+            <p>@question.QuestionText</p>
+            <input type="radio" name="responses[@question.Id].SelectedAnswer" value="@question.AnswerA" /> @question.AnswerA
+            <input type="radio" name="responses[@question.Id].SelectedAnswer" value="@question.AnswerB" /> @question.AnswerB
+            <input type="radio" name="responses[@question.Id].SelectedAnswer" value="@question.AnswerC" /> @question.AnswerC
+            <input type="radio" name="responses[@question.Id].SelectedAnswer" value="@question.AnswerD" /> @question.AnswerD
+        </div>
+        <br />
+    }
+    <button type="submit">Submit</button>
+</form>

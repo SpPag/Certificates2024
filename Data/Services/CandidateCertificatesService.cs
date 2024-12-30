@@ -38,6 +38,9 @@ namespace Certificates2024.Data.Services
         {
             return await _context.Candidates.FirstOrDefaultAsync(c => c.ApplicationUserId == userId);
         }
-
+        public async Task<CertificateTopic> GetCertificateTopicByIdAsync(int topicId)
+        {
+            return await _context.CertificateTopics.FirstOrDefaultAsync(c => c.Id == topicId);
+        }
     }
 }

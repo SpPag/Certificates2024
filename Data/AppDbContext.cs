@@ -19,12 +19,24 @@ namespace Certificates2024.Data
             modelBuilder.Entity<CertificateTopic>()
                 .Property(ct => ct.TopicName)
                 .HasConversion<string>(); // Store enum as a string in the database
+            modelBuilder.Entity<CandidateResponse>()
+                .HasOne(cr => cr.CandidateTest)
+                .WithMany(ct => ct.Responses)
+                .HasForeignKey(cr => cr.CandidateTestId)
+                .OnDelete(DeleteBehavior.Restrict); // Cascade for CandidateTest
 
+            modelBuilder.Entity<CandidateResponse>()
+                .HasOne(cr => cr.Question)
+                .WithMany(q => q.Responses)
+                .HasForeignKey(cr => cr.QuestionId)
+                .OnDelete(DeleteBehavior.Restrict); // Restrict for Question
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<Candidate> Candidates { get; set; }
         public DbSet<CertificateTopic> CertificateTopics { get; set; }
         public DbSet<CandidateCertificate> CandidateCertificates { get; set; }
         public DbSet<Question> Questions { get; set; }
+        public DbSet<CandidateTest> CandidateTests { get; set; }
+
     }
 }

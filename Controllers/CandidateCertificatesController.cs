@@ -10,6 +10,7 @@ using Certificates2024.Models;
 using Certificates2024.Data.Services;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using Certificates2024.Data.Static;
 
 namespace Certificates2024.Controllers
 {
@@ -55,8 +56,8 @@ namespace Certificates2024.Controllers
 
             return View(candidateCertificate);
         }
-        // GET: CandidateCertificates/Create
-        public async Task<IActionResult> Create()
+        // GET: CandidateCertificates/Create with topicId
+        public async Task<IActionResult> Create(int? topicId)
         {
             // Get current user
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -70,8 +71,21 @@ namespace Certificates2024.Controllers
             var certificateTopics = await _service.GetAllCertificateTopicsAsync();
 
             ViewBag.CandidateId = new SelectList(new List<object> { new { Id = currentCandidate.Id, FullName = $"{currentCandidate.FirstName} {currentCandidate.LastName}" } }, "Id", "FullName");
-            ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "TopicName");
 
+            //ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "TopicName");
+            //var currentTopic = await _service.GetCertificateTopicByIdAsync(topicId);
+            //ViewBag.CertificateTopicId = new SelectList(new List<CertificateTopic> { currentTopic }, "Id", "TopicName");
+
+            // If a topicId is passed, pre-select that topic in the dropdown
+            if (topicId.HasValue)
+            {
+                var currentTopic = await _service.GetCertificateTopicByIdAsync(topicId.Value);
+                ViewBag.CertificateTopicId = new SelectList(new List<CertificateTopic> { currentTopic }, "Id", "TopicName");
+            }
+            else
+            {
+                ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "TopicName");
+            }
             return View();
         }
 
@@ -102,38 +116,9 @@ namespace Certificates2024.Controllers
 
             return View(candidateCertificate);
         }
-        //// GET: CandidateCertificates/Create
-        //public async Task<IActionResult> Create()
-        //{
-        //    var candidates = await _service.GetAllCandidatesAsync();
-        //    var certificateTopics = await _service.GetAllCertificateTopicsAsync();
-
-        //    ViewBag.CandidateId = new SelectList(candidates.Select(c => new { c.Id, FullName = $"{c.FirstName} {c.LastName}" }), "Id", "FullName");
-        //    ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "TopicName");
-        //    return View();
-        //}
-
-        //// POST: CandidateCertificates/Create
-        //// To protect from overposting attacks, enable the specific properties you want to bind to.
-        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("CandidateId,CertificateTopicId,ExaminationDate")] CandidateCertificate candidateCertificate)
-        //{
-        //    if (ModelState.IsValid && candidateCertificate.ExaminationDate>=DateTime.Now.AddHours(24))
-        //    {
-        //        await _service.AddAsync(candidateCertificate);
-        //        return RedirectToAction(nameof(Index));
-        //    }
-
-        //    var candidates = await _service.GetAllCandidatesAsync();
-        //    var certificateTopics = await _service.GetAllCertificateTopicsAsync();
-        //    ViewBag.CandidateId = new SelectList(candidates, "Id", "FirstName", candidateCertificate.CandidateId);
-        //    ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "TopicName", candidateCertificate.CertificateTopicId);
-        //    return View(candidateCertificate);
-        //}
 
         // GET: CandidateCertificates/Edit/5
+        [Authorize(Roles = UserRoles.Admin)]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -158,6 +143,7 @@ namespace Certificates2024.Controllers
         // POST: CandidateCertificates/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,CandidateId,CertificateTopicId,ExaminationDate,CandidateScore,MaximumScore,ResultLabel")] CandidateCertificate candidateCertificate)

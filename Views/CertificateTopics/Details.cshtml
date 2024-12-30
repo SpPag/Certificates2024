@@ -35,15 +35,23 @@
         </dl>
     </div>
     <div>
+        @if (User.Identity.IsAuthenticated && User.IsInRole("User"))
+        {
+            <a asp-controller="CandidateCertificates" asp-action="Create" asp-route-topicId="@Model.Id" class="btn btn-secondary btn-sm">Book Now</a>
+        }
+    </div>
+    <br />
+    <div>
         @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
         {
             <a asp-action="Edit" class="link-body-emphasis" asp-route-id="@Model?.Id">Edit</a>
 
         }
+
         <a asp-action="Index" class="link-body-emphasis">Back to List</a>
     </div>
 
-@* <div>
+    @* <div>
     <h4>CertificateTopic</h4>
     <hr />
     <dl class="row">
