@@ -3,7 +3,14 @@
 *@
 @{
 }
-@model Certificates2024.Models.CandidateTest
 
-<h2>Test Result</h2>
-<p>Score: @Model.Score%</p>
+@model CandidateTest
+
+<h2>Test Results</h2>
+<p>Score: @Model.Score</p>
+<ul>
+    @foreach (var response in Model.Responses)
+    {
+        <li>Question ID: @response.QuestionId, Answer: @response.SelectedAnswer</li>
+    }
+</ul>

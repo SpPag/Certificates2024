@@ -5,18 +5,57 @@
 }
 @model List<Certificates2024.Models.Question>
 
-<form asp-action="Submit" method="post">
-    <input type="hidden" name="topicId" value="@ViewBag.CertificateTopicId" />
-    @foreach (var question in Model)
-    {
-        <div>
-            <p>@question.QuestionText</p>
-            <input type="radio" name="responses[@question.Id].SelectedAnswer" value="@question.AnswerA" /> @question.AnswerA
-            <input type="radio" name="responses[@question.Id].SelectedAnswer" value="@question.AnswerB" /> @question.AnswerB
-            <input type="radio" name="responses[@question.Id].SelectedAnswer" value="@question.AnswerC" /> @question.AnswerC
-            <input type="radio" name="responses[@question.Id].SelectedAnswer" value="@question.AnswerD" /> @question.AnswerD
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar Navigation (Full Height) -->
+        <div class="col-md-2" style="position: fixed; top: 35%; left: 10%; height: 100vh; overflow-y: auto;">
+            <div class="list-group">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <a href="#question-@i" class="list-group-item list-group-item-action" style="height: 5vh" title="Go to Question @(@i + 1)">
+                        Question @(@i + 1)
+                    </a>
+                }
+            </div>
         </div>
-        <br />
-    }
-    <button type="submit">Submit</button>
-</form>
+
+
+        <!-- Main Content Area -->
+        <div class="col-md-10 offset-md-2" style="padding-left: 18%; padding-top: 20px;">
+            <form asp-action="Submit" method="post">
+                <input type="hidden" name="topicId" value="@ViewBag.CertificateTopicId" />
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    var question = Model[i];
+                    <div id="question-@i" class="card mb-3">
+                        <div class="card-header">
+                            <h5 class="card-title">Question @(@i + 1)</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>@question.QuestionText</p>
+                            <input type="hidden" name="responses[@i].QuestionId" value="@question.Id" />
+                            <div class="form-check">
+                                <input type="radio" name="responses[@i].SelectedAnswer" class="form-check-input" value="@question.AnswerA" />
+                                <label class="form-check-label">@question.AnswerA</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" name="responses[@i].SelectedAnswer" class="form-check-input" value="@question.AnswerB" />
+                                <label class="form-check-label">@question.AnswerB</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" name="responses[@i].SelectedAnswer" class="form-check-input" value="@question.AnswerC" />
+                                <label class="form-check-label">@question.AnswerC</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" name="responses[@i].SelectedAnswer" class="form-check-input" value="@question.AnswerD" />
+                                <label class="form-check-label">@question.AnswerD</label>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
