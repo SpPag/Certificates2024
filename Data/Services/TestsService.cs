@@ -23,10 +23,15 @@ public class TestsService : ITestsService
             var question = questions.FirstOrDefault(q => q.Id == response.QuestionId);
             if (question == null) continue;
 
-            string correctAnswer = question.BooleanA ? question.AnswerA :
+            // If there's no selected answer, count it as wrong
+            if (string.IsNullOrEmpty(response.SelectedAnswer))
+            {
+                response.SelectedAnswer = ""; // Set empty string to avoid null
+            }
+                string correctAnswer = question.BooleanA ? question.AnswerA :
                                    question.BooleanB ? question.AnswerB :
                                    question.BooleanC ? question.AnswerC :
-                                   question.BooleanD ? question.AnswerD : null;
+                                   question.BooleanD ? question.AnswerD : false.ToString();
 
             if (response.SelectedAnswer == correctAnswer)
             {
