@@ -2,12 +2,13 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    ViewBag.Title = "Test Result";
 }
 
 @model CandidateTest
 
 <h2>Test Results</h2>
-<p>Score: @Model.Score</p>
+<p>Score: @Model.Score%</p>
 <ul>
     @foreach (var response in Model.Responses)
     {

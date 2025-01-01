@@ -30,6 +30,12 @@ namespace Certificates2024.Data
                 .WithMany(q => q.Responses)
                 .HasForeignKey(cr => cr.QuestionId)
                 .OnDelete(DeleteBehavior.Restrict); // Restrict for Question
+
+            modelBuilder.Entity<CandidateTest>()
+                .HasOne(ct => ct.CandidateCertificate)
+                .WithOne(cc => cc.CandidateTest)
+                .HasForeignKey<CandidateTest>(cc => cc.CandidateCertificateId)
+                .OnDelete(DeleteBehavior.Restrict);
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<Candidate> Candidates { get; set; }
@@ -37,6 +43,5 @@ namespace Certificates2024.Data
         public DbSet<CandidateCertificate> CandidateCertificates { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<CandidateTest> CandidateTests { get; set; }
-
     }
 }

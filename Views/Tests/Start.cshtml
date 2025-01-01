@@ -2,6 +2,7 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    ViewBag.Title = "Test Has Started";
 }
 @model List<Certificates2024.Models.Question>
 
@@ -24,6 +25,7 @@
         <div class="col-md-10 offset-md-2" style="padding-left: 18%; padding-top: 20px;">
             <form asp-action="Submit" method="post">
                 <input type="hidden" name="topicId" value="@ViewBag.CertificateTopicId" />
+                <input type="hidden" name="candidateCertificateId" value="@ViewBag.CandidateCertificateId" />
                 @for (int i = 0; i < Model.Count; i++)
                 {
                     var question = Model[i];

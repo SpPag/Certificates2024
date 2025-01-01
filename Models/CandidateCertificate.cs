@@ -18,11 +18,14 @@ namespace Certificates2024.Models
         public CertificateTopic? CertificateTopic { get; set; }
         [Display(Name = "Date of Examination")]
         public DateTime ExaminationDate { get; set; }
+        public bool IsTestEligible => ExaminationDate <= DateTime.Now && DateTime.Now <= ExaminationDate.AddHours(2) && CandidateScore == null;
         [Display(Name = "Candidate's Score")]
         public int? CandidateScore { get; set; }
         [Display(Name = "Maximum Score")]
         public int? MaximumScore { get; set; }
         [Display(Name = "Test Result")]
         public bool ResultLabel { get; set; }
+        public int? CandidateTestId { get; set; }
+        public CandidateTest? CandidateTest { get; set; }
     }
 }

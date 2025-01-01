@@ -1,13 +1,14 @@
 ﻿using Certificates2024.Data.Base;
 using Certificates2024.Models;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol.Core.Types;
 
 namespace Certificates2024.Data.Services
 {
     public class CandidateCertificatesService : EntityBaseRepository<CandidateCertificate>, ICandidateCertificatesService
     {
         private readonly AppDbContext _context;
-        public CandidateCertificatesService(AppDbContext context) : base(context) 
+        public CandidateCertificatesService(AppDbContext context) : base(context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context), "DbContext was not injected properly.");
         }
@@ -41,6 +42,23 @@ namespace Certificates2024.Data.Services
         public async Task<CertificateTopic> GetCertificateTopicByIdAsync(int topicId)
         {
             return await _context.CertificateTopics.FirstOrDefaultAsync(c => c.Id == topicId);
+        }
+        public async Task<CandidateCertificate> GetCandidateCertificateByTestIdAsync(CandidateTest candidateTest)
+        {
+            // Retrieve the CandidateCertificate associated with the CandidateTest
+            var candidateCertificate = await _context.CandidateCertificates.FirstOrDefaultAsync(cc => cc.Id == candidateTest.CandidateCertificateId);
+            return candidateCertificate;
+            //if (candidateCertificate == null)
+            //{
+            //    throw new Exception("CandidateCertificate not found.");
+            //}
+
+            //// Update the properties of CandidateCertificate based on CandidateTest
+            //candidateCertificate.CandidateScore = (int)candidateTest.Score;
+            //candidateCertificate.ResultLabel = candidateTest.Score >= 50; // Example pass/fail logic
+
+            //// Save changes to the CandidateCertificate
+            //await _repository.UpdateAsync(candidateCertificate.Id, candidateCertificate);
         }
     }
 }

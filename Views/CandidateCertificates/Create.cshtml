@@ -1,5 +1,7 @@
 ﻿@model Certificates2024.Models.CandidateCertificate
-
+@{
+    ViewBag.Title = "Book an Exam";
+}
 
 
 <!DOCTYPE html>
@@ -38,7 +40,7 @@
                 </div>
             <div class="form-group">
                 <label asp-for="ExaminationDate" class="control-label"></label>
-                <input asp-for="ExaminationDate" class="form-control" type="datetime-local" min="@DateTime.Now.AddHours(24).ToString("yyyy-MM-ddTHH:mm")"/>
+                <input asp-for="ExaminationDate" class="form-control" type="datetime-local" min="@DateTime.Now.AddMinutes(1).ToString("yyyy-MM-ddTHH:mm")"/>
                 <span asp-validation-for="ExaminationDate" class="text-danger"></span>
             </div>
 
