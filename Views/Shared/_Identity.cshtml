@@ -29,7 +29,7 @@ else
     @*User profile section*@
     <div class="d-flex ms-auto align-items-center">
         <div class="dropdown me-2">
-            <button class="btn btn-success" type="button" id="profile-btn" data-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-success dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                 @{
                     ApplicationUser currentUser = null;
                     if (User.Identity.IsAuthenticated)
@@ -39,19 +39,20 @@ else
                 }
                 <i class="bi bi-person-badge"></i> Hello @currentUser.FullName
             </button>
-            <ul class="dropdown-menu" aria-labelledby="profile-btn">
+            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                @if (User.IsInRole("User"))
+                {
+                    <li>
+                        <a class="dropdown-item" asp-controller="Account" asp-action="UserDetails">My Details</a>
+                    </li>
+                }
                 <li>
-                    <a class="dropdown-item" asp-controller="CertificateTopics" asp-action="Index">
-                        <i class="bi bi-list"></i> My Exams
-                    </a>
+                    <form asp-controller="Account" asp-action="Logout" method="post">
+                        <button type="submit" class="dropdown-item">Logout</button>
+                    </form>
                 </li>
             </ul>
         </div>
-        <form asp-controller="Account" asp-action="Logout" class="mb-0">
-            <button class="btn btn-danger">
-                <i class="bi bi-box-arrow-in-right"></i> Log out
-            </button>
-        </form>
     </div>
 
 }
