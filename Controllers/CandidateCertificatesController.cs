@@ -81,10 +81,12 @@ namespace Certificates2024.Controllers
             {
                 var currentTopic = await _service.GetCertificateTopicByIdAsync(topicId.Value);
                 ViewBag.CertificateTopicId = new SelectList(new List<CertificateTopic> { currentTopic }, "Id", "TopicName");
+                ViewBag.IsSpecificTopic = true; // Flag to indicate a specific topic is preselected
             }
             else
             {
                 ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "TopicName");
+                ViewBag.IsSpecificTopic = false; // Flag to indicate the full list is shown
             }
             return View();
         }

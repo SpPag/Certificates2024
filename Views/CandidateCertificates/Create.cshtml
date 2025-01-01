@@ -26,9 +26,15 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="CertificateTopicId" class="control-label"></label>
+                    @if ((bool)ViewBag.IsSpecificTopic)
+                    {
                     <select asp-for="CertificateTopicId" class="form-control" asp-items="ViewBag.CertificateTopicId"
                             onmousedown="return false;"
                             onkeydown="return false;"></select>
+                   } else {
+                        <select asp-for="CertificateTopicId" class="form-control" asp-items="ViewBag.CertificateTopicId"
+                               ></select>
+                   }
                 </div>
             <div class="form-group">
                 <label asp-for="ExaminationDate" class="control-label"></label>
