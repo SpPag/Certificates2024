@@ -28,7 +28,7 @@
                     @Html.DisplayNameFor(model => model.Candidate.LastName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.CertificateTopic)
+                    @Html.DisplayNameFor(model => model.CertificateTopic.TopicName)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.ExaminationDate)
@@ -57,7 +57,7 @@
                         @Html.DisplayFor(modelItem => item.Candidate.LastName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CertificateTopic.Id)
+                        @Html.DisplayFor(modelItem => item.CertificateTopic.TopicName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.ExaminationDate)
