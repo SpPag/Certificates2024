@@ -55,7 +55,8 @@
                 @Html.DisplayNameFor(model => model.ResultLabel)
             </dt>
             <dd class="col-sm-10">
-                @(Model.ResultLabel ? "Exam Passed" : "Exam Failed")
+                @(Model.ExaminationDate > DateTime.Now ? "Pending"
+                    : Model.ResultLabel ? "Exam Passed" : "Exam Failed")
             </dd>
         </dl>
     </div>

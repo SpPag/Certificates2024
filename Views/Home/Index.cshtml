@@ -1,49 +1,57 @@
 ﻿@model IEnumerable<Certificates2024.Models.CertificateTopic>
 @{
     ViewBag.Title = "Home Page";
-
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-
 {
         <p>
             <a asp-action="Create" class="btn btn-outline-dark">Create New</a>
         </p>
 }
 
-
 <br />
 
-
-    <div class="row">
-    @foreach (var item in Model)
-
-    {
-                <div class="col-md-4 mb-4 d-flex align-items-stretch">
-                    <div class="card border-dark" style="max-width: 18rem;">
-                        <div class="card-header">@Html.DisplayFor(modelItem => item.TopicName)</div>
-                        <div class="card-body text-dark">
-                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.Price)</h5>
-                            <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+<div id="certificateCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        @{
+            var isFirst = true;
+            foreach (var item in Model)
+            {
+                        <div class="carousel-item @(isFirst ? "active" : "")">
+                            <div class="col-md-4 mb-4 d-flex align-items-stretch">
+                                <div class="card border-dark" style="max-width: 18rem;">
+                                    <div class="card-header">@Html.DisplayFor(modelItem => item.TopicName)</div>
+                                    <div class="card-body text-dark">
+                                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Price) €</h5>
+                                        <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <a asp-controller="CertificateTopics" asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Details</a>
+                                @if (!User.IsInRole("Admin"))
+                                {
+                                                <a asp-controller="CandidateCertificates" asp-action="Create" asp-route-topicId="@item.Id" class="btn btn-secondary btn-sm float-end">Book Now</a>
+                                }
+                                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                                {
+                                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Edit</a>
+                                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Delete</a>
+                                }
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-footer">
-                            <a asp-controller="CertificateTopics"asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Details</a>
-                    @if (!User.IsInRole("Admin"))
-
-                    {
-                                    <a asp-controller="CandidateCertificates" asp-action="Create" asp-route-topicId="@item.Id" class="btn btn-secondary btn-sm float-end">Book Now</a>
-                    }
-                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-
-                    {
-                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Edit</a>
-                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Delete</a>
-                    }
-                        </div>
-                    </div>
-                </div>
-    }
+                isFirst = false;
+            }
+        }
     </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#certificateCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#certificateCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>

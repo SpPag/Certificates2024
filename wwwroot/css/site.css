@@ -1,22 +1,96 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+html, body {
+    height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+.content {
+    flex: 1 0 auto;
+}
+
+.carousel-item {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center items vertically */
+    height: 100%; /* Ensure the item takes full height */
+}
+
+.carousel-inner {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center; /* Center items horizontally */
+}
+
+.carousel-item .col-md-4 {
+    flex: 1 0 33.3333%;
+    max-width: 33.3333%;
+}
+
+.card {
+    background-color: #333; /* Dark background for cards */
+    color: #fff; /* White text color */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 300px; /* Set a minimum height for the cards */
+}
+
+.card-header {
+    background-color: #444; /* Darker background for card header */
+    color: #fff; /* White text color */
+}
+
+.card-body {
+    color: #fff; /* White text color */
+    flex: 1; /* Allow the body to grow and fill available space */
+}
+
+.card-footer {
+    background-color: #444; /* Darker background for card footer */
+    border-top: 1px solid #555; /* Dark border for card footer */
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .card-footer .btn {
+        margin: 0 5px;
+    }
+
+    .card-footer .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+        .card-footer .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+
+        .card-footer .btn-secondary:focus, .card-footer .btn-secondary:active {
+            box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+        }
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(1); /* Invert colors for control icons to make them white */
 }
