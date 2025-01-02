@@ -5,14 +5,6 @@
 @inject UserManager<ApplicationUser> UserManager;
 @inject SignInManager<ApplicationUser> SignInManager
 
-@* @{ *@
-@*     ApplicationUser currentUser = null; *@
-@*     if (User.Identity.IsAuthenticated) *@
-@*     { *@
-@*         currentUser = await UserManager.GetUserAsync(User); *@
-@*     } *@
-@* } *@
-
 @if (!User.Identity.IsAuthenticated)
 {﻿
     <a class="btn btn-success ms-auto" asp-controller="Account" asp-action="Login">
@@ -37,7 +29,7 @@ else
                         currentUser = await UserManager.GetUserAsync(User);
                     }
                 }
-                <i class="bi bi-person-badge"></i> Hello @currentUser.FullName
+                <i class="bi bi-person-badge">Hello @currentUser.FullName</i>
             </button>
             <ul class="dropdown-menu" aria-labelledby="userDropdown">
                 @if (User.IsInRole("User"))

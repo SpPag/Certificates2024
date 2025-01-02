@@ -11,6 +11,9 @@
 }
 
 @model ApplicationUser
+
+
+<div class="text-center mb-4">
 <h2>User Details</h2>
 <p><strong>Full Name:</strong> @Model.FullName</p>
 <p><strong>Email:</strong> @Model.Email</p>
@@ -44,3 +47,23 @@ else
     <p>No exams booked.</p>
 }
 <!-- END UPDATE!!-->
+</div>
+
+<table class="table table-striped table-bordered">
+    <tbody>
+        <tr>
+            <td><strong>Full Name:</strong></td>
+            <td class="small align-middle">@Model.FullName</td>
+        </tr>
+        <tr>
+            <td><strong>Email:</strong></td>
+            <td class="small align-middle">@Model.Email</td>
+        </tr>
+        <tr>
+            <td><strong>Username:</strong></td>
+            <td class="small align-middle">@Model.UserName</td>
+        </tr>
+    </tbody>
+</table>
+
+

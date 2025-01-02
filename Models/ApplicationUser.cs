@@ -8,5 +8,7 @@ namespace Certificates2024.Models
         [Display(Name = "Full Name")]
         [Required(ErrorMessage = "Name is required")]
         public string? FullName { get; set; }
+
+        public Candidate? Candidate { get; set; }
     }
 }
