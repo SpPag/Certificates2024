@@ -36,6 +36,13 @@ namespace Certificates2024.Data
                 .WithOne(cc => cc.CandidateTest)
                 .HasForeignKey<CandidateTest>(cc => cc.CandidateCertificateId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Candidate>()
+                .HasOne(c => c.ApplicationUser)
+                .WithOne(au => au.Candidate)
+                .HasForeignKey<Candidate>(c => c.ApplicationUserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<Candidate> Candidates { get; set; }

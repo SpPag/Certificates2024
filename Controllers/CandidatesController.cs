@@ -10,6 +10,7 @@ using Certificates2024.Models;
 using Certificates2024.Data.Services;
 using Microsoft.AspNetCore.Authorization;
 using Certificates2024.Data.Static;
+using Microsoft.AspNetCore.Identity;
 
 namespace Certificates2024.Controllers
 {
@@ -17,10 +18,12 @@ namespace Certificates2024.Controllers
     public class CandidatesController : Controller
     {
         private readonly ICandidatesService _service;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public CandidatesController(ICandidatesService service)
+        public CandidatesController(ICandidatesService service, UserManager<ApplicationUser> userManager)
         {
             _service = service;
+            _userManager = userManager;
         }
 
         // GET: Candidates
@@ -95,20 +98,47 @@ namespace Certificates2024.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken] I don't know if this messes anything up so I'm commenting it.Also it was auto-generated so we may not want it at all
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,BirthDate,PhotoIdNumber,Email")] Candidate candidate)
+        public async Task<IActionResult> Edit(int id, [Bind("Id, ApplicationUserId, FirstName,LastName,BirthDate,PhotoIdNumber,Email")] Candidate candidate)
         {
             if (id != candidate.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-
-                await _service.UpdateAsync(id, candidate);
-                return RedirectToAction(nameof(Index));
+                return View(candidate);
             }
-            return View(candidate);
+
+            // Retrieve the Candidate and its associated ApplicationUser
+            //var existingCandidate = await _service.GetByIdAsync(id);
+            if (candidate == null)
+            {
+                return NotFound();
+            }
+
+            if (candidate.Email != candidate.Email)
+            {
+                // Update the email in the ApplicationUser table
+                var user = await _userManager.FindByIdAsync(candidate.ApplicationUserId);
+                if (user != null)
+                {
+                    user.Email = candidate.Email;
+                    user.UserName = candidate.Email; // Update username if it is tied to email
+                    var result = await _userManager.UpdateAsync(user);
+                    if (!result.Succeeded)
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                        return View(candidate);
+                    }
+                }
+            }
+            //Update the Candidate
+            await _service.UpdateAsync(id, candidate);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Candidates/Delete/5

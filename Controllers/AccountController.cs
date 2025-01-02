@@ -111,7 +111,8 @@ namespace Certificates2024.Controllers
                     BirthDate = registerVM.BirthDate,
                     PhotoIdNumber = registerVM.PhotoIdNumber,
                     Email = registerVM.EmailAddress,
-                    ApplicationUserId = newUser.Id
+                    ApplicationUserId = newUser.Id,
+                    ApplicationUser = newUser
                 };
                 await _service.AddAsync(newCandidate);
 
