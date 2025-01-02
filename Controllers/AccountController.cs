@@ -143,7 +143,21 @@ namespace Certificates2024.Controllers
             {
                 return RedirectToAction("Login");
             }
+            // UPDATE 2/1/25 Show in Details if Booked Exams
+            // Retrieve the Candidate associated with the current user
+            var candidate = await _context.Candidates
+                                          .Include(c => c.CandidateCertificates) // Include the certificates booked by the candidate
+                                          .ThenInclude(cc => cc.CertificateTopic) // Optionally include the certificate topic (exam details)
+                                          .FirstOrDefaultAsync(c => c.ApplicationUserId == currentUser.Id); // Find the candidate based on the user ID
 
+            // Check if the candidate has any booked exams (CandidateCertificates)
+            var bookedExams = candidate?.CandidateCertificates;
+
+            // Pass the current user and booked exams to the view using ViewBag
+            ViewBag.CurrentUser = currentUser;
+            ViewBag.BookedExams = bookedExams;
+
+            //END UPDATE!
             return View(currentUser);
         }
     }

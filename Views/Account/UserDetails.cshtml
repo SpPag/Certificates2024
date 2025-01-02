@@ -4,9 +4,43 @@
 @{
     ViewBag.Title = $"{@Model.FullName} Details";
 }
+         <!--UPDATE 2/1/2-->
+@{
+    var currentUser = ViewBag.CurrentUser as ApplicationUser;
+    var bookedExams = ViewBag.BookedExams as List<CandidateCertificate>;
+}
+
 @model ApplicationUser
 <h2>User Details</h2>
 <p><strong>Full Name:</strong> @Model.FullName</p>
 <p><strong>Email:</strong> @Model.Email</p>
 <p><strong>Username:</strong> @Model.UserName</p>
-
+        <!--UPDATE 2/1/25-->
+@if (bookedExams != null && bookedExams.Any())
+{
+    <h3>Booked Exams:</h3>
+    <ul>
+        @foreach (var certificate in bookedExams)
+        {
+            <li>
+                <strong>Exam:</strong> @certificate.CertificateTopic?.TopicName <br />
+                <strong>Date of Examination:</strong> @certificate.ExaminationDate.ToString("yyyy-MM-dd HH:mm") <br />
+                <strong>Score:</strong> @certificate.CandidateScore <br />
+                <strong>Result:</strong>
+                @if (certificate.ExaminationDate > DateTime.Now)
+                {
+                    <span>Pending</span>
+                }
+                else
+                {
+                    <span>@(certificate.ResultLabel ? "Passed" : "Failed")</span>
+                }
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No exams booked.</p>
+}
+<!-- END UPDATE!!-->
