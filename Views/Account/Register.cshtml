@@ -7,14 +7,16 @@
 @model RegisterVM;
 
 @{
-    ViewData["Title"] = "Sign up for a new account";
+    ViewBag.Title = "Sign up for a new account";
 }
 
 <div class="row">
     <div class="col-md-6 offset-3">
+        <div class="text-center mb-4">
         <p>
             <h4>Sign up for a new account</h4>
         </p>
+        </div>
 
         @if (TempData["Error"] != null)
         {

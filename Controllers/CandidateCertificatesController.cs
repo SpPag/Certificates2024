@@ -106,7 +106,7 @@ namespace Certificates2024.Controllers
 
             candidateCertificate.CandidateId = currentCandidate.Id;
 
-            if (ModelState.IsValid && candidateCertificate.ExaminationDate >= DateTime.Now.AddHours(24))
+            if (ModelState.IsValid && candidateCertificate.ExaminationDate >= DateTime.Now)
             {
                 await _service.AddAsync(candidateCertificate);
                 return RedirectToAction(nameof(Index));
@@ -155,7 +155,7 @@ namespace Certificates2024.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid && candidateCertificate.ExaminationDate >= DateTime.Now.AddHours(24))
+            if (ModelState.IsValid && candidateCertificate.ExaminationDate >= DateTime.Now)
             {
                 await _service.UpdateAsync(id, candidateCertificate);
                 return RedirectToAction(nameof(Index));

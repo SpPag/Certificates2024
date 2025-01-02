@@ -1,5 +1,7 @@
 ﻿@model Certificates2024.Models.CertificateTopic
-
+@{
+    ViewBag.Title = "Edit Topic";
+}
 
 
 <!DOCTYPE html>
@@ -20,9 +22,9 @@
                 <input type="hidden" asp-for="Id" />
                 <div class="form-group">
                     <h4>CertificateTopic</h4>
-					<label asp-for="TopicName" class="control-label"></label>
-					<input asp-for="TopicName" asp-items="@(ViewData["TopicName"] as IEnumerable<SelectListItem>)" class="form-control" readonly/>
-					<span asp-validation-for="TopicName" class="text-danger"></span>
+                    <label asp-for="TopicName" class="control-label"></label>
+                    <input asp-for="TopicName" asp-items="@(ViewData["TopicName"] as IEnumerable<SelectListItem>)" class="form-control" readonly />
+                    <span asp-validation-for="TopicName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Description" class="control-label"></label>

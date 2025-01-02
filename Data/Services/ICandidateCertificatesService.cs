@@ -10,5 +10,6 @@ namespace Certificates2024.Data.Services
         Task<List<CandidateCertificate>> GetCertificatesByUserIdAndRoleAsync(string userId, string userRole);
         Task<Candidate> GetCandidateByUserIdAsync(string userId);
         Task<CertificateTopic> GetCertificateTopicByIdAsync(int topicId);
+        Task<CandidateCertificate> GetCandidateCertificateByTestIdAsync(CandidateTest candidateTest);
     }
 }

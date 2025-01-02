@@ -13,7 +13,7 @@ public class TestsService : ITestsService
         _context = context;
     }
 
-    public async Task<double> CalculateScoreAsync(int topicId, List<CandidateResponse> responses)
+    public async Task<(int CorrectAnswers, int QuestionCount)> CalculateScoreAsync(int topicId, List<CandidateResponse> responses)
     {
         var questions = await _questionsService.GetQuestionsByTopicIdAsync(topicId);
         int correctAnswers = 0;
@@ -39,7 +39,8 @@ public class TestsService : ITestsService
             }
         }
 
-        return (double)correctAnswers / questions.Count() * 100; // Return score as a percentage
+        //return (double)correctAnswers / questions.Count() * 100; // Return score as a percentage
+        return (correctAnswers, questions.Count());
     }
 
     public async Task SaveTestResultAsync(CandidateTest candidateTest)

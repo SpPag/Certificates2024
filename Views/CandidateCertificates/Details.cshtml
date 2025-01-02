@@ -1,6 +1,7 @@
 ﻿@model Certificates2024.Models.CandidateCertificate
-
-
+@{
+    ViewBag.Title = "Exam Details";
+}
 
 <!DOCTYPE html>
 
@@ -8,62 +9,66 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Details</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 </head>
 <body>
-
     <div>
-        <h4>Candidate Certificate</h4>
+        
+        <div class="text-center mb-4">
+            <h4>Exam Overview</h4>
+        </div>
+        
         <hr />
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Candidate)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Candidate.Id)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Candidate.FirstName)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Candidate.FirstName)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.CertificateTopic)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.CertificateTopic.Id)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.ExaminationDate)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.ExaminationDate)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.CandidateScore)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.CandidateScore)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.MaximumScore)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.MaximumScore)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.ResultLabel)
-            </dt>
-            <dd class="col-sm-10">
-                @(Model.ExaminationDate > DateTime.Now ? "Pending"
-                    : Model.ResultLabel ? "Exam Passed" : "Exam Failed")
-            </dd>
-        </dl>
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <th scope="row">@Html.DisplayNameFor(model => model.Candidate.Id)</th>
+                    <td>@Html.DisplayFor(model => model.Candidate.Id)</td>
+                </tr>
+                <tr>
+                    <th scope="row">Full Name</th>
+                    <td>@($"{Model.Candidate.FirstName} {Model.Candidate.LastName}")</td>
+                </tr>
+                <tr>
+                    <th scope="row">@Html.DisplayNameFor(model => model.CertificateTopic)</th>
+                    <td>@Html.DisplayFor(model => model.CertificateTopic.TopicName)</td>
+                </tr>
+                <tr>
+                    <th scope="row">@Html.DisplayNameFor(model => model.ExaminationDate)</th>
+                    <td>@Html.DisplayFor(model => model.ExaminationDate)</td>
+                </tr>
+                <tr>
+                    <th scope="row">@Html.DisplayNameFor(model => model.CandidateScore)</th>
+                    <td>@Html.DisplayFor(model => model.CandidateScore)</td>
+                </tr>
+                <tr>
+                    <th scope="row">@Html.DisplayNameFor(model => model.MaximumScore)</th>
+                    <td>@Html.DisplayFor(model => model.MaximumScore)</td>
+                </tr>
+                <tr>
+                    <th scope="row">@Html.DisplayNameFor(model => model.ResultLabel)</th>
+                    <td>
+                        @(Model.ExaminationDate > DateTime.Now ? "Pending"
+                            : Model.ResultLabel ? "Exam Passed" : "Exam Failed")
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <div>
         @if (User.Identity.IsAuthenticated && User.IsInRole("User"))
         {
-            <a asp-controller="Tests" asp-action="Start" asp-route-topicId="@Model.CertificateTopic.Id" class="btn btn-secondary btn-sm">Start Test</a>
+            @if (Model.IsTestEligible)
+            {
+                <a asp-controller="Tests" asp-action="Start" asp-route-topicId="@Model.CertificateTopic.Id" asp-route-candidateCertificateId="@Model.Id" class="btn btn-secondary btn-sm">Start Test</a>
+            }
+            else
+            {
+                <button class="btn btn-secondary btn-sm" disabled>
+                    Not Eligible to Start
+                    <span class="tooltip" title="You need to meet the eligibility criteria to start this test."></span>
+                </button>
+            }
         }
     </div>
     <br />

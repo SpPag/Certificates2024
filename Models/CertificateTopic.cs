@@ -10,7 +10,6 @@ namespace Certificates2024.Models
         public int Id { get; set; }
         [Display(Name = "Certificate Topic")]
         public TopicName TopicName { get; set; }
-
         public string? Description { get; set; }
         public double Price { get; set; }
         //Relationship with CandidateCertificate

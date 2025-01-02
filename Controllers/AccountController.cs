@@ -135,5 +135,16 @@ namespace Certificates2024.Controllers
         {
             return View();
         }
+        //UPDATE !!! //
+        public async Task<IActionResult> UserDetails()  //View!
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            return View(currentUser);
+        }
     }
 }
