@@ -98,7 +98,7 @@ namespace Certificates2024.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken] I don't know if this messes anything up so I'm commenting it.Also it was auto-generated so we may not want it at all
-        public async Task<IActionResult> Edit(int id, [Bind("Id, ApplicationUserId, FirstName,LastName,BirthDate,PhotoIdNumber,Email")] Candidate candidate)
+        public async Task<IActionResult> Edit(int id, [Bind("Id, ApplicationUserId, FirstName, LastName, BirthDate, PhotoIdNumber, Email")] Candidate candidate)
         {
             if (id != candidate.Id)
             {
@@ -112,30 +112,33 @@ namespace Certificates2024.Controllers
 
             // Retrieve the Candidate and its associated ApplicationUser
             //var existingCandidate = await _service.GetByIdAsync(id);
+
+            // You already have the `candidate` instance being tracked by the context
+            //var existingCandidate = candidate;  // This is the already-tracked instance from the `Edit` GET request
             if (candidate == null)
             {
                 return NotFound();
             }
 
-            if (candidate.Email != candidate.Email)
+
+            // Update the email in the ApplicationUser table
+            var user = await _userManager.FindByIdAsync(candidate.ApplicationUserId);
+            if (user != null)
             {
-                // Update the email in the ApplicationUser table
-                var user = await _userManager.FindByIdAsync(candidate.ApplicationUserId);
-                if (user != null)
+                user.FullName = $"{candidate.FirstName} {candidate.LastName}";
+                user.Email = candidate.Email;
+                user.UserName = candidate.Email; // Update username if it is tied to email
+                var result = await _userManager.UpdateAsync(user);
+                if (!result.Succeeded)
                 {
-                    user.Email = candidate.Email;
-                    user.UserName = candidate.Email; // Update username if it is tied to email
-                    var result = await _userManager.UpdateAsync(user);
-                    if (!result.Succeeded)
+                    foreach (var error in result.Errors)
                     {
-                        foreach (var error in result.Errors)
-                        {
-                            ModelState.AddModelError(string.Empty, error.Description);
-                        }
-                        return View(candidate);
+                        ModelState.AddModelError(string.Empty, error.Description);
                     }
+                    return View(candidate);
                 }
             }
+
             //Update the Candidate
             await _service.UpdateAsync(id, candidate);
             return RedirectToAction(nameof(Index));
@@ -166,7 +169,23 @@ namespace Certificates2024.Controllers
             var candidate = await _service.GetByIdAsync(id);
             if (candidate != null)
             {
-                await _service.DeleteAsync(id);
+                // First, delete the associated ApplicationUser
+                var user = await _userManager.FindByIdAsync(candidate.ApplicationUserId);
+                if (user != null)
+                {
+                    Console.WriteLine("user isn't null");
+                    var deleteResult = await _userManager.DeleteAsync(user);
+                    Console.WriteLine("user deleted");
+                    if (!deleteResult.Succeeded)
+                    {
+                        foreach (var error in deleteResult.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                        return View(candidate);
+                    }
+                }
+                //await _service.DeleteAsync(id);
             }
             return RedirectToAction(nameof(Index));
         }
