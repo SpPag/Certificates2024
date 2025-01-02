@@ -76,6 +76,10 @@
         @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
         {
             <a asp-action="Edit" class="link-body-emphasis" asp-route-id="@Model?.Id">Edit</a>
+            @if (Model?.CandidateTestId == null)
+            {
+                <a asp-action="Delete" asp-route-id="@Model?.Id" class="link-body-emphasis">Delete</a>
+            }
         }
         <a asp-action="Index" class="link-body-emphasis">Back to List</a>
     </div>

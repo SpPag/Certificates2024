@@ -181,7 +181,10 @@ namespace Certificates2024.Controllers
             {
                 return NotFound();
             }
-
+            if (candidateCertificate.CandidateTestId != null)
+            {
+                return View("~/Views/Account/AccessDenied.cshtml");
+            }
             return View(candidateCertificate);
         }
 

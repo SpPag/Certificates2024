@@ -91,7 +91,7 @@
                         @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                         {
                             <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Edit</a>
-                            @if (item.CandidateTest == null)
+                            @if (item.CandidateTestId == null)
                             {
                             <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Delete</a>
                             }
