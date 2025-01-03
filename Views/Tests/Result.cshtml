@@ -12,6 +12,11 @@
 <ul>
     @foreach (var response in Model.Responses)
     {
-        <li>Question ID: @response.QuestionId, Answer: @response.SelectedAnswer</li>
+        <li>Question ID: @response.QuestionId, Answer: @response.SelectedAnswer @response.IsCorrect</li>
     }
 </ul>
+
+@if (Model.Score >= 50)
+{
+    <a asp-controller="CandidateCertificates" asp-action="Certificate" asp-route-id="@Model.CandidateCertificate.Id" class="btn btn-primary btn-sm" target="_blank">View Certificate</a> <!-- Button to view the certificate -->
+}
