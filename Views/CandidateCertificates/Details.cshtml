@@ -58,6 +58,10 @@
     <div>
         @if (User.Identity.IsAuthenticated && User.IsInRole("User"))
         {
+            @if (Model.ResultLabel)
+            {
+                <a asp-controller="CandidateCertificates" asp-action="Certificate" asp-route-id="@Model.Id" class="btn btn-primary btn-sm">View Certificate</a> <!-- Button to view the certificate -->
+            }
             @if (Model.IsTestEligible)
             {
                 <a asp-controller="Tests" asp-action="Start" asp-route-topicId="@Model.CertificateTopic.Id" asp-route-candidateCertificateId="@Model.Id" class="btn btn-secondary btn-sm">Start Test</a>

@@ -15,3 +15,8 @@
         <li>Question ID: @response.QuestionId, Answer: @response.SelectedAnswer</li>
     }
 </ul>
+
+@if (Model.Score >= 50)
+{
+    <a asp-controller="CandidateCertificates" asp-action="Certificate" asp-route-id="@Model.Id" class="btn btn-primary btn-sm">View Certificate</a> <!-- Button to view the certificate -->
+}
