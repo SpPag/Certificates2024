@@ -60,7 +60,7 @@
         {
             @if (Model.ResultLabel)
             {
-                <a asp-controller="CandidateCertificates" asp-action="Certificate" asp-route-id="@Model.Id" class="btn btn-primary btn-sm">View Certificate</a> <!-- Button to view the certificate -->
+                <a asp-controller="CandidateCertificates" asp-action="Certificate" asp-route-id="@Model.Id" class="btn btn-primary btn-sm" target="_blank">View Certificate</a> <!-- Button to view the certificate -->
             }
             @if (Model.IsTestEligible)
             {
