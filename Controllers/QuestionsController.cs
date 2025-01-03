@@ -50,10 +50,8 @@ namespace Certificates2024.Controllers
         // GET: Questions/Create
         public async Task<IActionResult> Create()
         {
-            Console.WriteLine("Create has been called");
             var topics = await _service.GetAllTopicsAsync();
             ViewBag.CertificateTopicId = new SelectList(topics, "Id", "TopicName");
-            Console.WriteLine("ViewBag has been created");
             return View();
         }
 

@@ -158,6 +158,12 @@ namespace Certificates2024.Controllers
                 return NotFound();
             }
 
+            if (candidate.CandidateCertificates?.Count > 0)
+            {
+                Console.WriteLine("Candidate has certificates");
+                TempData["DeleteMessage"] = "You cannot delete this candidate because they have certificates.";
+                return RedirectToAction(nameof(Index));
+            }
             return View(candidate);
         }
 
