@@ -200,5 +200,28 @@ namespace Certificates2024.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+
+        // GET: CandidateCertificates/Certificate/{id}
+        public async Task<IActionResult> Certificate(int id)
+        {
+            // Retrieve the CandidateCertificate by ID
+            var candidateCertificate = await _service.GetByIdAsync(id);
+
+            if (candidateCertificate == null)
+            {
+                return NotFound();
+            }
+
+            // Retrieve Candidate details
+            var candidate = await _service.GetCandidateByUserIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            // If no candidate found, return an error
+            if (candidate == null)
+            {
+                return BadRequest("Candidate not found.");
+            }
+
+            return View(candidateCertificate);
+        }
     }
 }
