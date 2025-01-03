@@ -72,6 +72,10 @@ namespace Certificates2024.Data.Base
             {
                 query = query.Include(q => (q as Question).CertificateTopic);
             }
+            if (typeof(T) == typeof(Candidate))
+            {
+                query = query.Include(q => (q as Candidate).CandidateCertificates);
+            }
             return await query.FirstOrDefaultAsync(n => EF.Property<int>(n, "Id") == id);
         }
         public async Task UpdateAsync(int id, T entity)

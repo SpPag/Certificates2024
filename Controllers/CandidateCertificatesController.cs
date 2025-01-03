@@ -11,6 +11,7 @@ using Certificates2024.Data.Services;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Certificates2024.Data.Static;
+using Rotativa.AspNetCore;
 
 namespace Certificates2024.Controllers
 {
@@ -134,6 +135,12 @@ namespace Certificates2024.Controllers
                 return NotFound();
             }
 
+            if (candidateCertificate.ExaminationDate < DateTime.Now)
+            {
+                TempData["DeleteMessage"] = "You cannot edit a certificate that has already been taken.";
+                return RedirectToAction(nameof(Index));
+            }
+
             var candidates = await _service.GetAllCandidatesAsync();
             var certificateTopics = await _service.GetAllCertificateTopicsAsync();
             ViewBag.CandidateId = new SelectList(candidates, "Id", "FirstName", candidateCertificate.CandidateId);
@@ -222,6 +229,34 @@ namespace Certificates2024.Controllers
             }
 
             return View(candidateCertificate);
+        }
+        public async Task<IActionResult> CertificatePdf(int id)
+        {
+            // Retrieve the CandidateCertificate by ID
+            var candidateCertificate = await _service.GetByIdAsync(id);
+
+            if (candidateCertificate == null)
+            {
+                return NotFound();
+            }
+
+            // Retrieve Candidate details
+            var candidate = await _service.GetCandidateByUserIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            if (candidate == null)
+            {
+                return BadRequest("Candidate not found.");
+            }
+
+            // Pass the model to the view and generate the PDF
+            return new ViewAsPdf("Certificate", candidateCertificate)
+            {
+                FileName = "Certificate.pdf",
+                PageSize = Rotativa.AspNetCore.Options.Size.A4,
+                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Landscape,
+                PageMargins = new Rotativa.AspNetCore.Options.Margins(5, 5, 5, 5),
+                CustomSwitches = "--disable-smart-shrinking --print-media-type --background"
+            };
         }
     }
 }

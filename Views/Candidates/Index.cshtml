@@ -4,12 +4,6 @@
 @{
     ViewBag.Title = "Candidates";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    if (TempData["DeleteMessage"] != null)
-    {
-        <script>
-            alert('@TempData["DeleteMessage"]');
-        </script>
-    }
 }
 
 <h1>Candidates</h1>
