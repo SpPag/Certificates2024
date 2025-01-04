@@ -20,7 +20,7 @@
                         @foreach (var response in Model.Responses)
                         {
                             <li class="list-group-item">
-                                <strong>Question ID:</strong> @response.QuestionId,
+                                <strong>Question:</strong> @response.Question.QuestionText,
                                 <strong>Answer:</strong> @response.SelectedAnswer
                                 <span class="badge @((response.IsCorrect) ? "bg-success" : "bg-danger")">
                                     @((response.IsCorrect) ? "Correct" : "Incorrect")

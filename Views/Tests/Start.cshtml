@@ -34,25 +34,34 @@
                         <div class="card-header bg-primary text-white">
                             <h5 class="card-title mb-0">Question @(@i + 1)</h5>
                         </div>
-                        <div class="card-body">
-                            <p class="card-text">@question.QuestionText</p>
-                            <input type="hidden" name="responses[@i].QuestionId" value="@question.Id" />
-                            <div class="form-check">
-                                <input type="radio" name="responses[@i].SelectedAnswer" class="form-check-input" value="@question.AnswerA" id="answerA-@i" />
-                                <label class="form-check-label" for="answerA-@i">@question.AnswerA</label>
+                        <div class="card-body d-flex justify-content-between">
+                            <div>
+                                <p class="card-text">@question.QuestionText</p>
+                                <input type="hidden" name="responses[@i].QuestionId" value="@question.Id" />
+                                <div class="form-check">
+                                    <input type="radio" name="responses[@i].SelectedAnswer" class="form-check-input" value="@question.AnswerA" id="answerA-@i" />
+                                    <label class="form-check-label" for="answerA-@i">@question.AnswerA</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" name="responses[@i].SelectedAnswer" class="form-check-input" value="@question.AnswerB" id="answerB-@i" />
+                                    <label class="form-check-label" for="answerB-@i">@question.AnswerB</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" name="responses[@i].SelectedAnswer" class="form-check-input" value="@question.AnswerC" id="answerC-@i" />
+                                    <label class="form-check-label" for="answerC-@i">@question.AnswerC</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" name="responses[@i].SelectedAnswer" class="form-check-input" value="@question.AnswerD" id="answerD-@i" />
+                                    <label class="form-check-label" for="answerD-@i">@question.AnswerD</label>
+                                </div>
                             </div>
-                            <div class="form-check">
-                                <input type="radio" name="responses[@i].SelectedAnswer" class="form-check-input" value="@question.AnswerB" id="answerB-@i" />
-                                <label class="form-check-label" for="answerB-@i">@question.AnswerB</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="radio" name="responses[@i].SelectedAnswer" class="form-check-input" value="@question.AnswerC" id="answerC-@i" />
-                                <label class="form-check-label" for="answerC-@i">@question.AnswerC</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="radio" name="responses[@i].SelectedAnswer" class="form-check-input" value="@question.AnswerD" id="answerD-@i" />
-                                <label class="form-check-label" for="answerD-@i">@question.AnswerD</label>
-                            </div>
+                            @if (!string.IsNullOrEmpty(question.ImageSource))
+
+                            {
+                                <div class="ml-3" style="flex-shrink: 0; width: 300px; height: 300px; overflow: hidden;">
+                                    <img src="@question.ImageSource" alt="Question Image" class="img-fluid" style="max-width: 100%; max-height: 100%;" />
+                                </div>
+                            }
                         </div>
                     </div>
                 }
@@ -63,3 +72,5 @@
         </div>
     </div>
 </div>
+
+
