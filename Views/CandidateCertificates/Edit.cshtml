@@ -33,21 +33,21 @@
                     <input asp-for="ExaminationDate" class="form-control" />
                     <span asp-validation-for="ExaminationDate" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="CandidateScore" class="control-label"></label>
-                    <input asp-for="CandidateScore" class="form-control" />
-                    <span asp-validation-for="CandidateScore" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="MaximumScore" class="control-label"></label>
-                    <input asp-for="MaximumScore" class="form-control" />
-                    <span asp-validation-for="MaximumScore" class="text-danger"></span>
-                </div>
-                <div class="form-group form-check">
-                    <label class="form-check-label">
-                        <input class="form-check-input" asp-for="ResultLabel" /> @Html.DisplayNameFor(model => model.ResultLabel)
-                    </label>
-                </div>
+                @* <div class="form-group"> *@
+                @*     <label asp-for="CandidateScore" class="control-label"></label> *@
+                @*     <input asp-for="CandidateScore" class="form-control" /> *@
+                @*     <span asp-validation-for="CandidateScore" class="text-danger"></span> *@
+                @* </div> *@
+                @* <div class="form-group"> *@
+                @*     <label asp-for="MaximumScore" class="control-label"></label> *@
+                @*     <input asp-for="MaximumScore" class="form-control" /> *@
+                @*     <span asp-validation-for="MaximumScore" class="text-danger"></span> *@
+                @* </div> *@
+                @* <div class="form-group form-check"> *@
+                @*     <label class="form-check-label"> *@
+                @*         <input class="form-check-input" asp-for="ResultLabel" /> @Html.DisplayNameFor(model => model.ResultLabel) *@
+                @*     </label> *@
+                @* </div> *@
                 <div class="mt-4" ="form-group">
                     <input type="submit" value="Save" class="btn btn-outline-dark" />
                 </div>
