@@ -52,7 +52,7 @@ body {
     position: relative !important;
     width: 800px !important;
     height: 600px !important;
-    background-image: radial-gradient(circle, #027a7a 80%, #014C4C 100%) !important;
+    background-image: url('https://localhost:7058//img/radgrad.jpg') !important;
     padding: 30px !important;
     color: #333 !important;
     font-family: 'Open Sans', sans-serif !important;
