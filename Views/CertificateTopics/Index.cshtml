@@ -19,7 +19,7 @@
     @foreach (var item in Model)
     {
         <div class="col-md-4 mb-4 d-flex align-items-stretch">
-            <div class="card border-dark" style="max-width: 18rem;">
+            <div class="card border-dark" style="max-width: 18rem; box-shadow: 0px 15px 30px rgba(0, 75, 200, 0.6);">
                 <div class="card-header text-center">@Html.DisplayFor(modelItem => item.TopicName)</div>
                 <div class="card-body text-dark">
                     <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
