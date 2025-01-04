@@ -4,56 +4,82 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@* @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
- {
-         <p>
-             <a asp-action="Create" class="btn btn-outline-dark">Create New</a>
-         </p>
- } *@
-
-<br />
-
-<div id="certificateCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-        @{
-            var isFirst = true;
-            foreach (var item in Model)
-            {
-
-
-                <div class="carousel-item @(isFirst ? "active" : "")">
-                    <div class="col-md-4 mb-4 d-flex align-items-stretch">
-                        <div class="card border-dark" style="max-width: 18rem;">
-                            <div class="card-header text-center">@Html.DisplayFor(modelItem => item.TopicName)</div>
-                            <div class="card-body text-dark">
-                                <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
-                                <h6 class="card-title">@Html.DisplayFor(modelItem => item.Price) €</h6>
-                            </div>
-                            <div class="card-footer">
-                                <a asp-controller="CertificateTopics" asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Details</a>
-                                @if (!User.IsInRole("Admin"))
-                                {
-                                    <a asp-controller="CandidateCertificates" asp-action="Create" asp-route-topicId="@item.Id" class="btn btn-secondary btn-sm float-end">Book Now</a>
-                                }
-                                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-                                {
-                                    <a asp-controller="CertificateTopics" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Edit</a>
-                                    <a asp-controller="CertificateTopics" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Delete</a>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                isFirst = false;
-            }
-        }
+<div class="container mt-5">
+    <!-- Section Above Carousel: Welcome Section -->
+    <div class="row mb-4 py-5 border-bottom">
+        <div class="col-md-6 d-flex align-items-center">
+            <div>
+                <h1 class="display-4 text-primary">Welcome to Certificates2024</h1>
+                <p class="lead">Explore our wide range of certification topics tailored to your needs. Book your certificates today and achieve your goals!</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <img src="~/img/backgr6.jpg" alt="Certificates" class="img-fluid rounded shadow-lg">
+        </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#certificateCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#certificateCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
+
+    <!-- Section with Carousel and Call-to-Action -->
+    <div class="row mb-4 py-5 border-bottom">
+        <!-- Left Side: Carousel -->
+        <div class="col-md-6">
+            <div id="certificateCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    @{
+                        var isFirst = true;
+                        foreach (var item in Model)
+                        {
+                            <div class="carousel-item @(isFirst ? "active" : "")">
+                                <div class="d-flex ">
+                                    <div class="card border-dark shadow-sm" style="max-width: 70%; min-width: 22rem;">
+                                        <div class="card-header text-center">@Html.DisplayFor(modelItem => item.TopicName)</div>
+                                        <div class="card-body text-dark">
+                                            <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                                            <h6 class="card-title">@Html.DisplayFor(modelItem => item.Price) €</h6>
+                                        </div>
+                                        <div class="card-footer">
+                                            <a asp-controller="CertificateTopics" asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Details</a>
+                                            @if (!User.IsInRole("Admin"))
+                                            {
+                                                <a asp-controller="CandidateCertificates" asp-action="Create" asp-route-topicId="@item.Id" class="btn btn-secondary btn-sm float-end">Book Now</a>
+                                            }
+                                            @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                                            {
+                                                <a asp-controller="CertificateTopics" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Edit</a>
+                                                <a asp-controller="CertificateTopics" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Delete</a>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            isFirst = false;
+                        }
+                    }
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#certificateCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#certificateCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Right Side: Text and Call-to-Action -->
+        <div class="col-md-6 d-flex align-items-center">
+            <div>
+                <h2 class="display-5 text-success">Explore Certification Topics</h2>
+                <p class="lead">Discover a wide variety of certification topics that can help you enhance your skills and achieve your goals. Don't wait, get started now!</p>
+                <a asp-controller="CertificateTopics" asp-action="Index" class="btn btn-primary btn-lg">Learn More</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section with Additional Content (if necessary) -->
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <p class="lead text-muted">Ready to dive in? Start exploring the topics now!</p>
+        </div>
+    </div>
 </div>
