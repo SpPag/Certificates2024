@@ -46,6 +46,11 @@ namespace Certificates2024.Controllers
         }
         public IActionResult Login()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                TempData["DeleteMessage"] = "You are already logged in!";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
             return View(new LoginVM());
         }
         [HttpPost]
