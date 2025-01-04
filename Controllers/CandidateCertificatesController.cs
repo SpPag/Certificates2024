@@ -143,7 +143,7 @@ namespace Certificates2024.Controllers
 
             var candidates = await _service.GetAllCandidatesAsync();
             var certificateTopics = await _service.GetAllCertificateTopicsAsync();
-            ViewBag.CandidateId = new SelectList(candidates, "Id", "FirstName", candidateCertificate.CandidateId);
+            ViewBag.CandidateId = new SelectList(candidates.Select(c => new { c.Id, FullName = $"{c.FirstName} {c.LastName}" }), "Id", "FullName", candidateCertificate.CandidateId);
             ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "TopicName", candidateCertificate.CertificateTopicId);
             return View(candidateCertificate);
 
@@ -169,7 +169,7 @@ namespace Certificates2024.Controllers
             }
             var candidates = await _service.GetAllCandidatesAsync();
             var certificateTopics = await _service.GetAllCertificateTopicsAsync();
-            ViewBag.CandidateId = new SelectList(candidates, "Id", "FirstName", candidateCertificate.CandidateId);
+            ViewBag.CandidateId = new SelectList(candidates.Select(c => new { c.Id, FullName = $"{c.FirstName} {c.LastName}" }), "Id", "FullName", candidateCertificate.CandidateId);
             ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "TopicName", candidateCertificate.CertificateTopicId);
             return View(candidateCertificate);
         }
@@ -255,7 +255,7 @@ namespace Certificates2024.Controllers
                 PageSize = Rotativa.AspNetCore.Options.Size.A4,
                 PageOrientation = Rotativa.AspNetCore.Options.Orientation.Landscape,
                 PageMargins = new Rotativa.AspNetCore.Options.Margins(5, 5, 5, 5),
-                CustomSwitches = "--disable-smart-shrinking --print-media-type --background"
+                CustomSwitches = "--disable-smart-shrinking --print-media-type"
             };
         }
     }
