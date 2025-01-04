@@ -60,16 +60,35 @@ namespace Certificates2024.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("QuestionText,CertificateTopicId,ImageSource,BooleanA,AnswerA,BooleanB,AnswerB,BooleanC,AnswerC,BooleanD,AnswerD")] Question question)
+        public async Task<IActionResult> Create([Bind("QuestionText,CertificateTopicId,ImageSource,BooleanA,AnswerA,BooleanB,AnswerB,BooleanC,AnswerC,BooleanD,AnswerD")] Question question, string CorrectOption)
         {
-            Console.WriteLine("Post create has been called");
+            switch (CorrectOption)
+            {
+                case "A":
+                    question.BooleanA = true;
+                    break;
+                case "B":
+                    question.BooleanB = true;
+                    break;
+                case "C":
+                    question.BooleanC = true;
+                    break;
+                case "D":
+                    question.BooleanD = true;
+                    break;
+            }
+            int trueCount = new[] { question.BooleanA, question.BooleanB, question.BooleanC, question.BooleanD }.Count(b => b);
+
+            if (trueCount > 1)
+            {
+                ModelState.AddModelError(string.Empty, "Only one of the Boolean fields (BooleanA, BooleanB, BooleanC, BooleanD) can be true.");
+            }
             if (ModelState.IsValid)
             {
-                Console.WriteLine("ModelState is valid");
                 await _service.AddAsync(question);
                 return RedirectToAction(nameof(Index));
             }
-            Console.WriteLine("ModelState is not valid");
+
             var topics = await _service.GetAllTopicsAsync();
             ViewBag.CertificateTopicId = new SelectList(topics, "Id", "TopicName");
             return View(question);
@@ -98,8 +117,30 @@ namespace Certificates2024.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,QuestionText,CertificateTopicId,ImageSource,BooleanA,AnswerA,BooleanB,AnswerB,BooleanC,AnswerC,BooleanD,AnswerD")] Question question)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,QuestionText,CertificateTopicId,ImageSource,BooleanA,AnswerA,BooleanB,AnswerB,BooleanC,AnswerC,BooleanD,AnswerD")] Question question, string CorrectOption)
         {
+            switch (CorrectOption)
+            {
+                case "A":
+                    question.BooleanA = true;
+                    break;
+                case "B":
+                    question.BooleanB = true;
+                    break;
+                case "C":
+                    question.BooleanC = true;
+                    break;
+                case "D":
+                    question.BooleanD = true;
+                    break;
+            }
+            int trueCount = new[] { question.BooleanA, question.BooleanB, question.BooleanC, question.BooleanD }.Count(b => b);
+
+            if (trueCount > 1)
+            {
+                ModelState.AddModelError(string.Empty, "Only one of the Boolean fields (BooleanA, BooleanB, BooleanC, BooleanD) can be true.");
+            }
+
             if (id != question.Id)
             {
                 return NotFound();

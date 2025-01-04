@@ -24,6 +24,15 @@
                 <th>@Html.DisplayNameFor(model => model.ImageSource)</th>
                 <td>@Html.DisplayFor(model => model.ImageSource)</td>
             </tr>
+            @if (!string.IsNullOrEmpty(@Model.ImageSource))
+            {
+            <tr>
+                <th>Image</th>
+                <td>
+                    <img src="@Model.ImageSource" alt="Question Image" class="img-fluid" style="max-width: 60%; max-height: 60%;" />
+                </td>
+            </tr>
+            }
             <tr>
                 <th>@Html.DisplayNameFor(model => model.BooleanA)</th>
                 <td>@Html.DisplayFor(model => model.BooleanA)</td>
