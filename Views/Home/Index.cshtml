@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
- @* @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+@* @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
  {
          <p>
              <a asp-action="Create" class="btn btn-outline-dark">Create New</a>
@@ -19,29 +19,31 @@
             var isFirst = true;
             foreach (var item in Model)
             {
-                        <div class="carousel-item @(isFirst ? "active" : "")">
-                            <div class="col-md-4 mb-4 d-flex align-items-stretch">
-                                <div class="card border-dark" style="max-width: 18rem;">
+
+
+                <div class="carousel-item @(isFirst ? "active" : "")">
+                    <div class="col-md-4 mb-4 d-flex align-items-stretch">
+                        <div class="card border-dark" style="max-width: 18rem;">
                             <div class="card-header text-center">@Html.DisplayFor(modelItem => item.TopicName)</div>
-                                    <div class="card-body text-dark">
-                                        <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
-                                        <h6 class="card-title">@Html.DisplayFor(modelItem => item.Price) €</h6>
-                                    </div>
-                                    <div class="card-footer">
-                                        <a asp-controller="CertificateTopics" asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Details</a>
+                            <div class="card-body text-dark">
+                                <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                                <h6 class="card-title">@Html.DisplayFor(modelItem => item.Price) €</h6>
+                            </div>
+                            <div class="card-footer">
+                                <a asp-controller="CertificateTopics" asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Details</a>
                                 @if (!User.IsInRole("Admin"))
                                 {
-                                                <a asp-controller="CandidateCertificates" asp-action="Create" asp-route-topicId="@item.Id" class="btn btn-secondary btn-sm float-end">Book Now</a>
+                                    <a asp-controller="CandidateCertificates" asp-action="Create" asp-route-topicId="@item.Id" class="btn btn-secondary btn-sm float-end">Book Now</a>
                                 }
                                 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                                 {
-                                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Edit</a>
-                                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Delete</a>
+                                    <a asp-controller="CertificateTopics" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Edit</a>
+                                    <a asp-controller="CertificateTopics" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Delete</a>
                                 }
-                                    </div>
-                                </div>
                             </div>
                         </div>
+                    </div>
+                </div>
                 isFirst = false;
             }
         }

@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="~/Certificates2024.styles.css" asp-append-version="true" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100 ">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom  box-shadow mb-3 fixed-top top:0;">
             <div class="text-bg-dark p-3">
                 <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">Certificates2024</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -28,21 +28,21 @@
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="CandidateCertificates" asp-action="Index">Certificates</a>
-                                </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="CandidateCertificates" asp-action="Index">Certificates</a>
+                            </li>
                         }
                         @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                         {
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="Candidates" asp-action="Index">Candidates</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="Questions" asp-action="Index">Questions</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Users">Users</a>
-                                </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Candidates" asp-action="Index">Candidates</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Questions" asp-action="Index">Questions</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Users">Users</a>
+                            </li>
                         }
                     </ul>
                 </div>
@@ -51,8 +51,18 @@
             <partial name="_Identity.cshtml" />
         </nav>
     </header>
+    <br />
 
-    <div class="container content flex-grow-1">
+    <br />
+
+    <br />
+
+    <br />
+
+    <br />
+
+    <br />
+    <div class="container content flex-grow-1 ">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -69,9 +79,11 @@
 
     @if (TempData["DeleteMessage"] != null)
     {
-    <script>
-        alert('@TempData["DeleteMessage"]');
-    </script>
+        <script>
+            alert('@TempData["DeleteMessage"]');
+        </script>
     }
 </body>
 </html>
+message.txt
+4 KB
