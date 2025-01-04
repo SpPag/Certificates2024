@@ -7,16 +7,35 @@
 
 @model CandidateTest
 
-<h2>Test Results</h2>
-<p>Score: @Model.Score%</p>
-<ul>
-    @foreach (var response in Model.Responses)
-    {
-        <li>Question ID: @response.QuestionId, Answer: @response.SelectedAnswer @response.IsCorrect</li>
-    }
-</ul>
-
-@if (Model.Score >= 50)
-{
-    <a asp-controller="CandidateCertificates" asp-action="Certificate" asp-route-id="@Model.CandidateCertificate.Id" class="btn btn-primary btn-sm" target="_blank">View Certificate</a> <!-- Button to view the certificate -->
-}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="card-title mb-0">Test Results</h2>
+                </div>
+                <div class="card-body">
+                    <p class="lead">Score: <strong>@Model.Score%</strong></p>
+                    <ul class="list-group list-group-flush">
+                        @foreach (var response in Model.Responses)
+                        {
+                            <li class="list-group-item">
+                                <strong>Question ID:</strong> @response.QuestionId,
+                                <strong>Answer:</strong> @response.SelectedAnswer
+                                <span class="badge @((response.IsCorrect) ? "bg-success" : "bg-danger")">
+                                    @((response.IsCorrect) ? "Correct" : "Incorrect")
+                                </span>
+                            </li>
+                        }
+                    </ul>
+                    @if (Model.Score >= 50)
+                    {
+                        <div class="mt-4 text-center">
+                            <a asp-controller="CandidateCertificates" asp-action="Certificate" asp-route-id="@Model.CandidateCertificate.Id" class="btn btn-primary btn-lg" target="_blank">View Certificate</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
