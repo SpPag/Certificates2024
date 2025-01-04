@@ -14,8 +14,8 @@
 
 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 {﻿
-    <a class="btn btn-primary me-3" asp-controller="Account" asp-action="Register">
-        <i class="bi bi-person-plus">New Candidate</i>
+    <a class="btn btn-secondary" asp-controller="Account" asp-action="Register">
+        <i>New Candidate</i>
     </a>
     <br />
     <br />
