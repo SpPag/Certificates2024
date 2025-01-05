@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Certificates2024.Controllers
 {
-    [Authorize(Roles = UserRoles.Admin)]
+    [Authorize(Roles = UserRoles.Admin + "," + UserRoles.User)]
     public class CandidatesController : Controller
     {
         private readonly ICandidatesService _service;
@@ -90,6 +90,13 @@ namespace Certificates2024.Controllers
             {
                 return NotFound();
             }
+            //UPDATE 5/1/25 Edit and permission
+            var loggedInUserId = _userManager.GetUserId(User); // Logged-in user's ID
+            if (!User.IsInRole(UserRoles.Admin) && candidate.ApplicationUserId != loggedInUserId)
+            {
+                return Forbid(); // Return 403 Forbidden if access is denied
+            }
+                //END UPDATE
             return View(candidate);
         }
 
@@ -104,6 +111,13 @@ namespace Certificates2024.Controllers
             {
                 return NotFound();
             }
+            //UPDATE 5/1/25 Edit and permission
+            var loggedInUserId = _userManager.GetUserId(User); // Logged-in user's ID
+            if (!User.IsInRole(UserRoles.Admin) && candidate.ApplicationUserId != loggedInUserId)
+            {
+                return Forbid(); // Return 403 Forbidden if access is denied
+            }
+            //END UPDATE
 
             if (!ModelState.IsValid)
             {
