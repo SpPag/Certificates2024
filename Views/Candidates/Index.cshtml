@@ -6,16 +6,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Candidates</h1>
-
-@* <p> *@
-@*     <a asp-action="Create" class="btn btn-outline-dark">Create New</a> *@
-@* </p> *@
+<h1 class="display-6" style="margin-bottom: 0.5em">Candidates currently enrolled</h1>
 
 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 {﻿
-    <a class="btn btn-secondary" asp-controller="Account" asp-action="Register">
-        <i>New Candidate</i>
+    <a class="btn btn-success" asp-controller="Account" asp-action="Register">
+        <i>Create a New Candidate</i>
     </a>
     <br />
     <br />
@@ -60,9 +56,9 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
                 </td>
         </tr>
 }

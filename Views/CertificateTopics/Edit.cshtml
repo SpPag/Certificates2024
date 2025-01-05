@@ -13,7 +13,7 @@
 </head>
 <body>
 
-    <h4>CertificateTopic</h4>
+    <h4>@Html.DisplayFor(model => model.TopicName) - Edit</h4>
     <hr />
     <div class="row">
         <div class="col-md-4">
@@ -21,7 +21,6 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Id" />
                 <div class="form-group">
-                    <h4>CertificateTopic</h4>
                     <label asp-for="TopicName" class="control-label"></label>
                     <input asp-for="TopicName" asp-items="@(ViewData["TopicName"] as IEnumerable<SelectListItem>)" class="form-control" readonly />
                     <span asp-validation-for="TopicName" class="text-danger"></span>
@@ -37,7 +36,7 @@
                     <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
                 <div class="mt-4 form-group">
-                    <input type="submit" value="Save" class="btn btn-outline-dark" />
+                    <input type="submit" value="Save Changes" class="btn btn-success" />
                 </div>
             </form>
         </div>
