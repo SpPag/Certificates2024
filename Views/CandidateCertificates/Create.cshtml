@@ -1,6 +1,6 @@
 ﻿@model Certificates2024.Models.CandidateCertificate
 @{
-    ViewBag.Title = "Book an Exam";
+    ViewBag.Title = "Book a new Exam";
 }
 
 
@@ -13,11 +13,11 @@
 </head>
 <body>
 
-<h4>New Exam</h4>
+<h4>Book a New Exam</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
+        <div class="col-md-4">
+            <form asp-action="Create" class="d-flex flex-column gap-4">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="CandidateId" class="control-label"></label>
@@ -43,22 +43,6 @@
                 <input asp-for="ExaminationDate" class="form-control" type="datetime-local" min="@DateTime.Now.AddMinutes(1).ToString("yyyy-MM-ddTHH:mm")"/>
                 <span asp-validation-for="ExaminationDate" class="text-danger"></span>
             </div>
-
-            @* <div class="form-group"> *@
-            @*     <label asp-for="CandidateScore" class="control-label"></label> *@
-            @*     <input asp-for="CandidateScore" class="form-control" /> *@
-            @*     <span asp-validation-for="CandidateScore" class="text-danger"></span> *@
-            @* </div> *@
-            @* <div class="form-group"> *@
-            @*     <label asp-for="MaximumScore" class="control-label"></label> *@
-            @*     <input asp-for="MaximumScore" class="form-control" /> *@
-            @*     <span asp-validation-for="MaximumScore" class="text-danger"></span> *@
-            @* </div> *@
-            @* <div class="form-group form-check"> *@
-            @*     <label class="form-check-label"> *@
-            @*         <input class="form-check-input" asp-for="ResultLabel" /> @Html.DisplayNameFor(model => model.ResultLabel) *@
-            @*     </label> *@
-            @* </div> *@
                 <div class="mt-4 form-group">
                     <input type="submit" value="Book Exam" class="btn btn-success" />
             </div>
@@ -77,3 +61,20 @@
 
 </body>
 </html>
+
+@* Extra inputs *@
+@* <div class="form-group"> *@
+@*     <label asp-for="CandidateScore" class="control-label"></label> *@
+@*     <input asp-for="CandidateScore" class="form-control" /> *@
+@*     <span asp-validation-for="CandidateScore" class="text-danger"></span> *@
+@* </div> *@
+@* <div class="form-group"> *@
+@*     <label asp-for="MaximumScore" class="control-label"></label> *@
+@*     <input asp-for="MaximumScore" class="form-control" /> *@
+@*     <span asp-validation-for="MaximumScore" class="text-danger"></span> *@
+@* </div> *@
+@* <div class="form-group form-check"> *@
+@*     <label class="form-check-label"> *@
+@*         <input class="form-check-input" asp-for="ResultLabel" /> @Html.DisplayNameFor(model => model.ResultLabel) *@
+@*     </label> *@
+@* </div> *@

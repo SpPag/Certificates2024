@@ -5,13 +5,13 @@
 
 
     <div>
-        
-      
-            <h4>Exam Overview</h4>
-        
-        
-     
-        <table class="table table-striped table-borderless mt-3">
+
+
+    <h4>Details of Certificate - @Html.DisplayFor(model => model.CertificateTopic.TopicName) of @Html.DisplayFor(model => model.Candidate.FirstName) @Html.DisplayFor(model => model.Candidate.LastName)</h4>
+    <hr />
+
+
+    <table class="table table-striped table-borderless mt-3">
             <tbody>
                 <tr>
                     <td class="fw-bold col-3 text-truncate">Certificate ID</td>
@@ -75,7 +75,7 @@
     <div>
         @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
         {
-            <a asp-action="Edit" class="link-body-emphasis" asp-route-id="@Model?.Id">Edit</a>
+            <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model?.Id">Edit</a>
         }
         <a asp-action="Index" class="link-body-emphasis">Back to List</a>
     </div>

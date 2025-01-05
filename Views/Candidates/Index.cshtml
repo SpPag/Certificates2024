@@ -7,7 +7,7 @@
 }
 
 <h1 class="display-6" style="margin-bottom: 0.5em">Candidates currently enrolled</h1>
-
+<hr/>
 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 {﻿
     <a class="btn btn-success" asp-controller="Account" asp-action="Register">

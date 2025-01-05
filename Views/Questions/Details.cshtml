@@ -5,10 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
-
 <div>
-    <h4>Question</h4>
+    <h4>Details of Question - @Html.DisplayFor(model => model.Id) of @Html.DisplayFor(model => model.CertificateTopic.TopicName)</h4>
     <hr />
     <table class="table table-striped table-bordered">
         <tbody>
@@ -18,7 +16,7 @@
             </tr>
             <tr>
                 <th>@Html.DisplayNameFor(model => model.CertificateTopic)</th>
-                <td>@Html.DisplayFor(model => model.CertificateTopic.Id)</td>
+                <td>@Html.DisplayFor(model => model.CertificateTopic.TopicName)</td>
             </tr>
             <tr>
                 <th>@Html.DisplayNameFor(model => model.ImageSource)</th>

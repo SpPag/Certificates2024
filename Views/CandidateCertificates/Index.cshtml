@@ -5,11 +5,12 @@
 }
 
 <h1 class="display-6" style="margin-bottom: 0.5em">List of all Certificates</h1>
+<hr/>
     @if (User.Identity.IsAuthenticated && User.IsInRole("User"))
     {<p>
         <a asp-action="Create" class="btn btn-success">Book an Exam Now</a> 
     </p>}
-    <table class="table table-striped table-bordered">
+    <table class="table table-striped table-borderless">
         <thead>
             <tr>
                 <th>
