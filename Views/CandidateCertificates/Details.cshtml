@@ -62,7 +62,7 @@
             @if (Model.ResultLabel)
             {
                 <a asp-action="Certificate" asp-route-id="@Model.Id" class="btn btn-primary btn-sm" target="_blank">View Certificate</a>
-                <a asp-controller="CandidateCertificates" asp-action="CertificatePdf" asp-route-id="@Model.Id" class="btn btn-primary">
+                <a asp-controller="CandidateCertificates" asp-action="CertificatePdf" asp-route-id="@Model.Id" class="btn btn-primary btn-sm">
                     Download Certificate as PDF
                 </a>
             }

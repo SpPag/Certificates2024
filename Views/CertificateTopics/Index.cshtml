@@ -19,24 +19,28 @@
     @foreach (var item in Model)
     {
         <div class="col-md-4 mb-4 d-flex align-items-stretch">
-            <div class="card border-dark" style="max-width: 18rem; box-shadow: 0px 15px 30px rgba(0, 75, 200, 0.6);">
-                <div class="card-header text-center">@Html.DisplayFor(modelItem => item.TopicName)</div>
+            <div class="card border-0 rounded-3" style="max-width: 18rem; box-shadow: 0px 15px 30px rgba(0, 75, 200, 0.6);">
+                <div class="card-header text-center bg-primary text-white fw-bold rounded-top">
+                    @Html.DisplayFor(modelItem => item.TopicName)
+                </div>
                 <div class="card-body text-dark">
                     <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
-                    <h6 class="card-title">@Html.DisplayFor(modelItem => item.Price) €</h6>
+                    <h6 class="card-title fw-semibold">@Html.DisplayFor(modelItem => item.Price) €</h6>
                 </div>
-                <div class="card-footer">
+                <div class="card-footer bg-light d-flex justify-content-between">
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm text-white">Details</a>
 
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Details</a>
                     @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                     {
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Delete</a>
+                        <div>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                        </div>
                     }
 
                     @if (User.Identity.IsAuthenticated && User.IsInRole("User"))
                     {
-                        <a asp-controller="CandidateCertificates" asp-action="Create" asp-route-topicId="@item.Id" class="btn btn-secondary btn-sm">Book Now</a>
+                        <a asp-controller="CandidateCertificates" asp-action="Create" asp-route-topicId="@item.Id" class="btn btn-success btn-sm">Book Now</a>
                     }
                 </div>
             </div>
