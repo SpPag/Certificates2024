@@ -13,11 +13,11 @@
 </head>
 <body>
 
-    <h4>@Html.DisplayFor(model => model.TopicName) - Edit</h4>
+    <h4>Edit Certificate Topic - @Html.DisplayFor(model => model.TopicName)</h4>
     <hr />
     <div class="row">
         <div class="col-md-4">
-            <form asp-action="Edit">
+            <form asp-action="Edit" class="d-flex flex-column gap-4">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Id" />
                 <div class="form-group">
