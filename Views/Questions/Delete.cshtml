@@ -9,76 +9,56 @@
 
 
 <div>
-   
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.QuestionText)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.QuestionText)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CertificateTopic)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CertificateTopic.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageSource)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageSource)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BooleanA)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BooleanA)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AnswerA)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AnswerA)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BooleanB)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BooleanB)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AnswerB)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AnswerB)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BooleanC)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BooleanC)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AnswerC)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AnswerC)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BooleanD)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BooleanD)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AnswerD)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AnswerD)
-        </dd>
-    </dl>
+    <table class="table table-striped table-bordered mt-3">
+        <tbody>
+            <tr>
+                <td class="fw-bold col-3 text-truncate">@Html.DisplayNameFor(model => model.QuestionText)</td>
+                <td class="col-9">@Html.DisplayFor(model => model.QuestionText)</td>
+            </tr>
+            <tr>
+                <td class="fw-bold col-3 text-truncate">@Html.DisplayNameFor(model => model.CertificateTopic)</td>
+                <td class="col-9">@Html.DisplayFor(model => model.CertificateTopic.Id)</td>
+            </tr>
+            <tr>
+                <td class="fw-bold col-3 text-truncate">@Html.DisplayNameFor(model => model.ImageSource)</td>
+                <td class="col-9">@Html.DisplayFor(model => model.ImageSource)</td>
+            </tr>
+            <tr>
+                <td class="fw-bold col-3 text-truncate">@Html.DisplayNameFor(model => model.BooleanA)</td>
+                <td class="col-9">@Html.DisplayFor(model => model.BooleanA)</td>
+            </tr>
+            <tr>
+                <td class="fw-bold col-3 text-truncate">@Html.DisplayNameFor(model => model.AnswerA)</td>
+                <td class="col-9">@Html.DisplayFor(model => model.AnswerA)</td>
+            </tr>
+            <tr>
+                <td class="fw-bold col-3 text-truncate">@Html.DisplayNameFor(model => model.BooleanB)</td>
+                <td class="col-9">@Html.DisplayFor(model => model.BooleanB)</td>
+            </tr>
+            <tr>
+                <td class="fw-bold col-3 text-truncate">@Html.DisplayNameFor(model => model.AnswerB)</td>
+                <td class="col-9">@Html.DisplayFor(model => model.AnswerB)</td>
+            </tr>
+            <tr>
+                <td class="fw-bold col-3 text-truncate">@Html.DisplayNameFor(model => model.BooleanC)</td>
+                <td class="col-9">@Html.DisplayFor(model => model.BooleanC)</td>
+            </tr>
+            <tr>
+                <td class="fw-bold col-3 text-truncate">@Html.DisplayNameFor(model => model.AnswerC)</td>
+                <td class="col-9">@Html.DisplayFor(model => model.AnswerC)</td>
+            </tr>
+            <tr>
+                <td class="fw-bold col-3 text-truncate">@Html.DisplayNameFor(model => model.BooleanD)</td>
+                <td class="col-9">@Html.DisplayFor(model => model.BooleanD)</td>
+            </tr>
+            <tr>
+                <td class="fw-bold col-3 text-truncate">@Html.DisplayNameFor(model => model.AnswerD)</td>
+                <td class="col-9">@Html.DisplayFor(model => model.AnswerD)</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
     <form asp-action="Delete" method="post" onsubmit="return confirm('Are you sure you want to delete the Question?');">
         <input type="hidden" asp-for="Id" />
         <button type="submit" class="link-body-emphasis">Delete</button> |
