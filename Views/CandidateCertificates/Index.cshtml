@@ -3,15 +3,8 @@
     ViewBag.Title = "Certificates";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Certificates</title>
-</head>
-<body>
+
     <h1>Certificates</h1>
-    <h2>PeepholeCert</h2>
     @if (User.Identity.IsAuthenticated && User.IsInRole("User"))
     {<p>
         <a asp-action="Create" class="btn btn-outline-dark">Book Exam</a>
@@ -115,5 +108,3 @@
             }
         </tbody>
     </table>
-</body>
-</html>
