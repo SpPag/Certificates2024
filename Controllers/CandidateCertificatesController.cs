@@ -63,20 +63,29 @@ namespace Certificates2024.Controllers
         {
             // Get current user
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var currentCandidate = await _service.GetCandidateByUserIdAsync(userId);
+            string userRole = User.FindFirstValue(ClaimTypes.Role);
 
-            if (currentCandidate == null)
-            {
-                return BadRequest("Candidate not found for the current user.");
-            }
-
+            var candidates = await _service.GetAllCandidatesAsync();
             var certificateTopics = await _service.GetAllCertificateTopicsAsync();
 
-            ViewBag.CandidateId = new SelectList(new List<object> { new { Id = currentCandidate.Id, FullName = $"{currentCandidate.FirstName} {currentCandidate.LastName}" } }, "Id", "FullName");
+            // Populate the Candidate dropdown based on role
+            if (userRole == UserRoles.Admin)
+            {
+                // Admin can select any candidate
+                ViewBag.CandidateId = new SelectList(candidates.Select(c => new { c.Id, FullName = $"{c.FirstName} {c.LastName}" }), "Id", "FullName");
+            }
 
-            //ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "TopicName");
-            //var currentTopic = await _service.GetCertificateTopicByIdAsync(topicId);
-            //ViewBag.CertificateTopicId = new SelectList(new List<CertificateTopic> { currentTopic }, "Id", "TopicName");
+            if (userRole == UserRoles.User)
+            {
+                var currentCandidate = await _service.GetCandidateByUserIdAsync(userId);
+
+                if (currentCandidate == null)
+                {
+                    return BadRequest("Candidate not found for the current user.");
+                }
+
+                ViewBag.CandidateId = new SelectList(new List<object> { new { Id = currentCandidate.Id, FullName = $"{currentCandidate.FirstName} {currentCandidate.LastName}" } }, "Id", "FullName");
+            }
 
             // If a topicId is passed, pre-select that topic in the dropdown
             if (topicId.HasValue)
@@ -96,17 +105,36 @@ namespace Certificates2024.Controllers
         // POST: CandidateCertificates/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CertificateTopicId,ExaminationDate")] CandidateCertificate candidateCertificate)
+        public async Task<IActionResult> Create([Bind("CertificateTopicId,ExaminationDate,CandidateId")] CandidateCertificate candidateCertificate)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var currentCandidate = await _service.GetCandidateByUserIdAsync(userId);
+            string userRole = User.FindFirstValue(ClaimTypes.Role);
 
-            if (currentCandidate == null)
+            if (userRole == UserRoles.User)
             {
-                return BadRequest("Candidate not found for the current user.");
+                var currentCandidate = await _service.GetCandidateByUserIdAsync(userId);
+
+                if (currentCandidate == null)
+                {
+                    return BadRequest("Candidate not found for the current user.");
+                }
+
+                candidateCertificate.CandidateId = currentCandidate.Id;
+
+                if (candidateCertificate.CandidateId != currentCandidate.Id)
+                {
+                    return Unauthorized("You cannot create a certificate for another candidate.");
+                }
             }
 
-            candidateCertificate.CandidateId = currentCandidate.Id;
+            if (userRole == UserRoles.Admin)
+            {
+                //Admin code goes here
+                if (candidateCertificate.CandidateId <= 0)
+                {
+                    return BadRequest("Please select a valid candidate.");
+                }
+            }
 
             if (ModelState.IsValid && candidateCertificate.ExaminationDate >= DateTime.Now)
             {
@@ -114,8 +142,14 @@ namespace Certificates2024.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            var candidates = await _service.GetAllCandidatesAsync();
             var certificateTopics = await _service.GetAllCertificateTopicsAsync();
-            ViewBag.CandidateId = new SelectList(new List<object> { new { Id = currentCandidate.Id, FullName = $"{currentCandidate.FirstName} {currentCandidate.LastName}" } }, "Id", "FullName");
+            ViewBag.CandidateId = new SelectList(
+                    candidates.Select(c => new { c.Id, FullName = $"{c.FirstName} {c.LastName}" }),
+                    "Id",
+                    "FullName",
+                    candidateCertificate.CandidateId
+                );
             ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "TopicName", candidateCertificate.CertificateTopicId);
 
             return View(candidateCertificate);
