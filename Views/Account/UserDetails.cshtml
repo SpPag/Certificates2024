@@ -31,6 +31,9 @@
             </tr>
         </tbody>
 </table>
+<div class="mt-4 text-center">
+    <a asp-controller="Candidates" asp-action="Edit" asp-route-id="@currentUser.Candidate.Id" class="btn btn-primary text-white">Edit My Information</a>
+</div>
 @if (bookedExams != null && bookedExams.Any())
 {
     <h3 class="mt-4 text-center">Booked Exams</h3>
