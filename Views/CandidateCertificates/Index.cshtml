@@ -42,7 +42,7 @@
                 <td>@Html.DisplayFor(modelItem => item.ExaminationDate)</td>
                 <td>@Html.DisplayFor(modelItem => item.CandidateScore)</td>
                 <td>@Html.DisplayFor(modelItem => item.MaximumScore)</td>
-                <td><span>Pending</span></td>
+                <td><span class="badge bg-warning text-dark">Pending</span></td>
                 <td>
                     <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary btn-sm text-white">Details</a>
                     @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
@@ -101,11 +101,11 @@
                 <td>
                     @if (item.ResultLabel)
                     {
-                        <span>Exam Passed</span>
+                        <span class="badge bg-success text-dark">Exam Passed</span>
                     }
                     else
                     {
-                        <span>Exam Failed</span>
+                        <span class="badge bg-danger text-dark">Exam Failed</span>
                     }
                 </td>
                 <td>
