@@ -12,7 +12,7 @@
     <h1 class="display-6" style="margin-bottom: 0.5em">List of all Exams</h1>
 }
 <hr/>
-    @if (User.Identity.IsAuthenticated && User.IsInRole("User"))
+    @if (User.Identity.IsAuthenticated)
     {<p>
         <a asp-action="Create" class="btn btn-success">Book an Exam Now</a> 
     </p>}
