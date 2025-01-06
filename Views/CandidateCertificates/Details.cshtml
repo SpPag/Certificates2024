@@ -60,7 +60,7 @@
             }
             @if (Model.IsTestEligible)
             {
-                <a asp-controller="Tests" asp-action="Start" asp-route-topicId="@Model.CertificateTopic.Id" asp-route-candidateCertificateId="@Model.Id" class="btn btn-secondary btn-sm">Start Test</a>
+                <a asp-controller="Tests" asp-action="Start" asp-route-topicId="@Model.CertificateTopic.Id" asp-route-candidateCertificateId="@Model.Id" class="btn btn-success btn-sm">Start Test</a>
             }
             else
             {
