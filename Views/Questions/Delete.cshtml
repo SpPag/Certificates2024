@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h4>Delete Question - @Html.DisplayFor(model => model.Id) of @Html.DisplayFor(model => model.CertificateTopic.TopicName)</h4>
+<h4>Delete Question - @Html.DisplayFor(model => model.Id) of @Certificates2024.Data.Static.EnumExtensions.GetDescription(Model.CertificateTopic.TopicName)</h4>
 
 
 <div>
@@ -17,8 +17,8 @@
                 <td class="col-9">@Html.DisplayFor(model => model.QuestionText)</td>
             </tr>
             <tr>
-                <td class="fw-bold col-3 text-truncate">@Html.DisplayNameFor(model => model.CertificateTopic)</td>
-                <td class="col-9">@Html.DisplayFor(model => model.CertificateTopic.Id)</td>
+                <td class="fw-bold col-3 text-truncate">@Html.DisplayNameFor(model => model.CertificateTopic.TopicName)</td>
+                <td class="col-9">@Certificates2024.Data.Static.EnumExtensions.GetDescription(Model.CertificateTopic.TopicName)</td>
             </tr>
             <tr>
                 <td class="fw-bold col-3 text-truncate">@Html.DisplayNameFor(model => model.ImageSource)</td>

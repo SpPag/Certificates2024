@@ -1,6 +1,6 @@
 ﻿@model Certificates2024.Models.CandidateCertificate
 @{
-    ViewBag.Title = "Edit Certificate";
+    ViewBag.Title = "Edit Exam";
 }
 <!DOCTYPE html>
 
@@ -11,7 +11,7 @@
 </head>
 <body>
 
-    <h4>Edit Certificate - @Html.DisplayFor(model => model.CertificateTopic.TopicName) of @Html.DisplayFor(model => model.Candidate.FirstName) @Html.DisplayFor(model => model.Candidate.LastName)</h4>
+    <h4>Edit Exam - @Certificates2024.Data.Static.EnumExtensions.GetDescription(Model.CertificateTopic.TopicName) of @Html.DisplayFor(model => model.Candidate.FirstName) @Html.DisplayFor(model => model.Candidate.LastName)</h4>
     <hr />
     <div class="row">
         <div class="col-md-4">

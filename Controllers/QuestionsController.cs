@@ -10,6 +10,7 @@ using Certificates2024.Models;
 using Certificates2024.Data.Services;
 using Certificates2024.Data.Static;
 using Microsoft.AspNetCore.Authorization;
+using Certificates2024.Data.Enums;
 
 namespace Certificates2024.Controllers
 {
@@ -51,7 +52,14 @@ namespace Certificates2024.Controllers
         public async Task<IActionResult> Create()
         {
             var topics = await _service.GetAllTopicsAsync();
-            ViewBag.CertificateTopicId = new SelectList(topics, "Id", "TopicName");
+            ViewBag.CertificateTopicId = Enum.GetValues(typeof(TopicName))
+                         .Cast<TopicName>()
+                         .Select(t => new SelectListItem
+                         {
+                             Value = ((int)t).ToString(), // Use integer value for database storage
+                             Text = EnumExtensions.GetDescription(t) // Display enum name in dropdown
+                         })
+                         .ToList();
             return View();
         }
 
@@ -90,7 +98,14 @@ namespace Certificates2024.Controllers
             }
 
             var topics = await _service.GetAllTopicsAsync();
-            ViewBag.CertificateTopicId = new SelectList(topics, "Id", "TopicName");
+            ViewBag.CertificateTopicId = Enum.GetValues(typeof(TopicName))
+                         .Cast<TopicName>()
+                         .Select(t => new SelectListItem
+                         {
+                             Value = ((int)t).ToString(), // Use integer value for database storage
+                             Text = EnumExtensions.GetDescription(t) // Display enum name in dropdown
+                         })
+                         .ToList();
             return View(question);
         }
 
@@ -108,7 +123,14 @@ namespace Certificates2024.Controllers
                 return NotFound();
             }
             var topics = await _service.GetAllTopicsAsync();
-            ViewBag.CertificateTopicId = new SelectList(topics, "Id", "TopicName");
+            ViewBag.CertificateTopicId = Enum.GetValues(typeof(TopicName))
+                         .Cast<TopicName>()
+                         .Select(t => new SelectListItem
+                         {
+                             Value = ((int)t).ToString(), // Use integer value for database storage
+                             Text = EnumExtensions.GetDescription(t) // Display enum name in dropdown
+                         })
+                         .ToList();
             return View(question);
         }
 
@@ -152,7 +174,14 @@ namespace Certificates2024.Controllers
                 return RedirectToAction(nameof(Index));
             }
             var topics = await _service.GetAllTopicsAsync();
-            ViewBag.CertificateTopicId = new SelectList(topics, "Id", "TopicName");
+            ViewBag.CertificateTopicId = Enum.GetValues(typeof(TopicName))
+                         .Cast<TopicName>()
+                         .Select(t => new SelectListItem
+                         {
+                             Value = ((int)t).ToString(), // Use integer value for database storage
+                             Text = EnumExtensions.GetDescription(t) // Display enum name in dropdown
+                         })
+                         .ToList();
             return View(question);
         }
 

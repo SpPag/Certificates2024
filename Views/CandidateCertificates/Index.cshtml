@@ -1,10 +1,16 @@
 ﻿@model IEnumerable<Certificates2024.Models.CandidateCertificate>
 @{
-    ViewBag.Title = "Certificates";
+    ViewBag.Title = "Exams";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h1 class="display-6" style="margin-bottom: 0.5em">List of all Certificates</h1>
+@if (User.Identity.IsAuthenticated && User.IsInRole("User"))
+{
+    <h1 class="display-6" style="margin-bottom: 0.5em">List of my Exams</h1>
+}
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <h1 class="display-6" style="margin-bottom: 0.5em">List of all Exams</h1>
+}
 <hr/>
     @if (User.Identity.IsAuthenticated && User.IsInRole("User"))
     {<p>
@@ -48,7 +54,7 @@
                         @Html.DisplayFor(modelItem => item.Candidate.LastName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CertificateTopic.TopicName)
+                    @Certificates2024.Data.Static.EnumExtensions.GetDescription(item.CertificateTopic.TopicName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.ExaminationDate)

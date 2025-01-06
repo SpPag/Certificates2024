@@ -58,7 +58,7 @@ namespace Certificates2024.Controllers
                          .Select(t => new SelectListItem
                          {
                              Value = ((int)t).ToString(), // Use integer value for database storage
-                             Text = t.ToString()         // Display enum name in dropdown
+                             Text = EnumExtensions.GetDescription(t) // Display enum name in dropdown
                          })
                          .ToList();
             return View();

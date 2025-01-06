@@ -12,6 +12,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Certificates2024.Data.Static;
 using Rotativa.AspNetCore;
+using Certificates2024.Data.Enums;
 
 namespace Certificates2024.Controllers
 {
@@ -57,7 +58,7 @@ namespace Certificates2024.Controllers
 
             return View(candidateCertificate);
         }
-        // GET: CandidateCertificates/Create with topicId
+        // GET: CandidateCertificates/Create with or without topicId
         public async Task<IActionResult> Create(int? topicId)
         {
             // Get current user
@@ -144,7 +145,14 @@ namespace Certificates2024.Controllers
             var candidates = await _service.GetAllCandidatesAsync();
             var certificateTopics = await _service.GetAllCertificateTopicsAsync();
             ViewBag.CandidateId = new SelectList(candidates.Select(c => new { c.Id, FullName = $"{c.FirstName} {c.LastName}" }), "Id", "FullName", candidateCertificate.CandidateId);
-            ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "TopicName", candidateCertificate.CertificateTopicId);
+            ViewBag.CertificateTopicId = Enum.GetValues(typeof(TopicName))
+                         .Cast<TopicName>()
+                         .Select(t => new SelectListItem
+                         {
+                             Value = ((int)t).ToString(), // Use integer value for database storage
+                             Text = EnumExtensions.GetDescription(t) // Display enum name in dropdown
+                         })
+                         .ToList();
             return View(candidateCertificate);
 
         }

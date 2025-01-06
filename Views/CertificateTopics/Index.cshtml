@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Certificates2024.Models.CertificateTopic>
 @{
-    ViewBag.Title = "Topics";
+    ViewBag.Title = "Certificates";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <!DOCTYPE html>
@@ -12,15 +12,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-    <h1 class="display-6" style="margin-bottom: 0.5em">Topics available in our Academy</h1>
+    <h1 class="display-6" style="margin-bottom: 0.5em">Certificates available in our Academy</h1>
     <hr/>
     <div class="d-flex align-items-center mb-3">
         @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
         {
-            <a asp-action="Create" class="btn btn-success me-3" style="height: 100%;">Create a New Topic</a>
+            <a asp-action="Create" class="btn btn-success me-3" style="height: 100%;">Create a New Certificate</a>
         }
         <form class="d-flex" asp-controller="CertificateTopics" asp-action="Filter">
-            <input name="searchString" type="text" class="form-control me-2" placeholder="Filter Topics.." aria-describedby="button-addon2" style="width: 250px; height: 100%;">
+            <input name="searchString" type="text" class="form-control me-2" placeholder="Filter Certificates.." aria-describedby="button-addon2" style="width: 250px; height: 100%;">
             <button class="btn btn-secondary btn-sm" type="submit" style="height: 100%;"><i class="bi bi-search"></i> Search</button>
         </form>
     </div>
@@ -32,8 +32,8 @@
         <div class="col-md-4 mb-4 d-flex align-items-stretch">
             <div class="card border-0 rounded-3" style="max-width: 18rem; box-shadow: 0px 15px 30px rgba(0, 75, 200, 0.6);">
                 <div class="card-header text-center bg-primary text-white fw-bold rounded-top">
-                    @Html.DisplayFor(modelItem => item.TopicName)
-                </div>
+                        @Certificates2024.Data.Static.EnumExtensions.GetDescription(item.TopicName)
+                    </div>
                 <div class="card-body text-dark">
                     <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
                     <h6 class="card-title fw-semibold">@Html.DisplayFor(modelItem => item.Price) €</h6>

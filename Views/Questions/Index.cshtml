@@ -17,7 +17,7 @@
                 @Html.DisplayNameFor(model => model.QuestionText)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CertificateTopic)
+                @Html.DisplayNameFor(model => model.CertificateTopic.TopicName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ImageSource)
@@ -57,7 +57,7 @@
                     @Html.DisplayFor(modelItem => item.QuestionText)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CertificateTopic.TopicName)
+                    @Certificates2024.Data.Static.EnumExtensions.GetDescription(item.CertificateTopic.TopicName)
                 </td>
                 <td style="max-width: 15vw; word-wrap: break-word;">
                     @Html.DisplayFor(modelItem => item.ImageSource)
