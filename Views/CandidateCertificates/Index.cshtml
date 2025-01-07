@@ -33,7 +33,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Where(x => x.ExaminationDate > DateTime.Now.AddHours(-2)).OrderBy(x => x.ExaminationDate))
+        @foreach (var item in Model.Where(x => x.ExaminationDate > DateTime.Now.AddHours(-2) && x.CandidateScore == null).OrderBy(x => x.ExaminationDate))
         {
             <tr>
                 <td>@Html.DisplayFor(modelItem => item.Candidate.FirstName)</td>
@@ -89,7 +89,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Where(x => x.ExaminationDate <= DateTime.Now.AddHours(-2)).OrderBy(x => x.ExaminationDate))
+        @foreach (var item in Model.Where(x => x.ExaminationDate <= DateTime.Now.AddHours(-2) || x.CandidateScore != null).OrderBy(x => x.ExaminationDate))
         {
             <tr>
                 <td>@Html.DisplayFor(modelItem => item.Candidate.FirstName)</td>
@@ -101,11 +101,11 @@
                 <td>
                     @if (item.ResultLabel)
                     {
-                        <span class="badge bg-success text-dark">Exam Passed</span>
+                        <span class="badge bg-success">Exam Passed</span>
                     }
                     else
                     {
-                        <span class="badge bg-danger text-dark">Exam Failed</span>
+                        <span class="badge bg-danger">Exam Failed</span>
                     }
                 </td>
                 <td>

@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Certificates2024.Controllers
 {
-    [Authorize(Roles = UserRoles.Admin + "," + UserRoles.User)]
+    [Authorize]
     public class CandidatesController : Controller
     {
         private readonly ICandidatesService _service;
@@ -27,6 +27,7 @@ namespace Certificates2024.Controllers
         }
 
         // GET: Candidates
+        [Authorize(Roles = UserRoles.Admin)]
         public async Task<IActionResult> Index()
         {
             var candidates = await _service.GetAllAsync();
@@ -34,6 +35,7 @@ namespace Certificates2024.Controllers
         }
 
         // GET: Candidates/Details/5
+        [Authorize(Roles = UserRoles.Admin)]
         public async Task<IActionResult> Details(int id)
         {
             if (id == null)
@@ -101,8 +103,6 @@ namespace Certificates2024.Controllers
         }
 
         // POST: Candidates/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken] I don't know if this messes anything up so I'm commenting it.Also it was auto-generated so we may not want it at all
         public async Task<IActionResult> Edit(int id, [Bind("Id, ApplicationUserId, FirstName, LastName, BirthDate, PhotoIdNumber, Email")] Candidate candidate)
@@ -124,11 +124,6 @@ namespace Certificates2024.Controllers
                 return View(candidate);
             }
 
-            // Retrieve the Candidate and its associated ApplicationUser
-            //var existingCandidate = await _service.GetByIdAsync(id);
-
-            // You already have the `candidate` instance being tracked by the context
-            //var existingCandidate = candidate;  // This is the already-tracked instance from the `Edit` GET request
             if (candidate == null)
             {
                 return NotFound();
@@ -155,10 +150,22 @@ namespace Certificates2024.Controllers
 
             //Update the Candidate
             await _service.UpdateAsync(id, candidate);
-            return RedirectToAction(nameof(Index));
+
+            if (User.IsInRole(UserRoles.User) && candidate.ApplicationUserId == loggedInUserId)
+            {
+                return RedirectToAction("UserDetails", "Account"); //action, controller
+            }
+
+            if (User.IsInRole(UserRoles.Admin))
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return NotFound();
+
         }
 
         // GET: Candidates/Delete/5
+        [Authorize(Roles = UserRoles.Admin)]
         public async Task<IActionResult> Delete(int id)
         {
             if (id == null)
@@ -182,6 +189,7 @@ namespace Certificates2024.Controllers
         }
 
         // POST: Candidates/Delete/5
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

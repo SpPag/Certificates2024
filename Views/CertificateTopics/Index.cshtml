@@ -49,7 +49,7 @@
                         </div>
                     }
 
-                    @if (User.Identity.IsAuthenticated && User.IsInRole("User"))
+                    @if (!User.IsInRole("Admin"))
                     {
                         <a asp-controller="CandidateCertificates" asp-action="Create" asp-route-topicId="@item.Id" class="btn btn-success btn-sm">Book Now</a>
                     }

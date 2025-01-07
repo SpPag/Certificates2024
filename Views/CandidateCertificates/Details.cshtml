@@ -40,8 +40,21 @@
                 <tr>
                     <td class="fw-bold col-3 text-truncate">@Html.DisplayNameFor(model => model.ResultLabel)</td>
                     <td class="col-9">
-                        @(Model.ExaminationDate > DateTime.Now ? "Pending"
-                            : Model.ResultLabel ? "Exam Passed" : "Exam Failed")
+                       @if (Model.ExaminationDate <= DateTime.Now.AddHours(-2) || Model.CandidateScore != null)
+                       {
+                            @if (Model.ResultLabel)
+                            {
+                                <span class="badge bg-success">Exam Passed</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Exam Failed</span>
+                            }
+                       }
+                       else
+                       {
+                            <span class="badge bg-warning text-dark">Pending</span>
+                       }
                     </td>
                 </tr>
             </tbody>

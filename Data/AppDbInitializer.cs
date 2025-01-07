@@ -57,31 +57,31 @@ namespace Certificates2024.Data
                             new CertificateTopic()
                             {
                                 TopicName = TopicName.CSharpBasics,
-                                Description = "C# Basics loremNo, Lorem Ipsum text is meant for placeholder purposes only. It should be replaced with actual content before the production release of your application or document.",
+                                Description = "C# Basics covers the foundational elements of the C# programming language, including its syntax and structure. You will learn about variables, data types, and operators, which are essential for writing basic programs. Control structures.",
                                 Price = 99.99
                             },
                             new CertificateTopic()
                             {
                                 TopicName = TopicName.CSharpAdvanced,
-                                Description = "C# Advanced loremNo, Lorem Ipsum text is meant for placeholder purposes only. It should be replaced with actual content before the production release of your application or document.",
+                                Description = "C# Advanced dives deeper into more complex features of the language, such as object-oriented programming concepts like inheritance, polymorphism, and abstraction. You'll also learn about advanced collection types, LINQ queries, and event handling.",
                                 Price = 89.99
                             },
                             new CertificateTopic()
                             {
                                 TopicName = TopicName.JavaScriptBasics,
-                                Description = "JavaScript Basics loremNo, Lorem Ipsum text is meant for placeholder purposes only. It should be replaced with actual content before the production release of your application or document.",
+                                Description = "JavaScript Basics introduces you to the fundamental concepts of web development. You will explore core topics like variables, data types, operators, and control structures such as loops and conditionals. Additionally, the course covers how to interact with the DOM.",
                                 Price = 79.99
                             },
                             new CertificateTopic()
                             {
                                 TopicName = TopicName.JavaScriptAdvanced,
-                                Description = "JavaScript Advanced loremNo, Lorem Ipsum text is meant for placeholder purposes only. It should be replaced with actual content before the production release of your application or document.",
+                                Description = "JavaScript Advanced builds upon your understanding of the language by exploring more sophisticated concepts such as closures, higher-order functions, and asynchronous programming. You'll learn about promises, async/await, and how to handle complex tasks.",
                                 Price = 79.99
                             },
                             new CertificateTopic()
                             {
                                 TopicName = TopicName.JavaScriptExpert,
-                                Description = "JavaScript Expert loremNo, Lorem Ipsum text is meant for placeholder purposes only. It should be replaced with actual content before the production release of your application or document.",
+                                Description = "C# Expert focuses on refining your C# skills and exploring topics that are critical for high-performance applications. You’ll delve into advanced concepts like multi-threading, parallel programming, and memory management.",
                                 Price = 79.99
                             },
                         });
