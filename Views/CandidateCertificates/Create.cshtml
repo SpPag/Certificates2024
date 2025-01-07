@@ -20,7 +20,7 @@
             <form asp-action="Create" class="d-flex flex-column gap-4">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="CandidateId" class="control-label"></label>
+                    <label asp-for="Candidate" class="control-label"></label>
                     @if (User.IsInRole("Admin"))
                     {
                         <select asp-for="CandidateId" class="form-control" asp-items="ViewBag.CandidateId"></select>
@@ -32,7 +32,7 @@
                     }
                 </div>
                 <div class="form-group">
-                    <label asp-for="CertificateTopicId" class="control-label"></label>
+                    <label asp-for="CertificateTopic.TopicName" class="control-label"></label>
                     @if ((bool)ViewBag.IsSpecificTopic)
                     {
                     <select asp-for="CertificateTopicId" class="form-control" asp-items="ViewBag.CertificateTopicId"
