@@ -91,12 +91,28 @@ namespace Certificates2024.Controllers
             if (topicId.HasValue)
             {
                 var currentTopic = await _service.GetCertificateTopicByIdAsync(topicId.Value);
-                ViewBag.CertificateTopicId = new SelectList(new List<CertificateTopic> { currentTopic }, "Id", "TopicName");
+                //ViewBag.CertificateTopicId = new SelectList(new List<CertificateTopic> { currentTopic }, "Id", "TopicName");
+                ViewBag.CertificateTopicId = Enum.GetValues(typeof(TopicName))
+                          .Cast<TopicName>()
+                        .Select(t => new SelectListItem
+                        {
+                            Value = ((int)t).ToString(), // Use integer value for database storage
+                            Text = EnumExtensions.GetDescription(t), // Display enum name in dropdown
+                            Selected = t == currentTopic.TopicName // Pre-select the current topic
+                        })
+                        .ToList();
                 ViewBag.IsSpecificTopic = true; // Flag to indicate a specific topic is preselected
             }
             else
             {
-                ViewBag.CertificateTopicId = new SelectList(certificateTopics, "Id", "TopicName");
+                ViewBag.CertificateTopicId = Enum.GetValues(typeof(TopicName))
+                           .Cast<TopicName>()
+                         .Select(t => new SelectListItem
+                         {
+                             Value = ((int)t).ToString(), // Use integer value for database storage
+                             Text = EnumExtensions.GetDescription(t) // Display enum name in dropdown
+                         })
+                         .ToList();
                 ViewBag.IsSpecificTopic = false; // Flag to indicate the full list is shown
             }
             return View();
