@@ -1,6 +1,6 @@
 # Certificates2024
 
-Certificates Project team 69
+Certificates Project
 
 ## Overview
 
@@ -42,11 +42,11 @@ The Certificates2024 project is designed to manage and issue certificates for va
 2. Use the provided interface to create, store, and verify certificates.
 
 ## Project Structure
-•	Controllers: Contains the MVC controllers for handling HTTP requests.
-•	Models: Contains the data models and entity classes.
-•	Data: Contains the database context and service interfaces.
-•	Views: Contains the Razor views for rendering HTML pages.
-•	wwwroot: Contains static files such as CSS, JavaScript, and images.
+â€¢	Controllers: Contains the MVC controllers for handling HTTP requests.
+â€¢	Models: Contains the data models and entity classes.
+â€¢	Data: Contains the database context and service interfaces.
+â€¢	Views: Contains the Razor views for rendering HTML pages.
+â€¢	wwwroot: Contains static files such as CSS, JavaScript, and images.
 
 ## Contributing
 
